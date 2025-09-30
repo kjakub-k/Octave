@@ -1,0 +1,10 @@
+:root {
+}
+
+#notes-scr-view {
+    flex-grow: 1;
+}
+
+#background {
+    background-color: rgb(35, 41, 58);
+}
