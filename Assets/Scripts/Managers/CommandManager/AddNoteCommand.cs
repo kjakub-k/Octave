@@ -1,0 +1,26 @@
+using System.Collections.Generic;
+using UnityEngine.UIElements;
+public class AddNoteCommand : Command
+{
+    private NoteData note;
+    private List<NoteData> notes;
+    private VisualElement visual;
+    private VisualElement container;
+    public AddNoteCommand(NoteData note, List<NoteData> notes, VisualElement visual, VisualElement container)
+    {
+        this.note = note;
+        this.notes = notes;
+        this.visual = visual;
+        this.container = container;
+    }
+    public override void Execute()
+    {
+        notes.Add(note);
+        container.Add(visual);
+    }
+    public override void Undo()
+    {
+        notes.Remove(note);
+        container.Remove(visual);
+    }
+}
