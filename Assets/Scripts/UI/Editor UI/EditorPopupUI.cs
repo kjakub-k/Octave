@@ -1,37 +1,74 @@
+using System;
 using System.Threading.Tasks;
+using UnityEditor;
+using UnityEngine;
 using UnityEngine.UIElements;
 public class EditorPopupUI
 {
-    private VisualElement popupWindow = new();
-    private TextField inputField;
-    private Button acceptBtn;
-    private TaskCompletionSource<string> popupTcs;
+    private readonly VisualElement popupWindow = new();
+    private TextField textInputField;
+    private EnumField enumField;
+    private Button acceptBtn = new() { text = "Accept" };
+    private TaskCompletionSource<object> popupTcs;
     public EditorPopupUI(VisualElement root)
     {
         popupWindow.name = "Popup";
+        popupWindow.style.display = DisplayStyle.None;
 
-        acceptBtn.clicked += () => OnAcceptButtonPress();
+        acceptBtn.clicked += OnAcceptButtonPress;
 
-        popupWindow.Add(inputField);
         popupWindow.Add(acceptBtn);
         root.Add(popupWindow);
     }
     private void OnAcceptButtonPress()
     {
-        if (popupTcs != null && !popupTcs.Task.IsCompleted)
+        if (popupTcs == null || popupTcs.Task.IsCompleted)
+            return;
+
+        object result = null;
+
+        if (textInputField != null)
         {
-            string userInput = inputField.value;
-            popupWindow.style.display = DisplayStyle.None;
-            popupTcs.SetResult(userInput);
+            result = textInputField.value;
         }
+        else if (enumField != null)
+        {
+            result = enumField.value;
+        }
+
+        popupWindow.style.display = DisplayStyle.None;
+        popupWindow.Clear();
+        popupWindow.Add(acceptBtn);
+
+        popupTcs.SetResult(result);
     }
-    public async Task<string> CreatePopupAsync()
+
+    public async Task<T> CreatePopupAsync<T>()
     {
-        inputField.value = "";
+        popupTcs = new TaskCompletionSource<object>();
+
+        Type type = typeof(T);
+        object defaultValue = default(T);
+
         popupWindow.style.display = DisplayStyle.Flex;
 
-        popupTcs = new TaskCompletionSource<string>();
+        if (type == typeof(int))
+        {
+            textInputField = new TextField("Enter an integer:");
+            textInputField.value = "0";
+            popupWindow.Insert(0, textInputField);
+        }
+        else if (type.IsEnum)
+        {
+            enumField = new EnumField("Choose:", (Enum)Enum.GetValues(type).GetValue(0));
+            popupWindow.Insert(0, enumField);
+        }
+        else
+        {
+            throw new NotSupportedException($"Type {typeof(T).Name} not supported");
+        }
 
-        return await popupTcs.Task;
+        object result = await popupTcs.Task;
+        return (T)Convert.ChangeType(result, typeof(T));
     }
 }

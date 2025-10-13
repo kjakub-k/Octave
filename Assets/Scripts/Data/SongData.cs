@@ -12,12 +12,14 @@ public enum SnappingType
 public class SongData
 {
     public AudioClip Song { get; set; }
+    public byte[] SongBytes { get; set; }
     public int Lines { get; set; }
     public float BPM { get; set; }
     public SnappingType Snapping { get; set; }
     public SongData() 
     { 
         Song = null;
+        SongBytes = null;
         Lines = 4;
         BPM = 120;
         Snapping = SnappingType.Quarter;

@@ -44,10 +44,10 @@ public class NavbarUI
     {
         List<(string, Action)> menu = new()
         {
-            new("Set Song", () => { songData.Song = null; }),
-            new("Set BPM", () => { songData.BPM = 0; }),
-            new("Set Lines Amount", () => { songData.Lines = 4; }),
-            new("Set Snapping", () => { songData.Snapping = SnappingType.Quarter; })
+            new("Set Song", async () => { songData.SongBytes = await popup.CreatePopupAsync<byte[]>(); }),
+            new("Set BPM", async () => { songData.BPM = await popup.CreatePopupAsync<int>(); }),
+            new("Set Lines Amount", async () => { songData.Lines = await popup.CreatePopupAsync<int>(); }),
+            new("Set Snapping", async () => { songData.Snapping = await popup.CreatePopupAsync<SnappingType>(); })
         };
 
         DropdownButton ddBtn = new DropdownButton("Song", menu);
