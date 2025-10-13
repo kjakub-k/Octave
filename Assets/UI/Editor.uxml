@@ -1,6 +1,12 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/Editor.uss?fileID=7433441132597879392&amp;guid=75a280c46ecf0c948acbf0bd48f945b6&amp;type=3#Editor" />
     <ui:VisualElement name="Background" style="flex-grow: 1;">
-        <ui:VisualElement name="Popup" style="flex-grow: 1; visibility: hidden;" />
+        <ui:VisualElement name="Navbar" style="flex-grow: 1;">
+            <DropdownButton name="File" toggle-button-text="File" style="visibility: visible;" />
+            <DropdownButton name="Edit" toggle-button-text="Edit" style="visibility: visible;" />
+            <DropdownButton name="Song" toggle-button-text="Song" style="visibility: visible;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Main" style="flex-grow: 1; visibility: hidden;" />
+        <ui:VisualElement name="Popup" />
     </ui:VisualElement>
 </ui:UXML>

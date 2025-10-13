@@ -4,53 +4,33 @@ using UnityEngine;
 using UnityEngine.UIElements;
 public class NavbarUI
 {
-    private CommandManager cmdManager;
-    private EditorPopupUI popup;
-    private SongData songData;
-    private VisualElement navbar = new();
+    private VisualElement navbar;
     public NavbarUI(VisualElement root, CommandManager cmdManager, EditorPopupUI popup, SongData songData)
     {
-        this.cmdManager = cmdManager;
-        this.popup = popup;
-        this.songData = songData;
-        CreateFilesDropdownMenu();
-        CreateEditDropdownMenu();
-        CreateSongDropdownMenu();
-        root.Q<VisualElement>("Background").Add(navbar);
-    }
-    private void CreateFilesDropdownMenu()
-    {
-        List<(string, Action)> menu = new()
-        {
-            ("Save File", () => { Debug.Log("Ulozeno"); }),
-            ("Load File", () => { Debug.Log("Nacteno"); })
-        };
+        navbar = root.Q<VisualElement>("Navbar");
 
-        DropdownButton ddBtn = new DropdownButton("Files", menu);
-        navbar.Add(ddBtn);
+        AddOptionsToDropdownMenu("File", new() { 
+            ("Save File", () => { Debug.Log("Ulozeno"); }), 
+            ("Load File", () => { Debug.Log("Nacteno"); }) 
+        });
+        AddOptionsToDropdownMenu("Edit", new() { 
+            ("Undo", () => { cmdManager.Undo(); }), 
+            ("Redo", () => { cmdManager.Redo(); }) 
+        });
+        AddOptionsToDropdownMenu("Song", new() { 
+            ("Set Song", async () => { songData.Song = await popup.CreatePopupAsync<AudioClip>(); }),
+            ("Set BPM", async () => { songData.BPM = await popup.CreatePopupAsync<int>(); }),
+            ("Set Lines Amount", async () => { songData.Lines = await popup.CreatePopupAsync<int>(); }),
+            ("Set Snapping", async () => { songData.Snapping = await popup.CreatePopupAsync<SnappingType>(); })
+        });
     }
-    private void CreateEditDropdownMenu()
+    private void AddOptionsToDropdownMenu(string elementName, List<(string, Action)> options)
     {
-        List<(string, Action)> menu = new()
+        DropdownButton ddBtn = navbar.Q<DropdownButton>(elementName);
+        
+        foreach (var option in options)
         {
-            ("Undo", () => { cmdManager.Undo(); }),
-            ("Redo", () => { cmdManager.Redo(); })
-        };
-
-        DropdownButton ddBtn = new DropdownButton("Edit", menu);
-        navbar.Add(ddBtn);
-    }
-    private void CreateSongDropdownMenu()
-    {
-        List<(string, Action)> menu = new()
-        {
-            new("Set Song", async () => { songData.SongBytes = await popup.CreatePopupAsync<byte[]>(); }),
-            new("Set BPM", async () => { songData.BPM = await popup.CreatePopupAsync<int>(); }),
-            new("Set Lines Amount", async () => { songData.Lines = await popup.CreatePopupAsync<int>(); }),
-            new("Set Snapping", async () => { songData.Snapping = await popup.CreatePopupAsync<SnappingType>(); })
-        };
-
-        DropdownButton ddBtn = new DropdownButton("Song", menu);
-        navbar.Add(ddBtn);
+            ddBtn.AddOption(option.Item1, option.Item2);
+        }
     }
 }

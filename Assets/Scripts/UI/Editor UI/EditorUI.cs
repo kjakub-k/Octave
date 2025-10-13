@@ -7,18 +7,22 @@ public class EditorUI : MonoBehaviour
     private VisualTreeAsset editorLayout;
     private CommandManager cmdManager = new();
     private SongData currentSongData = new();
-    private VisualElement root;
     private NavbarUI navbar;
     private TimelineUI timeline;
     private AudioWaveformUI waveform;
     private EditorPopupUI popup;
     private void Start()
     {
-        SwitchTo();
+        var root = GetComponent<UIDocument>().rootVisualElement;
+        SwitchTo(root);
     }
-    public void SwitchTo()
+    /// <summary>
+    /// Changes the root to the editor's UI hierarchy.
+    /// </summary>
+    //TODO: this should probably be an interface or a class
+    public void SwitchTo(VisualElement root)
     {
-        root = GetComponent<UIDocument>().rootVisualElement;
+        root.Clear();
         editorLayout.CloneTree(root);
         popup = new(root);
         navbar = new(root, cmdManager, popup, currentSongData);
