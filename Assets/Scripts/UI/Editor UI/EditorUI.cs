@@ -20,6 +20,7 @@ public class EditorUI : MonoBehaviour
     {
         root = GetComponent<UIDocument>().rootVisualElement;
         editorLayout.CloneTree(root);
-        navbar = new(root, cmdManager);
+        popup = new(root);
+        navbar = new(root, cmdManager, popup, currentSongData);
     }
 }
