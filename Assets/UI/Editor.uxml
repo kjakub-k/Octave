@@ -7,6 +7,11 @@
             <k:DropdownButton name="Song" toggle-button-text="Song" style="visibility: visible;" />
         </ui:VisualElement>
         <ui:VisualElement name="Main" style="flex-grow: 1; visibility: hidden;" />
-        <ui:VisualElement name="Popup" />
+        <ui:VisualElement name="Popup">
+            <ui:TextField label="Text Field" placeholder-text="filler text" name="EditorPopupTextField" />
+            <ui:EnumField label="Enum" value="Full" type="SnappingType, Data" name="EditorPopupEnumField" />
+            <ui:Button text="Button" name="EditorPopupAcceptBtn" />
+            <ui:Button text="Button" name="EditorPopupCancelBtn" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 namespace KJakub.Octave.Managers.CommandManager
 {
-    public class CommandManager
+    public class CommandManager : ICommandManager
     {
         private Stack<Command> undoStack = new();
         private Stack<Command> redoStack = new();

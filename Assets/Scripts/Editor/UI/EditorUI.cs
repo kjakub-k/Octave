@@ -1,14 +1,17 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using KJakub.Octave.Managers.CommandManager;
+using KJakub.Octave.Managers.AudioFileManager;
 using KJakub.Octave.Data;
+using KJakub.Octave.Editor.Logic;
 namespace KJakub.Octave.Editor.UI 
 { 
     public class EditorUI : MonoBehaviour
     {
         [SerializeField]
         private VisualTreeAsset editorLayout;
-        private CommandManager cmdManager = new();
+        private ICommandManager cmdManager = new CommandManager();
+        private IAudioFileManager audioFileManager = new AudioFileManager();
         private SongData currentSongData = new();
         private NavbarUI navbar;
         private TimelineUI timeline;
@@ -22,13 +25,12 @@ namespace KJakub.Octave.Editor.UI
         /// <summary>
         /// Changes the root to the editor's UI hierarchy.
         /// </summary>
-        //TODO: this should probably be an interface or a class
         public void SwitchTo(VisualElement root)
         {
             root.Clear();
             editorLayout.CloneTree(root);
             popup = new(root);
-            navbar = new(root, cmdManager, popup, currentSongData);
+            navbar = new(root, new NavbarLogic(cmdManager, audioFileManager, currentSongData, popup));
         }
     }
 }
