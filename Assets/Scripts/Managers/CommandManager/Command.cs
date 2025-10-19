@@ -1,5 +1,8 @@
-public abstract class Command
+namespace KJakub.Octave.Managers.CommandManager
 {
-    public abstract void Execute();
-    public abstract void Undo();
+    public abstract class Command
+    {
+        public abstract void Execute();
+        public abstract void Undo();
+    }
 }

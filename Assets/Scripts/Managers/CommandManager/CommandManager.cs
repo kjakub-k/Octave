@@ -1,30 +1,33 @@
 using System.Collections.Generic;
-public class CommandManager
+namespace KJakub.Octave.Managers.CommandManager
 {
-    private Stack<Command> undoStack = new();
-    private Stack<Command> redoStack = new();
-    public void Execute(Command command)
+    public class CommandManager
     {
-        command.Execute();
-        undoStack.Push(command);
-        redoStack.Clear();
-    }
-    public void Undo()
-    {
-        if (undoStack.Count > 0)
+        private Stack<Command> undoStack = new();
+        private Stack<Command> redoStack = new();
+        public void Execute(Command command)
         {
-            var cmd = undoStack.Pop();
-            cmd.Undo();
-            redoStack.Push(cmd);
+            command.Execute();
+            undoStack.Push(command);
+            redoStack.Clear();
         }
-    }
-    public void Redo()
-    {
-        if (redoStack.Count > 0)
+        public void Undo()
         {
-            var cmd = redoStack.Pop();
-            cmd.Execute();
-            undoStack.Push(cmd);
+            if (undoStack.Count > 0)
+            {
+                var cmd = undoStack.Pop();
+                cmd.Undo();
+                redoStack.Push(cmd);
+            }
+        }
+        public void Redo()
+        {
+            if (redoStack.Count > 0)
+            {
+                var cmd = redoStack.Pop();
+                cmd.Execute();
+                undoStack.Push(cmd);
+            }
         }
     }
 }

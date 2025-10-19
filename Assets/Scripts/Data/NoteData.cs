@@ -1,8 +1,11 @@
 using System;
 using UnityEngine;
-[Serializable]
-public class NoteData
+namespace KJakub.Octave.Data
 {
-    public Vector2 position;
-    public float duration;
+    [Serializable]
+    public class NoteData
+    {
+        public Vector2 position;
+        public float duration;
+    }
 }
