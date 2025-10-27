@@ -12,13 +12,12 @@ namespace KJakub.Octave.Editor.UI
         private EnumField enumField;
         private Button cancelBtn;
         private Button acceptBtn;
-        private SongData currentSongData;
         private TaskCompletionSource<object> popupTcs;
         public EditorPopupUI(VisualElement root)
         {
             popupWindow = root.Q<VisualElement>("Popup");
 
-            popupWindow.style.display = DisplayStyle.None;
+            PopupClose();
 
             textInputField = popupWindow.Q<TextField>("EditorPopupTextField");
             enumField = popupWindow.Q<EnumField>("EditorPopupEnumField");
@@ -41,15 +40,25 @@ namespace KJakub.Octave.Editor.UI
                 result = enumField.value;
             }
 
-            popupWindow.style.display = DisplayStyle.None;
+            PopupClose();
             textInputField.value = null;
             enumField.value = null;
 
             popupTcs.SetResult(result);
         }
+        private void PopupClose()
+        {
+            popupWindow.RemoveFromClassList("open");
+            popupWindow.AddToClassList("closed");
+        }
+        private void PopupOpen()
+        {
+            popupWindow.RemoveFromClassList("closed");
+            popupWindow.AddToClassList("open");
+        }
         private void OnCancelButtonPress()
         {
-            popupWindow.style.display = DisplayStyle.None;
+            PopupClose();
             textInputField.value = string.Empty;
             enumField.value = null;
 
@@ -59,7 +68,7 @@ namespace KJakub.Octave.Editor.UI
         {
             popupTcs = new TaskCompletionSource<object>();
 
-            popupWindow.style.display = DisplayStyle.Flex;
+            PopupOpen();
             enumField.style.display = DisplayStyle.Flex;
             textInputField.style.display = DisplayStyle.None;
 
@@ -74,7 +83,7 @@ namespace KJakub.Octave.Editor.UI
         {
             popupTcs = new TaskCompletionSource<object>();
 
-            popupWindow.style.display = DisplayStyle.Flex;
+            PopupOpen();
             textInputField.style.display = DisplayStyle.Flex;
             enumField.style.display = DisplayStyle.None;
 

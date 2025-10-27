@@ -17,6 +17,7 @@ namespace KJakub.Octave.Editor.UI
         private TimelineUI timeline;
         private AudioWaveformUI waveform;
         private EditorPopupUI popup;
+        private InfoUI info;
         private void Start()
         {
             var root = GetComponent<UIDocument>().rootVisualElement;
@@ -31,6 +32,7 @@ namespace KJakub.Octave.Editor.UI
             editorLayout.CloneTree(root);
             popup = new(root);
             navbar = new(root, new NavbarLogic(cmdManager, audioFileManager, currentSongData, popup));
+            info = new(root, currentSongData);
         }
     }
 }

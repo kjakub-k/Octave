@@ -1,13 +1,16 @@
 using System;
 using UnityEngine.UIElements;
 using System.Collections.Generic;
+using UnityEngine;
 namespace KJakub.Octave.CustomElements 
 { 
     [UxmlElement]
     public partial class DropdownButton : VisualElement
     {
         private VisualElement container;
+        private VisualElement higherLevelContainer; //where the container with buttons are so they can be clicked and not overlayed by elements below toggle button
         private Button toggleButton;
+        private Button secondToggleButton;
         [UxmlAttribute]
         public string ToggleButtonText { get { return toggleButton.text; } set { toggleButton.text = value; } }
         public DropdownButton()
@@ -43,15 +46,13 @@ namespace KJakub.Octave.CustomElements
             };
 
             toggleButton.AddToClassList("dropdown-toggle-button");
+            toggleButton.AddToClassList("menu-up");
 
             container = new();
             container.AddToClassList("dropdown-container");
             container.AddToClassList("menu-up");
             container.style.position = Position.Absolute;
-            container.style.top = Length.Percent(100);
-            container.style.width = Length.Percent(100);
 
-            Add(container);
             Add(toggleButton);
 
             //I want to register callback on root since I need to know whether or not the user had clicked
@@ -66,16 +67,67 @@ namespace KJakub.Octave.CustomElements
                 }
             });
         }
+        private void CreateDropdownMenu()
+        {
+            //need to put the container in a higher level one so the buttons are actually clickable
+            //(they are overlayed by whatever is underneath the button)
+            higherLevelContainer = new();
+            higherLevelContainer.style.position = Position.Absolute;
+            higherLevelContainer.style.height = toggleButton.style.height;
+            higherLevelContainer.style.width = toggleButton.style.width;
+
+            //getting the root like this because unity does not have a built in function to get the UI document root
+            VisualElement root = this;
+
+            while (root.parent != null && root.parent.parent != null)
+                root = root.parent;
+
+            root.Add(higherLevelContainer);
+
+            var buttonWorldPos = toggleButton.LocalToWorld(Vector2.zero);
+            var rootPos = root.WorldToLocal(buttonWorldPos);
+
+            higherLevelContainer.style.left = rootPos.x;
+            higherLevelContainer.style.top = rootPos.y;
+            higherLevelContainer.style.width = toggleButton.resolvedStyle.width;
+            higherLevelContainer.style.height = toggleButton.resolvedStyle.height;
+
+            container.style.top = rootPos.y + toggleButton.resolvedStyle.height;
+            container.style.width = toggleButton.resolvedStyle.width;
+
+            secondToggleButton = new(() => ToggleDropdown())
+            {
+                text = toggleButton.text
+            };
+            secondToggleButton.AddToClassList("dropdown-toggle-button");
+            secondToggleButton.AddToClassList("menu-up");
+
+            toggleButton.SetEnabled(false);
+
+            higherLevelContainer.Add(container);
+            higherLevelContainer.Add(secondToggleButton);
+
+        }
         private void ToggleDropdown()
         {
+            if (higherLevelContainer == null)
+            {
+                CreateDropdownMenu();
+            }
+
             if (container.ClassListContains("menu-up"))
             {
                 container.RemoveFromClassList("menu-up");
                 container.AddToClassList("menu-down");
-            } else
+                secondToggleButton.RemoveFromClassList("menu-up");
+                secondToggleButton.AddToClassList("menu-down");
+            }
+            else
             {
                 container.RemoveFromClassList("menu-down");
                 container.AddToClassList("menu-up");
+                secondToggleButton.RemoveFromClassList("menu-down");
+                secondToggleButton.AddToClassList("menu-up");
             }
         }
         /// <summary>
@@ -97,11 +149,15 @@ namespace KJakub.Octave.CustomElements
             if (container.ClassListContains("menu-up"))
                 return;
 
-            if (!Contains(evt.target as VisualElement))
-            {
-                container.RemoveFromClassList("menu-down");
-                container.AddToClassList("menu-up");
-            }
+            var targetElement = evt.target as VisualElement;
+
+            if (Contains(targetElement) || (higherLevelContainer != null && higherLevelContainer.Contains(targetElement)))
+                return;
+
+            container.RemoveFromClassList("menu-down");
+            container.AddToClassList("menu-up");
+            secondToggleButton.RemoveFromClassList("menu-down");
+            secondToggleButton.AddToClassList("menu-up");
         }
     }
 }
