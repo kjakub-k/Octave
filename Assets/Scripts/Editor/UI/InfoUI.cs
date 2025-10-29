@@ -9,21 +9,33 @@ namespace KJakub.Octave.Editor.UI
         private Label bpmLabel;
         private Label snappingLabel;
         private Label songLengthLabel;
+        private Label beatLengthLabel;
         public InfoUI(VisualElement root, SongData currentSongData)
         {
             linesLabel = root.Q<Label>("InfoLines");
             bpmLabel = root.Q<Label>("InfoBPM");
             snappingLabel = root.Q<Label>("InfoSnapping");
             songLengthLabel = root.Q<Label>("SongLength");
+            beatLengthLabel = root.Q<Label>("BeatLength");
 
             currentSongData.OnLinesChanged += (int i) => UpdateLines(i);
             currentSongData.OnBPMChanged += (int i) => UpdateBPM(i);
             currentSongData.OnSnappingChanged += (SnappingType snap) => UpdateSnapping(snap);
             currentSongData.OnSongChanged += (AudioClip clip) => UpdateSongLength(clip.length);
 
+            currentSongData.OnBPMChanged += (int bpm) => UpdateBeatLength(60f / bpm);
+
             UpdateBPM(currentSongData.BPM);
             UpdateLines(currentSongData.Lines);
             UpdateSnapping(currentSongData.Snapping);
+
+            UpdateBeatLength(60f / currentSongData.BPM);
+        }
+        public void UpdateBeatLength(float? beatLength)
+        {
+            string lengthText = beatLength?.ToString() ?? "---";
+
+            beatLengthLabel.text = $"Beat Duration: {lengthText} sec.";
         }
         public void UpdateSongLength(float? lengthInSeconds)
         {

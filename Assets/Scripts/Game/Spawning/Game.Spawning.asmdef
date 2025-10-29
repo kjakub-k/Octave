@@ -1,0 +1,17 @@
+{
+    "name": "Game.Spawning",
+    "rootNamespace": "",
+    "references": [
+        "GUID:357570c95f56a0545941a0e69b3dcf73",
+        "GUID:f86ca7ac74450f4429e4efcc1e27d8ff"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
