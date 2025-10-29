@@ -31,7 +31,7 @@ namespace KJakub.Octave.Editor.Logic
             string metaJson = JsonConvert.SerializeObject(metadata);
             File.WriteAllText(metaPath, metaJson);
 
-            string notesJson = JsonConvert.SerializeObject(songData.Notes);
+            string notesJson = JsonConvert.SerializeObject(new NotesWrapper(songData.Notes));
             File.WriteAllText(jsonPath, notesJson);
 
             byte[] wavBytes = audioFileManager.ToWav(songData.Song);
