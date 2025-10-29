@@ -16,21 +16,8 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="ColumnLines" style="flex-grow: 1;">
-                <ui:ScrollView name="LinesView" vertical-scroller-visibility="Hidden">
-                    <ui:VisualElement name="LanesContainer" style="flex-direction: row; flex-grow: 1; justify-content: center;">
-                        <ui:VisualElement class="lane" style="height: 1865px; align-self: flex-start;">
-                            <ui:VisualElement class="beat" style="height: 405px;">
-                                <ui:VisualElement class="note" style="flex-grow: 1;" />
-                                <ui:VisualElement class="note" style="flex-grow: 1; min-height: 15px; justify-content: center; align-items: center; max-height: 124px;">
-                                    <ui:VisualElement class="classic" />
-                                </ui:VisualElement>
-                                <ui:VisualElement class="note" style="flex-grow: 1;">
-                                    <ui:VisualElement class="classic" />
-                                </ui:VisualElement>
-                                <ui:VisualElement class="note last" style="flex-grow: 1;" />
-                            </ui:VisualElement>
-                        </ui:VisualElement>
-                    </ui:VisualElement>
+                <ui:ScrollView name="LinesView" vertical-scroller-visibility="AlwaysVisible">
+                    <ui:VisualElement name="LanesContainer" style="flex-direction: row; flex-grow: 1; justify-content: center;" />
                 </ui:ScrollView>
             </ui:VisualElement>
             <ui:VisualElement name="Column" style="flex-grow: 1;" />

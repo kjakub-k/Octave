@@ -26,8 +26,8 @@ namespace KJakub.Octave.Editor.UI
             songData.OnBPMChanged += (int i) => CreateLanes(songData.Lines, i, songData.Snapping);
             songData.OnSnappingChanged += (SnappingType snap) => CreateLanes(songData.Lines, songData.BPM, snap);
             songData.OnSongChanged += ChangeSongLength;
-            songData.OnSongUpdated += RenderNotes;
             songData.OnSongUpdated += () => ChangeSongLength(songData.Song);
+            songData.OnSongUpdated += RenderNotes;
         }
         private void CreateLanes(int lanes, int bPM, SnappingType snapping)
         {

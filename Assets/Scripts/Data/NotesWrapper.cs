@@ -7,5 +7,9 @@ namespace KJakub.Octave.Data
     public class NotesWrapper
     {
         public List<NoteData> Notes { get; set; }
+        public NotesWrapper(List<NoteData> notes)
+        {
+            Notes = notes;
+        }
     }
 }
