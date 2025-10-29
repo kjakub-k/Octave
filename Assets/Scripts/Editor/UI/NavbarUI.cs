@@ -21,7 +21,8 @@ namespace KJakub.Octave.Editor.UI
                 ("Redo", navbarLogic.Redo) 
             });
             AddOptionsToDropdownMenu("Song", new() {
-                //need to discard the task (using the underscore) since Action is a synchronous class and we do not need to wait for this to finish anyway
+                //Discard the returned Task since Action expects a synchronous delegate
+                //and we don’t need to await the async method here
                 ("Set Song", () => _ = navbarLogic.SetSong()),
                 ("Set BPM", () => _ = navbarLogic.SetBPM()),
                 ("Set Lines Amount", () => _ = navbarLogic.SetLineAmount()),

@@ -282,7 +282,7 @@
 #InfoBox {
     background-color: var(--primary-color);
     align-self: flex-start;
-    height: 80%;
+    height: 45%;
     margin-left: 26px;
     border-top-width: 7px;
     border-right-width: 7px;
@@ -297,6 +297,7 @@
     border-bottom-color: var(--border-color);
     border-left-color: var(--border-color);
     width: 80%;
+    justify-content: center;
 }
 
 #Column {
@@ -320,4 +321,190 @@
     padding-bottom: 25px;
     font-size: 140%;
     color: rgb(255, 255, 255);
+    -unity-text-align: middle-left;
+}
+
+#LinesView {
+    height: 100%;
+    width: 100%;
+    background-color: var(--secondary-color-1);
+}
+
+.lane {
+    background-color: var(--secondary-color-2);
+    max-width: 15%;
+    min-width: 5%;
+    flex-grow: 1;
+    border-right-color: var(--secondary-color-1);
+    border-right-width: 4px;
+    border-top-color: rgb(255, 0, 0);
+    border-top-width: 4px;
+    justify-content: flex-end;
+    flex-direction: column-reverse;
+}
+
+.beat {
+    flex-direction: column-reverse;
+}
+
+.beat .note {
+    border-top-color: var(--secondary-color-1);
+    border-top-width: 4px;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(255, 255, 255);
+    max-height: 124px;
+    min-height: 15px;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.beat .note.last {
+    border-top-color: rgb(0, 26, 255);
+}
+
+.beat .note .classic {
+    background-size: 95px 95px;
+    background-image: url("project://database/Assets/Textures/note.png?fileID=2800000&guid=a7dc7ee40261b2f46aa0f392c405d42a&type=3#note");
+    background-position-y: top 0;
+    flex-grow: 1;
+    width: 100%;
+}
+
+#SaveWindow.open {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.72);
+    transition-timing-function: ease-in;
+    transition-duration: 0.3s;
+    transition-property: opacity;
+    font-size: 130%;
+}
+
+#SaveWindow.closed {
+    opacity: 0;
+    visibility: hidden;
+    transition-property: opacity, visibility;
+    transition-duration: 0.3s, 0s;
+    transition-delay: 0s, 0.3s;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    font-size: 130%;
+}
+
+#SongNameTextField {
+    width: 24%;
+    align-self: center;
+}
+
+#SongNameTextField Label {
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+    -unity-text-align: middle-left;
+}
+
+#AuthorTextField {
+    width: 24%;
+    align-self: center;
+}
+
+#AuthorTextField Label {
+    -unity-text-align: middle-left;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+}
+
+#MapperTextField {
+    margin-bottom: 23px;
+    width: 24%;
+    align-self: center;
+}
+
+#MapperTextField Label {
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+    -unity-text-align: middle-left;
+}
+
+#SaveWindowBtns {
+    flex-direction: row;
+    justify-content: center;
+    font-size: 89%;
+}
+
+#SaveWindowFields {
+    justify-content: flex-end;
+    font-size: 78%;
+}
+
+#SaveBtn {
+    width: 10%;
+    height: 9%;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: var(--secondary-color-1);
+    transition-property: background-color;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-in;
+    color: rgb(255, 255, 255);
+}
+
+#ExitSaveWindowBtn {
+    width: 10%;
+    height: 9%;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: var(--secondary-color-1);
+    transition-property: background-color;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-in;
+    color: rgb(255, 255, 255);
+}
+
+#SaveBtn:hover {
+    transition-property: background-color;
+    transition-timing-function: ease-in;
+    background-color: var(--secondary-color-2);
+    transition-duration: 0.1s;
+}
+
+#ExitSaveWindowBtn:hover {
+    transition-property: background-color;
+    transition-timing-function: ease-in;
+    background-color: var(--secondary-color-2);
+    transition-duration: 0.1s;
+}
+
+#PathLabel {
+    color: rgb(255, 255, 255);
+    -unity-text-align: middle-left;
+    width: 24%;
+    align-self: center;
+    margin-bottom: 23px;
+    -unity-font-style: bold;
 }

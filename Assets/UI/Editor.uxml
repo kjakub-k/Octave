@@ -12,20 +12,49 @@
                     <ui:Label text="Beats Per Min.: ---" name="InfoBPM" class="info-label" />
                     <ui:Label text="Lines: ---" name="InfoLines" class="info-label" />
                     <ui:Label text="Snapping: ---" name="InfoSnapping" class="info-label" />
+                    <ui:Label text="Song Duration: ---" name="SongLength" class="info-label" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="ColumnLines" style="flex-grow: 1;" />
+            <ui:VisualElement name="ColumnLines" style="flex-grow: 1;">
+                <ui:ScrollView name="LinesView" vertical-scroller-visibility="Hidden">
+                    <ui:VisualElement name="LanesContainer" style="flex-direction: row; flex-grow: 1; justify-content: center;">
+                        <ui:VisualElement class="lane" style="height: 1865px; align-self: flex-start;">
+                            <ui:VisualElement class="beat" style="height: 405px;">
+                                <ui:VisualElement class="note" style="flex-grow: 1;" />
+                                <ui:VisualElement class="note" style="flex-grow: 1; min-height: 15px; justify-content: center; align-items: center; max-height: 124px;">
+                                    <ui:VisualElement class="classic" />
+                                </ui:VisualElement>
+                                <ui:VisualElement class="note" style="flex-grow: 1;">
+                                    <ui:VisualElement class="classic" />
+                                </ui:VisualElement>
+                                <ui:VisualElement class="note last" style="flex-grow: 1;" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:ScrollView>
+            </ui:VisualElement>
             <ui:VisualElement name="Column" style="flex-grow: 1;" />
         </ui:VisualElement>
-        <ui:VisualElement name="Popup" class="closed">
-            <ui:VisualElement name="EditorPopupContainerField" style="flex-grow: 1;">
-                <ui:TextField label="Type a number:" placeholder-text="0" name="EditorPopupTextField" />
-                <ui:EnumField label="Set Snapping:" value="Full" type="SnappingType, Data" name="EditorPopupEnumField" />
-            </ui:VisualElement>
-            <ui:VisualElement name="EditorPopupContainerBtn" style="flex-grow: 1;">
-                <ui:Button text="Accept&#10;" name="EditorPopupAcceptBtn" />
-                <ui:Button text="Cancel" name="EditorPopupCancelBtn" />
-            </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="Popup" class="closed">
+        <ui:VisualElement name="EditorPopupContainerField" style="flex-grow: 1;">
+            <ui:TextField label="Type a number:" placeholder-text="0" name="EditorPopupTextField" />
+            <ui:EnumField label="Set Snapping:" value="Full" type="SnappingType, Data" name="EditorPopupEnumField" />
+        </ui:VisualElement>
+        <ui:VisualElement name="EditorPopupContainerBtn" style="flex-grow: 1;">
+            <ui:Button text="Accept&#10;" name="EditorPopupAcceptBtn" />
+            <ui:Button text="Cancel" name="EditorPopupCancelBtn" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="SaveWindow" class="closed" style="flex-grow: 1; position: absolute; width: 100%; height: 100%;">
+        <ui:VisualElement name="SaveWindowFields" style="flex-grow: 1;">
+            <ui:TextField label="Song Name:" placeholder-text="Song Name" name="SongNameTextField" />
+            <ui:TextField label="Author:" placeholder-text="Song Author(s)" name="AuthorTextField" />
+            <ui:TextField label="Mapper:" placeholder-text="Your Name" name="MapperTextField" />
+        </ui:VisualElement>
+        <ui:VisualElement name="SaveWindowBtns" style="flex-grow: 1;">
+            <ui:Button text="Save" name="SaveBtn" />
+            <ui:Button text="Exit" name="ExitSaveWindowBtn" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

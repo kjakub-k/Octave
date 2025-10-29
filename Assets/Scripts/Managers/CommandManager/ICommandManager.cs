@@ -4,5 +4,6 @@ namespace KJakub.Octave.Managers.CommandManager
     {
         public void Undo();
         public void Redo();
+        public void Execute(Command cmd);
     }
 }

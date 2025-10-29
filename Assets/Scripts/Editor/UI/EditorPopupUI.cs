@@ -1,6 +1,4 @@
-using KJakub.Octave.Data;
 using KJakub.Octave.Editor.Interfaces;
-using System;
 using System.Threading.Tasks;
 using UnityEngine.UIElements;
 namespace KJakub.Octave.Editor.UI
@@ -31,17 +29,13 @@ namespace KJakub.Octave.Editor.UI
         {
             object result = null;
 
-            if (textInputField != null)
-            {
+            if (textInputField.style.display == DisplayStyle.Flex)
                 result = textInputField.value;
-            }
-            else if (enumField != null)
-            {
+            else if (enumField.style.display == DisplayStyle.Flex)
                 result = enumField.value;
-            }
 
             PopupClose();
-            textInputField.value = null;
+            textInputField.value = string.Empty;
             enumField.value = null;
 
             popupTcs.SetResult(result);

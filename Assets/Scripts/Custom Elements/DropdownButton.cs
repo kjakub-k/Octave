@@ -55,7 +55,7 @@ namespace KJakub.Octave.CustomElements
 
             Add(toggleButton);
 
-            //I want to register callback on root since I need to know whether or not the user had clicked
+            //I want to register callback on root (panel) since I need to know whether or not the user had clicked
             //outside or inside the dropdown menus (I want to close them when outside)
             RegisterCallback<AttachToPanelEvent>(evt =>
             {

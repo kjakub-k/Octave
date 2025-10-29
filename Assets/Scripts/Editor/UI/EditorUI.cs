@@ -15,8 +15,8 @@ namespace KJakub.Octave.Editor.UI
         private SongData currentSongData = new();
         private NavbarUI navbar;
         private TimelineUI timeline;
-        private AudioWaveformUI waveform;
         private EditorPopupUI popup;
+        private SaveUI saveWindow;
         private InfoUI info;
         private void Start()
         {
@@ -31,8 +31,10 @@ namespace KJakub.Octave.Editor.UI
             root.Clear();
             editorLayout.CloneTree(root);
             popup = new(root);
-            navbar = new(root, new NavbarLogic(cmdManager, audioFileManager, currentSongData, popup));
+            saveWindow = new(root, new SaveLogic(audioFileManager), currentSongData);
+            navbar = new(root, new NavbarLogic(cmdManager, audioFileManager, currentSongData, popup, saveWindow));
             info = new(root, currentSongData);
+            timeline = new(root, currentSongData, cmdManager);
         }
     }
 }
