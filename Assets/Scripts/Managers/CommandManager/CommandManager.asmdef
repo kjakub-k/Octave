@@ -1,0 +1,16 @@
+{
+    "name": "Managers.CommandManager",
+    "rootNamespace": "",
+    "references": [
+        "GUID:56afb0dfa83ee9b4e87e24cdff13f492"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

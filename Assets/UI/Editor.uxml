@@ -1,7 +1,60 @@
-<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:k="KJakub.Octave.CustomElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/Editor.uss?fileID=7433441132597879392&amp;guid=75a280c46ecf0c948acbf0bd48f945b6&amp;type=3#Editor" />
-    <ui:VisualElement name="background" style="flex-grow: 1;">
-        <ui:ScrollView name="notes-scr-view" />
-        <ui:Label text="Test" double-click-selects-word="true" />
+    <ui:VisualElement name="Background" style="flex-grow: 1;">
+        <ui:VisualElement name="Navbar" style="flex-grow: 1;">
+            <k:DropdownButton name="File" toggle-button-text="File" style="visibility: visible;" />
+            <k:DropdownButton name="Edit" toggle-button-text="Edit" style="visibility: visible;" />
+            <k:DropdownButton name="Song" toggle-button-text="Song" style="visibility: visible;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Main" style="flex-grow: 1;">
+            <ui:VisualElement name="Column">
+                <ui:VisualElement name="InfoBox">
+                    <ui:Label text="Beats Per Min.: ---" name="InfoBPM" class="info-label" />
+                    <ui:Label text="Lines: ---" name="InfoLines" class="info-label" />
+                    <ui:Label text="Snapping: ---" name="InfoSnapping" class="info-label" />
+                    <ui:Label text="Song Duration: ---" name="SongLength" class="info-label" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="ColumnLines" style="flex-grow: 1;">
+                <ui:ScrollView name="LinesView" vertical-scroller-visibility="Hidden">
+                    <ui:VisualElement name="LanesContainer" style="flex-direction: row; flex-grow: 1; justify-content: center;">
+                        <ui:VisualElement class="lane" style="height: 1865px; align-self: flex-start;">
+                            <ui:VisualElement class="beat" style="height: 405px;">
+                                <ui:VisualElement class="note" style="flex-grow: 1;" />
+                                <ui:VisualElement class="note" style="flex-grow: 1; min-height: 15px; justify-content: center; align-items: center; max-height: 124px;">
+                                    <ui:VisualElement class="classic" />
+                                </ui:VisualElement>
+                                <ui:VisualElement class="note" style="flex-grow: 1;">
+                                    <ui:VisualElement class="classic" />
+                                </ui:VisualElement>
+                                <ui:VisualElement class="note last" style="flex-grow: 1;" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:ScrollView>
+            </ui:VisualElement>
+            <ui:VisualElement name="Column" style="flex-grow: 1;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="Popup" class="closed">
+        <ui:VisualElement name="EditorPopupContainerField" style="flex-grow: 1;">
+            <ui:TextField label="Type a number:" placeholder-text="0" name="EditorPopupTextField" />
+            <ui:EnumField label="Set Snapping:" value="Full" type="SnappingType, Data" name="EditorPopupEnumField" />
+        </ui:VisualElement>
+        <ui:VisualElement name="EditorPopupContainerBtn" style="flex-grow: 1;">
+            <ui:Button text="Accept&#10;" name="EditorPopupAcceptBtn" />
+            <ui:Button text="Cancel" name="EditorPopupCancelBtn" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="SaveWindow" class="closed" style="flex-grow: 1; position: absolute; width: 100%; height: 100%;">
+        <ui:VisualElement name="SaveWindowFields" style="flex-grow: 1;">
+            <ui:TextField label="Song Name:" placeholder-text="Song Name" name="SongNameTextField" />
+            <ui:TextField label="Author:" placeholder-text="Song Author(s)" name="AuthorTextField" />
+            <ui:TextField label="Mapper:" placeholder-text="Your Name" name="MapperTextField" />
+        </ui:VisualElement>
+        <ui:VisualElement name="SaveWindowBtns" style="flex-grow: 1;">
+            <ui:Button text="Save" name="SaveBtn" />
+            <ui:Button text="Exit" name="ExitSaveWindowBtn" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
