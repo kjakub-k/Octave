@@ -1,3 +1,4 @@
+using KJakub.Octave.Game.Spawning;
 using System.Collections.Generic;
 using UnityEngine;
 namespace KJakub.Octave.Game.Lines
@@ -6,10 +7,14 @@ namespace KJakub.Octave.Game.Lines
     {
         [SerializeField]
         private GameObject linePrefab;
+        [SerializeField]
+        private Transform noteDetectorContainer;
+        [SerializeField]
+        private GameObject noteDetector;
         public float LineWidth { get { return linePrefab.transform.localScale.x; } }
         public float LineHeight { get { return linePrefab.transform.localScale.y; } }
         public float LineLength { get { return linePrefab.transform.localScale.z; } }
-        public void GenerateLines(int linesAmount)
+        public void GenerateLines(int linesAmount, INoteCollection noteCollection)
         {
             List<Transform> children = new();
 
@@ -28,8 +33,17 @@ namespace KJakub.Octave.Game.Lines
             for (int i = 0; i < linesAmount; i++)
             {
                 Vector3 pos = new(transform.position.x + startX + i * LineWidth + LineWidth / 2, transform.position.y, transform.position.z);
-                Instantiate(linePrefab, pos, transform.rotation, transform);
+                var line = Instantiate(linePrefab, pos, transform.rotation, transform);
+                CreateNoteDetector(i, line, noteCollection);
             }
+        }
+        private void CreateNoteDetector(int key, GameObject line, INoteCollection noteCollection)
+        {
+            Vector3 pos = new(line.transform.position.x, line.transform.position.y + 0.5f, transform.position.z + LineLength - 0.5f);
+            var btn = Instantiate(noteDetector, pos, Quaternion.identity, noteDetectorContainer);
+            NoteDetector btnND = btn.GetComponent<NoteDetector>();
+            btnND.NoteCollection = noteCollection;
+            
         }
         private void OnDrawGizmos()
         {
@@ -39,7 +53,7 @@ namespace KJakub.Octave.Game.Lines
             Gizmos.color = Color.purple;
 
             Vector3 prefabScale = linePrefab.GetComponentInChildren<MeshRenderer>().transform.localScale;
-            Vector3 size = new(LineWidth, LineHeight, LineLength);
+            Vector3 size = new(LineWidth * 7, LineHeight, LineLength);
             Vector3 centerPos = new(transform.position.x + LineWidth / 2, transform.position.y, transform.position.z + LineLength / 2);
 
             Gizmos.DrawCube(centerPos, size);

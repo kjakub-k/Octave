@@ -1,3 +1,16 @@
 {
-	"name": "Game.Lines"
+    "name": "Game.Lines",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f2a285682f60eb343af0a634521729b9"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

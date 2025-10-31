@@ -35,7 +35,7 @@ namespace KJakub.Octave.Game.Core
         }
         public void StartGame()
         {
-            lineManager.GenerateLines(lineAmount);
+            lineManager.GenerateLines(lineAmount, this);
             StartCoroutine(noteSpawner.SpawnRandomNotesCoroutine(lineManager.transform, lineAmount));
         }
         public void StartGame(SongData songData)
