@@ -3,6 +3,7 @@ using KJakub.Octave.Game.Lines;
 using KJakub.Octave.Game.Spawning;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 namespace KJakub.Octave.Game.Core
 {
     public class GameController : MonoBehaviour, INoteCollection
@@ -22,10 +23,12 @@ namespace KJakub.Octave.Game.Core
         private NoteDespawner noteDespawner;
         private GameObjectPool notePool;
         private List<GameObject> activeNotes = new();
+        private PlayerInput inputSystem;
         public GameObjectPool NotePool { get { return notePool; } }
         public List<GameObject> ActiveNotes { get { return activeNotes; } }
         private void Start()
         {
+            inputSystem = GetComponent<PlayerInput>();
             notePool = new(notePrefab, noteContainer, 40, 100);
 
             noteSpawner = new(this);
@@ -35,7 +38,7 @@ namespace KJakub.Octave.Game.Core
         }
         public void StartGame()
         {
-            lineManager.GenerateLines(lineAmount, this);
+            lineManager.GenerateLines(lineAmount, this, inputSystem);
             StartCoroutine(noteSpawner.SpawnRandomNotesCoroutine(lineManager.transform, lineAmount));
         }
         public void StartGame(SongData songData)

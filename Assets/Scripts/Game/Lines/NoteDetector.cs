@@ -9,12 +9,13 @@ namespace KJakub.Octave.Game.Lines
         {
             foreach (var note in NoteCollection.ActiveNotes)
             {
-                float detectionRadius = 0.5f;
+                float detectionRadius = 1f;
 
                 if (Vector3.Distance(note.transform.position, transform.position) <= detectionRadius)
                 {
                     NoteCollection.ActiveNotes.Remove(note);
                     NoteCollection.NotePool.Pool.Release(note);
+                    return;
                 }
             }
         }
