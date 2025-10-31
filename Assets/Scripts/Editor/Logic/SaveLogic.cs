@@ -8,11 +8,6 @@ namespace KJakub.Octave.Editor.Logic
 {
     public class SaveLogic
     {
-        private IAudioFileManager audioFileManager;
-        public SaveLogic(IAudioFileManager audioFileManager)
-        {
-            this.audioFileManager = audioFileManager;
-        }
         public void Save(SongData songData, SongMetadata metadata)
         {
             string defaultName = metadata.SongName ?? "Song";
@@ -34,7 +29,7 @@ namespace KJakub.Octave.Editor.Logic
             string notesJson = JsonConvert.SerializeObject(new NotesWrapper(songData.Notes));
             File.WriteAllText(jsonPath, notesJson);
 
-            byte[] wavBytes = audioFileManager.ToWav(songData.Song);
+            byte[] wavBytes = AudioFileManager.ToWav(songData.Song);
             File.WriteAllBytes(wavPath, wavBytes);
         }
     }

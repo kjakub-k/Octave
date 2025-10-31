@@ -1,5 +1,6 @@
 using KJakub.Octave.Data;
 using KJakub.Octave.Managers.CommandManager;
+using KJakub.Octave.Managers.CommandManager.NoteCommandManager;
 using UnityEngine;
 using UnityEngine.UIElements;
 namespace KJakub.Octave.Editor.UI
@@ -8,11 +9,11 @@ namespace KJakub.Octave.Editor.UI
     {
         private ScrollView linesView;
         private VisualElement lanesContainer;
-        private ICommandManager commandManager;
+        private NoteCommandManager commandManager;
         private SongData currentSongData;
         private int pixelsPerSec = 300;
         private float songLength = 20; //this is in seconds
-        public TimelineUI(VisualElement root, SongData songData, ICommandManager commandManager)
+        public TimelineUI(VisualElement root, SongData songData, NoteCommandManager commandManager)
         {
             this.commandManager = commandManager;
             currentSongData = songData;

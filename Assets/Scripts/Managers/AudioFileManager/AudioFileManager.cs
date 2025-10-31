@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using UnityEngine;
 namespace KJakub.Octave.Managers.AudioFileManager
 {
-    public class AudioFileManager : IAudioFileManager
+    public static class AudioFileManager
     {
-        public AudioClip ToAudioClip(byte[] wavFileBytes, string clipName = "song")
+        public static AudioClip ToAudioClip(byte[] wavFileBytes, string clipName = "song")
         {
             int headerSize = 44;
 
@@ -35,13 +35,13 @@ namespace KJakub.Octave.Managers.AudioFileManager
 
             return audioClip;
         }
-        public async Task<AudioClip> LoadAudioClip(string path)
+        public static async Task<AudioClip> LoadAudioClip(string path)
         {
             byte[] wavData = await Task.Run(() => File.ReadAllBytes(path));
             AudioClip clip = ToAudioClip(wavData, Path.GetFileNameWithoutExtension(path));
             return clip;
         }
-        public byte[] ToWav(AudioClip clip)
+        public static byte[] ToWav(AudioClip clip)
         {
             float[] samples = new float[clip.samples * clip.channels];
             clip.GetData(samples, 0);

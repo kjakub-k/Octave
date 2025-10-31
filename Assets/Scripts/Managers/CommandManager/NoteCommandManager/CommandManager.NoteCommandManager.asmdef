@@ -1,7 +1,10 @@
 {
-    "name": "Managers.CommandManager",
+    "name": "CommandManager.NoteCommandManager",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:a67e0453bc7645e42b149241f8e5caa0",
+        "GUID:56afb0dfa83ee9b4e87e24cdff13f492"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

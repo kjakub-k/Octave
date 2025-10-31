@@ -1,27 +1,28 @@
-using KJakub.Octave.Game.Lines;
+using System.Collections;
 using UnityEngine;
 namespace KJakub.Octave.Game.Spawning
 {
-    public class NoteSpawner : MonoBehaviour
+    public class NoteSpawner
     {
-        [SerializeField]
-        private GameObject notePrefab;
-        float timer = 1f;
-        private void Update()
+        private INoteCollection noteCollection;
+        public NoteSpawner(INoteCollection noteCollection)
         {
-            if (timer > 0)
-            {
-                timer -= Time.deltaTime;
-            } else if (timer < 0)
-            {
-                SpawnNote(Random.Range(0, GetComponent<LineManager>().LinesAmount));
-                timer = 1f;
-            }
+            this.noteCollection = noteCollection;
         }
-        public void SpawnNote(int lineIndex)
+        public void SpawnNote(Transform lineContainer, int lineIndex)
         {
-            Transform line = transform.GetChild(lineIndex);
-            Instantiate(notePrefab, line.position + Vector3.up * 0.5f, Quaternion.identity);
+            Transform line = lineContainer.GetChild(lineIndex);
+            GameObject note = noteCollection.NotePool.Pool.Get();
+            note.transform.position = line.position + Vector3.up * 0.5f;
+            noteCollection.ActiveNotes.Add(note);
+        }
+        public IEnumerator SpawnRandomNotesCoroutine(Transform lineContainer, int lineAmount)
+        {
+            while (true)
+            {
+                SpawnNote(lineContainer, Random.Range(0, lineAmount));
+                yield return new WaitForSeconds(1f);
+            }
         }
     }
 }

@@ -1,23 +1,16 @@
 using UnityEngine;
 using UnityEngine.UIElements;
-using KJakub.Octave.Managers.CommandManager;
-using KJakub.Octave.Managers.AudioFileManager;
 using KJakub.Octave.Data;
 using KJakub.Octave.Editor.Logic;
+using KJakub.Octave.Managers.CommandManager.NoteCommandManager;
 namespace KJakub.Octave.Editor.UI 
 { 
     public class EditorUI : MonoBehaviour
     {
         [SerializeField]
         private VisualTreeAsset editorLayout;
-        private ICommandManager cmdManager = new CommandManager();
-        private IAudioFileManager audioFileManager = new AudioFileManager();
+        private NoteCommandManager cmdManager = new();
         private SongData currentSongData = new();
-        private NavbarUI navbar;
-        private TimelineUI timeline;
-        private EditorPopupUI popup;
-        private SaveUI saveWindow;
-        private InfoUI info;
         private void Start()
         {
             var root = GetComponent<UIDocument>().rootVisualElement;
@@ -30,11 +23,11 @@ namespace KJakub.Octave.Editor.UI
         {
             root.Clear();
             editorLayout.CloneTree(root);
-            popup = new(root);
-            saveWindow = new(root, new SaveLogic(audioFileManager), currentSongData);
-            navbar = new(root, new NavbarLogic(cmdManager, audioFileManager, currentSongData, popup, saveWindow));
-            info = new(root, currentSongData);
-            timeline = new(root, currentSongData, cmdManager);
+            EditorPopupUI popup = new(root);
+            SaveUI saveWindow = new(root, new SaveLogic(), currentSongData);
+            NavbarUI navbar = new(root, new NavbarLogic(cmdManager, currentSongData, popup, saveWindow));
+            InfoUI info = new(root, currentSongData);
+            TimelineUI timeline = new(root, currentSongData, cmdManager);
         }
     }
 }

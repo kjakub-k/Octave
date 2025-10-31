@@ -1,7 +1,7 @@
 using KJakub.Octave.Data;
 using KJakub.Octave.Editor.Interfaces;
 using KJakub.Octave.Managers.AudioFileManager;
-using KJakub.Octave.Managers.CommandManager;
+using KJakub.Octave.Managers.CommandManager.NoteCommandManager;
 using SFB;
 using System.IO;
 using System.Threading.Tasks;
@@ -11,14 +11,13 @@ namespace KJakub.Octave.Editor.Logic
 {
     public class NavbarLogic
     {
-        private ICommandManager cmdManager;
-        private IAudioFileManager audioFileManager;
+        private NoteCommandManager cmdManager;
         private SongData songData;
         private IEditorPopup popup;
         private IEditorSave save;
-        public NavbarLogic(ICommandManager cmdManager, IAudioFileManager audioFileManager, SongData songData, IEditorPopup popup, IEditorSave save)
+        public NavbarLogic(NoteCommandManager cmdManager, SongData songData, IEditorPopup popup, IEditorSave save)
         {
-            (this.cmdManager, this.audioFileManager, this.songData, this.popup, this.save) = (cmdManager, audioFileManager, songData, popup, save);
+            (this.cmdManager, this.songData, this.popup, this.save) = (cmdManager, songData, popup, save);
         }
         public void Save()
         {
@@ -48,7 +47,7 @@ namespace KJakub.Octave.Editor.Logic
             var notesWrapper = JsonConvert.DeserializeObject<NotesWrapper>(jsonContent);
 
             byte[] wavBytes = File.ReadAllBytes(wavPath);
-            AudioClip clip = audioFileManager.ToAudioClip(wavBytes, songName);
+            AudioClip clip = AudioFileManager.ToAudioClip(wavBytes, songName);
 
             songData.Update(new(clip, metadata.Lines, metadata.BPM, metadata.Snapping, notesWrapper.Notes));
         }
@@ -67,7 +66,7 @@ namespace KJakub.Octave.Editor.Logic
             if (paths.Length > 0)
             {
                 var path = paths[0];
-                songData.Song = await audioFileManager.LoadAudioClip(path);
+                songData.Song = await AudioFileManager.LoadAudioClip(path);
             }
         }
         public async Task SetBPM()
