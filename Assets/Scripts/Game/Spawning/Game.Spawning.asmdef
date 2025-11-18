@@ -2,7 +2,8 @@
     "name": "Game.Spawning",
     "rootNamespace": "",
     "references": [
-        "GUID:f86ca7ac74450f4429e4efcc1e27d8ff"
+        "GUID:f86ca7ac74450f4429e4efcc1e27d8ff",
+        "GUID:56afb0dfa83ee9b4e87e24cdff13f492"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -3,6 +3,7 @@ using UnityEngine.UIElements;
 using KJakub.Octave.Data;
 using KJakub.Octave.Editor.Logic;
 using KJakub.Octave.Managers.CommandManager.NoteCommandManager;
+using KJakub.Octave.Game.Interfaces;
 namespace KJakub.Octave.Editor.UI 
 { 
     public class EditorUI : MonoBehaviour
@@ -11,9 +12,13 @@ namespace KJakub.Octave.Editor.UI
         private VisualTreeAsset editorLayout;
         private NoteCommandManager cmdManager = new();
         private SongData currentSongData = new();
+        [SerializeField]
+        private GameObject gameControllerGO;
+        private IGameController gameController;
         private void Start()
         {
             var root = GetComponent<UIDocument>().rootVisualElement;
+            gameController = gameControllerGO.GetComponent<IGameController>();
             SwitchTo(root);
         }
         /// <summary>
@@ -25,9 +30,19 @@ namespace KJakub.Octave.Editor.UI
             editorLayout.CloneTree(root);
             EditorPopupUI popup = new(root);
             SaveUI saveWindow = new(root, new SaveLogic(), currentSongData);
-            NavbarUI navbar = new(root, new NavbarLogic(cmdManager, currentSongData, popup, saveWindow));
+            NavbarUI navbar = new(root, new NavbarLogic(cmdManager, currentSongData, popup, saveWindow, gameController));
+            ReturnToEditorBtn(root);
             InfoUI info = new(root, currentSongData);
             TimelineUI timeline = new(root, currentSongData, cmdManager);
+        }
+        private void ReturnToEditorBtn(VisualElement root)
+        {
+            Button btn = root.Q<Button>("ReturnToEditorBtn");
+            
+            btn.clicked += () => {
+                root.Q<VisualElement>("Background").RemoveFromClassList("closed");
+                root.Q<VisualElement>("RTEContainer").AddToClassList("closed");
+            };
         }
     }
 }

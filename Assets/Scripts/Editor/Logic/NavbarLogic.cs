@@ -2,6 +2,7 @@ using KJakub.Octave.Data;
 using KJakub.Octave.Editor.Interfaces;
 using KJakub.Octave.Managers.AudioFileManager;
 using KJakub.Octave.Managers.CommandManager.NoteCommandManager;
+using KJakub.Octave.Game.Interfaces;
 using SFB;
 using System.IO;
 using System.Threading.Tasks;
@@ -15,9 +16,10 @@ namespace KJakub.Octave.Editor.Logic
         private SongData songData;
         private IEditorPopup popup;
         private IEditorSave save;
-        public NavbarLogic(NoteCommandManager cmdManager, SongData songData, IEditorPopup popup, IEditorSave save)
+        private IGameController gameController;
+        public NavbarLogic(NoteCommandManager cmdManager, SongData songData, IEditorPopup popup, IEditorSave save, IGameController gameController)
         {
-            (this.cmdManager, this.songData, this.popup, this.save) = (cmdManager, songData, popup, save);
+            (this.cmdManager, this.songData, this.popup, this.save, this.gameController) = (cmdManager, songData, popup, save, gameController);
         }
         public void Save()
         {
@@ -89,6 +91,10 @@ namespace KJakub.Octave.Editor.Logic
 
             if (snapping != null)
                 songData.Snapping = snapping.Value;
+        }
+        public void StartGame()
+        {
+            gameController.StartGame(songData);
         }
     }
 }

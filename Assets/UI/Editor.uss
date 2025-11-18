@@ -8,6 +8,18 @@
 
 #Background {
     background-color: var(--background-color);
+    transition-property: opacity;
+    transition-timing-function: ease-out;
+    transition-duration: 0.3s;
+}
+
+#Background.closed {
+    opacity: 0;
+    visibility: hidden;
+    transition-property: opacity, visibility;
+    transition-delay: 0s, 0.3s;
+    transition-duration: 0.3s, 0s;
+    transition-timing-function: ease-out, linear;
 }
 
 #Popup.open {
@@ -544,4 +556,45 @@
     border-right-color: var(--primary-color);
     border-bottom-color: var(--primary-color);
     border-left-color: var(--primary-color);
+}
+
+#ReturnToEditorBtn {
+    position: absolute;
+    font-size: 342%;
+    align-self: flex-start;
+    margin-left: 37px;
+    margin-top: 509px;
+    color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    transition-property: color;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-out;
+}
+
+#ReturnToEditorBtn:hover {
+    transition-property: color;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-out;
+    color: rgb(255, 169, 0);
+}
+
+#RTEContainer {
+    flex-grow: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    margin-top: 129px;
+}
+
+#RTEContainer.closed {
+    visibility: hidden;
 }

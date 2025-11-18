@@ -1,12 +1,8 @@
 {
-    "name": "Game.Core",
+    "name": "Game.Interfaces",
     "rootNamespace": "",
     "references": [
-        "GUID:357570c95f56a0545941a0e69b3dcf73",
-        "GUID:f2a285682f60eb343af0a634521729b9",
-        "GUID:56afb0dfa83ee9b4e87e24cdff13f492",
-        "GUID:75469ad4d38634e559750d17036d5f7c",
-        "GUID:a8321b5cac7cbf741aa3a5fb95c4151e"
+        "GUID:56afb0dfa83ee9b4e87e24cdff13f492"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

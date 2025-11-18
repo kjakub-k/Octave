@@ -12,9 +12,16 @@ namespace KJakub.Octave.Editor.UI
         {
             navbar = root.Q<VisualElement>("Navbar");
 
-            AddOptionsToDropdownMenu("File", new() { 
-                ("Save File", navbarLogic.Save), 
-                ("Load File", navbarLogic.Load)
+            AddOptionsToDropdownMenu("File", new() {
+                ("Save File", navbarLogic.Save),
+                ("Load File", navbarLogic.Load),
+                ("Test Game", () => {
+                    VisualElement background = root.Q<VisualElement>("Background");
+                    background.AddToClassList("closed");
+                    VisualElement rteContainer = root.Q<VisualElement>("RTEContainer");
+                    rteContainer.RemoveFromClassList("closed");
+                    navbarLogic.StartGame();
+                })
             });
             AddOptionsToDropdownMenu("Edit", new() { 
                 ("Undo", navbarLogic.Undo), 

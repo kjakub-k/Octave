@@ -82,7 +82,9 @@ namespace KJakub.Octave.CustomElements
             while (root.parent != null && root.parent.parent != null)
                 root = root.parent;
 
-            root.Add(higherLevelContainer);
+            //so I can hide it along with the rest of the editor so I can swap between editor and gameplay without
+            //leaving the editor
+            root.Q<VisualElement>("Background").Add(higherLevelContainer);
 
             var buttonWorldPos = toggleButton.LocalToWorld(Vector2.zero);
             var rootPos = root.WorldToLocal(buttonWorldPos);

@@ -1,4 +1,6 @@
+using KJakub.Octave.Data;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 namespace KJakub.Octave.Game.Spawning
 {
@@ -23,6 +25,10 @@ namespace KJakub.Octave.Game.Spawning
                 SpawnNote(lineContainer, Random.Range(0, lineAmount));
                 yield return new WaitForSeconds(1f);
             }
+        }
+        public IEnumerator SpawnNotes(List<NoteData> notes)
+        {
+            yield return null;
         }
     }
 }

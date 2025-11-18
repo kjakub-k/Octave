@@ -478,7 +478,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &793386697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -530,6 +530,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EditorUI
   editorLayout: {fileID: 9197481963319205126, guid: bca36af9e67b8894bb32a8424c1c5d6a, type: 3}
+  gameControllerGO: {fileID: 1195426348}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -689,7 +690,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ca7f74880a35ba4195da6f6ceda85b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Core::KJakub.Octave.Game.Core.GameController
-  lineAmount: 7
+  lineAmount: 2
   notePrefab: {fileID: 9130457825519608158, guid: a1cf04bb946c7b047b7c800d50733345, type: 3}
   noteContainer: {fileID: 1735738558}
   lineManager: {fileID: 185861895}

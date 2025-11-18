@@ -1,12 +1,14 @@
 using KJakub.Octave.Data;
+using KJakub.Octave.Game.Interfaces;
 using KJakub.Octave.Game.Lines;
 using KJakub.Octave.Game.Spawning;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 namespace KJakub.Octave.Game.Core
 {
-    public class GameController : MonoBehaviour, INoteCollection
+    public class GameController : MonoBehaviour, INoteCollection, IGameController
     {
         [Header("Properties")]
         [SerializeField]
@@ -33,8 +35,6 @@ namespace KJakub.Octave.Game.Core
 
             noteSpawner = new(this);
             noteDespawner = new(this);
-
-            StartGame();
         }
         public void StartGame()
         {
@@ -44,11 +44,17 @@ namespace KJakub.Octave.Game.Core
         public void StartGame(SongData songData)
         {
             AudioClip clip = songData.Song;
-            //TO DO: finish the rest of this method
+            lineAmount = songData.Lines;
+            lineManager.GenerateLines(lineAmount, this, inputSystem);
+            StartCoroutine(noteSpawner.SpawnRandomNotesCoroutine(lineManager.transform, lineAmount));
         }
         private void Update()
         {
             noteDespawner.CheckIfOutOfBounds();
+        }
+        public void EndGame()
+        {
+            throw new NotImplementedException();
         }
     }
 }

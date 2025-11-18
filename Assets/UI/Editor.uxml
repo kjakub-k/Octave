@@ -45,4 +45,7 @@
             <ui:Button text="Exit" name="ExitSaveWindowBtn" />
         </ui:VisualElement>
     </ui:VisualElement>
+    <ui:VisualElement name="RTEContainer" class="closed">
+        <ui:Button text="&lt;&lt; Return" name="ReturnToEditorBtn" />
+    </ui:VisualElement>
 </ui:UXML>
