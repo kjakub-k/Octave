@@ -15,11 +15,10 @@
 
 #Background.closed {
     opacity: 0;
-    visibility: hidden;
-    transition-property: opacity, visibility;
-    transition-delay: 0s, 0.3s;
-    transition-duration: 0.3s, 0s;
-    transition-timing-function: ease-out, linear;
+    transition-property: opacity;
+    transition-delay: 0s;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out;
 }
 
 #Popup.open {

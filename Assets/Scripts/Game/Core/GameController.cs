@@ -4,6 +4,7 @@ using KJakub.Octave.Game.Lines;
 using KJakub.Octave.Game.Spawning;
 using System;
 using System.Collections.Generic;
+using UnityEditor.U2D;
 using UnityEngine;
 using UnityEngine.InputSystem;
 namespace KJakub.Octave.Game.Core
@@ -20,7 +21,8 @@ namespace KJakub.Octave.Game.Core
         private Transform noteContainer;
         [Header("Managers")]
         [SerializeField]
-        private LineCreator lineManager;
+        private LineManager lineManager;
+        private GameStats stats;
         private NoteSpawner noteSpawner;
         private NoteDespawner noteDespawner;
         private GameObjectPool notePool;
@@ -36,17 +38,23 @@ namespace KJakub.Octave.Game.Core
             noteSpawner = new(this);
             noteDespawner = new(this);
         }
-        public void StartGame()
-        {
-            lineManager.GenerateLines(lineAmount, this, inputSystem);
-            StartCoroutine(noteSpawner.SpawnRandomNotesCoroutine(lineManager.transform, lineAmount));
-        }
         public void StartGame(SongData songData)
         {
-            AudioClip clip = songData.Song;
             lineAmount = songData.Lines;
+            noteDespawner.OnNoteOutOfBounds += () =>
+            {
+                stats.SetCombo(0);
+                stats.Misses++;
+                Debug.Log($"Misses: {stats.Misses}");
+            };
+            lineManager.OnNoteHit += (float distance) =>
+            {
+                stats.AddCombo();
+                Debug.Log($"Combo: {stats.Combo}:{stats.HighestCombo}");
+            };
             lineManager.GenerateLines(lineAmount, this, inputSystem);
-            StartCoroutine(noteSpawner.SpawnRandomNotesCoroutine(lineManager.transform, lineAmount));
+            stats = new();
+            StartCoroutine(noteSpawner.SpawnNotes(lineManager.transform, lineAmount, songData.Notes, lineManager.LineLength));
         }
         private void Update()
         {
@@ -54,7 +62,8 @@ namespace KJakub.Octave.Game.Core
         }
         public void EndGame()
         {
-            throw new NotImplementedException();
+            noteSpawner.Stop();
+            noteDespawner.DespawnAllNotes();
         }
     }
 }

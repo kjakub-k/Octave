@@ -24,6 +24,9 @@
             <ui:VisualElement name="Column" style="flex-grow: 1;" />
         </ui:VisualElement>
     </ui:VisualElement>
+    <ui:VisualElement name="RTEContainer" class="closed">
+        <ui:Button text="&lt;&lt; Return" name="ReturnToEditorBtn" />
+    </ui:VisualElement>
     <ui:VisualElement name="Popup" class="closed">
         <ui:VisualElement name="EditorPopupContainerField" style="flex-grow: 1;">
             <ui:TextField label="Type a number:" placeholder-text="0" name="EditorPopupTextField" />
@@ -44,8 +47,5 @@
             <ui:Button text="Save" name="SaveBtn" />
             <ui:Button text="Exit" name="ExitSaveWindowBtn" />
         </ui:VisualElement>
-    </ui:VisualElement>
-    <ui:VisualElement name="RTEContainer" class="closed">
-        <ui:Button text="&lt;&lt; Return" name="ReturnToEditorBtn" />
     </ui:VisualElement>
 </ui:UXML>

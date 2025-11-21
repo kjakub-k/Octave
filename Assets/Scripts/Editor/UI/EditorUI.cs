@@ -42,6 +42,7 @@ namespace KJakub.Octave.Editor.UI
             btn.clicked += () => {
                 root.Q<VisualElement>("Background").RemoveFromClassList("closed");
                 root.Q<VisualElement>("RTEContainer").AddToClassList("closed");
+                gameController.EndGame();
             };
         }
     }

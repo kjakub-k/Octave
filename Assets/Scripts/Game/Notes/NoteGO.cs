@@ -3,7 +3,8 @@ namespace KJakub.Octave.Game.Notes
 {
     public class NoteGO : MonoBehaviour
     {
-        public float speed = 5f;
+        private float speed = 10f;
+        public float Speed { get { return speed; } set { speed = value; } }
         void Update()
         {
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
