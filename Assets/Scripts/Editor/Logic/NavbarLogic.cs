@@ -97,6 +97,7 @@ namespace KJakub.Octave.Editor.Logic
         }
         public void StartGame(VisualElement root)
         {
+            uiController.ShowGame();
             gameController.StartGame(songData);
         }
     }

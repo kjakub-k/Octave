@@ -11,11 +11,23 @@ namespace KJakub.Octave.UI.Core
         private UIDocument gameLayout;
         private void Start()
         {
-            EnableEditor();
+            ShowEditor();
         }
-        public void EnableEditor()
+        public void ShowEditor()
         {
-            editorLayout.gameObject.SetActive(true);
+            editorLayout.rootVisualElement.style.display = DisplayStyle.Flex;
+        }
+        public void HideEditor()
+        {
+            editorLayout.rootVisualElement.style.display = DisplayStyle.None;
+        }
+        public void ShowGame()
+        {
+            gameLayout.rootVisualElement.style.display = DisplayStyle.Flex;
+        }
+        public void HideGame()
+        {
+            gameLayout.rootVisualElement.style.display = DisplayStyle.None;
         }
     }
 }

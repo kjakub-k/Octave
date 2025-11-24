@@ -35,6 +35,7 @@ namespace KJakub.Octave.UI.Editor
             Button btn = root.Q<Button>("ReturnToEditorBtn");
             
             btn.clicked += () => {
+                uiController.HideGame();
                 root.Q<VisualElement>("Background").RemoveFromClassList("closed");
                 root.Q<VisualElement>("RTEContainer").AddToClassList("closed");
                 gameController.EndGame();
