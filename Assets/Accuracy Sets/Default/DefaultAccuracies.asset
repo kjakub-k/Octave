@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 789ea6e805e4c86419415d5610de960d, type: 3}
   m_Name: DefaultAccuracies
   m_EditorClassIdentifier: ScriptableObjects::KJakub.Octave.ScriptableObjects.AccuracySetSO
-  accuracies:
+  Accuracies:
   - {fileID: 11400000, guid: 778d77803e436554d8e3e2043dffca27, type: 2}
   - {fileID: 11400000, guid: 82f5d3c910dd26c47b214c905532ae5c, type: 2}
   - {fileID: 11400000, guid: 92d12ec6ca605194dba8e0838bc63064, type: 2}

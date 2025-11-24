@@ -1,7 +1,7 @@
 using KJakub.Octave.Editor.Interfaces;
 using System.Threading.Tasks;
 using UnityEngine.UIElements;
-namespace KJakub.Octave.Editor.UI
+namespace KJakub.Octave.UI.Editor
 {
     public class EditorPopupUI : IEditorPopup
     {

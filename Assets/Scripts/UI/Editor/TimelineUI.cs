@@ -3,7 +3,7 @@ using KJakub.Octave.Managers.CommandManager;
 using KJakub.Octave.Managers.CommandManager.NoteCommandManager;
 using UnityEngine;
 using UnityEngine.UIElements;
-namespace KJakub.Octave.Editor.UI
+namespace KJakub.Octave.UI.Editor
 {
     public class TimelineUI
     {

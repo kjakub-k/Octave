@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UIElements;
 using KJakub.Octave.Editor.Logic;
 using KJakub.Octave.CustomElements;
-namespace KJakub.Octave.Editor.UI
+namespace KJakub.Octave.UI.Editor
 {
     public class NavbarUI
     {
@@ -20,7 +20,7 @@ namespace KJakub.Octave.Editor.UI
                     background.AddToClassList("closed");
                     VisualElement rteContainer = root.Q<VisualElement>("RTEContainer");
                     rteContainer.RemoveFromClassList("closed");
-                    navbarLogic.StartGame();
+                    navbarLogic.StartGame(root);
                 })
             });
             AddOptionsToDropdownMenu("Edit", new() { 

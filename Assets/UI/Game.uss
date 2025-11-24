@@ -1,0 +1,44 @@
+:root {
+    font-size: 329%;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+    -unity-text-align: upper-right;
+}
+
+#Background {
+}
+
+#Top {
+    flex-grow: 1;
+    flex-basis: 50%;
+    -unity-text-align: upper-center;
+}
+
+#Bottom {
+    flex-direction: row;
+    flex-grow: 1;
+    flex-basis: 50%;
+}
+
+#Left {
+    flex-grow: 1;
+}
+
+#Right {
+    flex-grow: 1;
+}
+
+#Score {
+}
+
+#Combo {
+}
+
+#HighestCombo {
+}
+
+.accuracy {
+}
+
+#AccuracyContainer {
+}

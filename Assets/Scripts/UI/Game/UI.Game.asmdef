@@ -1,8 +1,12 @@
 {
-    "name": "Game.Interfaces",
+    "name": "UI.Game",
     "rootNamespace": "",
     "references": [
-        "GUID:56afb0dfa83ee9b4e87e24cdff13f492"
+        "UI.Interfaces",
+        "Game.Core",
+        "Data",
+        "ScriptableObjects",
+        "UI.Core"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

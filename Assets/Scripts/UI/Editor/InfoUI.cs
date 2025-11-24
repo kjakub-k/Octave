@@ -1,7 +1,7 @@
 using KJakub.Octave.Data;
 using UnityEngine;
 using UnityEngine.UIElements;
-namespace KJakub.Octave.Editor.UI 
+namespace KJakub.Octave.UI.Editor
 { 
     public class InfoUI
     {

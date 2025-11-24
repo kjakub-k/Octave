@@ -2,12 +2,14 @@ using KJakub.Octave.Data;
 using KJakub.Octave.Editor.Interfaces;
 using KJakub.Octave.Managers.AudioFileManager;
 using KJakub.Octave.Managers.CommandManager.NoteCommandManager;
-using KJakub.Octave.Game.Interfaces;
 using SFB;
 using System.IO;
 using System.Threading.Tasks;
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.UIElements;
+using KJakub.Octave.Game.Core;
+using KJakub.Octave.UI.Core;
 namespace KJakub.Octave.Editor.Logic
 {
     public class NavbarLogic
@@ -16,10 +18,11 @@ namespace KJakub.Octave.Editor.Logic
         private SongData songData;
         private IEditorPopup popup;
         private IEditorSave save;
-        private IGameController gameController;
-        public NavbarLogic(NoteCommandManager cmdManager, SongData songData, IEditorPopup popup, IEditorSave save, IGameController gameController)
+        private GameController gameController;
+        private UIController uiController;
+        public NavbarLogic(NoteCommandManager cmdManager, SongData songData, IEditorPopup popup, IEditorSave save, GameController gameController, UIController uiController)
         {
-            (this.cmdManager, this.songData, this.popup, this.save, this.gameController) = (cmdManager, songData, popup, save, gameController);
+            (this.cmdManager, this.songData, this.popup, this.save, this.gameController, this.uiController) = (cmdManager, songData, popup, save, gameController, uiController);
         }
         public void Save()
         {
@@ -92,7 +95,7 @@ namespace KJakub.Octave.Editor.Logic
             if (snapping != null)
                 songData.Snapping = snapping.Value;
         }
-        public void StartGame()
+        public void StartGame(VisualElement root)
         {
             gameController.StartGame(songData);
         }

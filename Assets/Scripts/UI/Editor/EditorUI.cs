@@ -3,34 +3,29 @@ using UnityEngine.UIElements;
 using KJakub.Octave.Data;
 using KJakub.Octave.Editor.Logic;
 using KJakub.Octave.Managers.CommandManager.NoteCommandManager;
-using KJakub.Octave.Game.Interfaces;
-namespace KJakub.Octave.Editor.UI 
+using KJakub.Octave.Game.Core;
+using KJakub.Octave.UI.Core;
+namespace KJakub.Octave.UI.Editor
 { 
     public class EditorUI : MonoBehaviour
     {
-        [SerializeField]
-        private VisualTreeAsset editorLayout;
         private NoteCommandManager cmdManager = new();
         private SongData currentSongData = new();
+        [Header("Managers")]
         [SerializeField]
-        private GameObject gameControllerGO;
-        private IGameController gameController;
+        private GameController gameController;
+        [SerializeField]
+        private UIController uiController;
         private void Start()
         {
             var root = GetComponent<UIDocument>().rootVisualElement;
-            gameController = gameControllerGO.GetComponent<IGameController>();
-            SwitchTo(root);
+            InitializeScripts(root);
         }
-        /// <summary>
-        /// Changes the root to the editor's UI hierarchy.
-        /// </summary>
-        public void SwitchTo(VisualElement root)
+        private void InitializeScripts(VisualElement root)
         {
-            root.Clear();
-            editorLayout.CloneTree(root);
             EditorPopupUI popup = new(root);
             SaveUI saveWindow = new(root, new SaveLogic(), currentSongData);
-            NavbarUI navbar = new(root, new NavbarLogic(cmdManager, currentSongData, popup, saveWindow, gameController));
+            NavbarUI navbar = new(root, new NavbarLogic(cmdManager, currentSongData, popup, saveWindow, gameController, uiController));
             ReturnToEditorBtn(root);
             InfoUI info = new(root, currentSongData);
             TimelineUI timeline = new(root, currentSongData, cmdManager);

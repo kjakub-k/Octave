@@ -1,5 +1,4 @@
 using KJakub.Octave.Data;
-using KJakub.Octave.Game.Interfaces;
 using KJakub.Octave.Game.Lines;
 using KJakub.Octave.Game.Spawning;
 using KJakub.Octave.ScriptableObjects;
@@ -9,7 +8,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 namespace KJakub.Octave.Game.Core
 {
-    public class GameController : MonoBehaviour, INoteCollection, IGameController
+    public class GameController : MonoBehaviour, INoteCollection
     {
         [Header("Properties")]
         [SerializeField]
@@ -27,12 +26,18 @@ namespace KJakub.Octave.Game.Core
         private GameStats stats;
         private NoteSpawner noteSpawner;
         private NoteDespawner noteDespawner;
-        private List<AccuracySO> accuracies => accuracySet.accuracies;
         private GameObjectPool notePool;
         private List<GameObject> activeNotes = new();
         private PlayerInput inputSystem;
         public GameObjectPool NotePool { get { return notePool; } }
         public List<GameObject> ActiveNotes { get { return activeNotes; } }
+        public GameStats GameStats { get { return stats; } }
+        private List<AccuracySO> accuracies => accuracySet.Accuracies;
+        private void Awake()
+        {
+            //so other scripts can connect to its events
+            stats = new();
+        }
         private void Start()
         {
             inputSystem = GetComponent<PlayerInput>();
@@ -40,7 +45,6 @@ namespace KJakub.Octave.Game.Core
 
             noteSpawner = new(this);
             noteDespawner = new(this);
-            stats = new();
         }
         private void Update()
         {
@@ -50,16 +54,10 @@ namespace KJakub.Octave.Game.Core
         {
             lineAmount = songData.Lines;
             stats.Reset();
-            noteDespawner.OnNoteOutOfBounds += NoteMiss;
+            noteDespawner.OnNoteOutOfBounds += stats.Miss;
             lineManager.OnNoteHit += NoteHit;
             lineManager.GenerateLines(lineAmount, this, inputSystem);
             StartCoroutine(noteSpawner.SpawnNotes(lineManager.transform, lineAmount, songData.Notes, lineManager.LineLength));
-        }
-        private void NoteMiss()
-        {
-            stats.SetCombo(0);
-            stats.Misses++;
-            Debug.Log($"Misses: {stats.Misses}");
         }
         private void NoteHit(float distance)
         {
@@ -68,20 +66,17 @@ namespace KJakub.Octave.Game.Core
 
             for (int i = 0; i < accuracies.Count; i++)
             {
-                Debug.Log($"{distance}");
                 if (accuracies[accuracies.Count - 1 - i].Distance > distance)
                     nearestAccuracy = accuracies[i];
             }
 
-            stats.HitsAccuracy.Add(nearestAccuracy);
-
-            Debug.Log($"Acc: {nearestAccuracy.Title}");
+            stats.AddToAccuracySet(nearestAccuracy);
         }
         public void EndGame()
         {
             noteSpawner.Stop();
             noteDespawner.DespawnAllNotes();
-            noteDespawner.OnNoteOutOfBounds -= NoteMiss;
+            noteDespawner.OnNoteOutOfBounds -= stats.Miss;
             lineManager.OnNoteHit -= NoteHit;
         }
     }

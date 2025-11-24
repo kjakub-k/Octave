@@ -1,5 +1,5 @@
 {
-    "name": "Editor.UI",
+    "name": "UI.Editor",
     "rootNamespace": "",
     "references": [
         "GUID:d3ff2462f3e0c8b49b191c54febfa1d2",
@@ -10,7 +10,9 @@
         "GUID:7a127247856f0d14b845c15c09423cad",
         "GUID:d51f01a6cfbc71e4f9766770021f1e9c",
         "GUID:a67e0453bc7645e42b149241f8e5caa0",
-        "GUID:a8321b5cac7cbf741aa3a5fb95c4151e"
+        "GUID:2fcf0db18a1dd6546a6a0f8b06f1698f",
+        "GUID:587ce88b3a68ad14eb52f853d5bc37b2",
+        "GUID:db620a959e4a8bd46a906892c54d19aa"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

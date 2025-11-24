@@ -2,7 +2,7 @@ using KJakub.Octave.Data;
 using KJakub.Octave.Editor.Interfaces;
 using KJakub.Octave.Editor.Logic;
 using UnityEngine.UIElements;
-namespace KJakub.Octave.Editor.UI
+namespace KJakub.Octave.UI.Editor
 {
     public class SaveUI : IEditorSave
     {
