@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 namespace KJakub.Octave.Game.Lines
 {
     public class LineManager : MonoBehaviour
@@ -38,9 +39,10 @@ namespace KJakub.Octave.Game.Lines
                 noteDetectors.Add(child);
             }
 
-            for (int i = 0; i < noteDetectors.Count; i++)
+            foreach (Transform noteDetector in noteDetectors)
             {
-                DestroyNoteDetector(noteDetectors[i].GetComponent<NoteDetector>(), inputSystem.actions.FindAction($"Line_{linesAmount - i - 1}"));
+                
+                Destroy(noteDetector.gameObject);
             }
 
             float startX = -(linesAmount * LineWidth) / 2 + LineWidth / 2;
@@ -58,21 +60,13 @@ namespace KJakub.Octave.Game.Lines
             var btn = Instantiate(noteDetector, pos, Quaternion.identity, noteDetectorContainer);
             NoteDetector btnND = btn.GetComponent<NoteDetector>();
             btnND.NoteCollection = noteCollection;
-            btnND.OnNoteHit += OnNoteHit; 
-            inputAction.performed += _ => 
-            { 
-                btnND.OnNoteDetectorPress(); 
-            };
-        }
-        private void DestroyNoteDetector(NoteDetector noteDetector, InputAction inputAction)
-        {
-            noteDetector.OnNoteHit -= OnNoteHit;
-            inputAction.performed -= _ =>
-            {
-                noteDetector.OnNoteDetectorPress();
-            };
-            Destroy(noteDetector.gameObject);
-            
+
+            void OnPerformed(InputAction.CallbackContext ctx) => btnND.OnNoteDetectorPress();
+
+            btnND.InputHandler = OnPerformed;
+            btnND.OnNoteHit += OnNoteHit;
+            inputAction.performed += OnPerformed;
+            btnND.AssignedAction = inputAction;
         }
         private void OnDrawGizmos()
         {

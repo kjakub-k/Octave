@@ -45,6 +45,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4867f1b40410ff047a87c1c9b652bbbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Lines::KJakub.Octave.Game.Input.NoteDetector
+  assignedAction:
+    m_Name: Assigned
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 7000fd72-2392-4a08-a64b-1ce26116166f
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!1 &7555605524934522632
 GameObject:
   m_ObjectHideFlags: 0

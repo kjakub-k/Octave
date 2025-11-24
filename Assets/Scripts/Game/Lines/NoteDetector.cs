@@ -1,17 +1,21 @@
 using KJakub.Octave.Game.Spawning;
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 namespace KJakub.Octave.Game.Lines
 {
     public class NoteDetector : MonoBehaviour
     {
         public INoteCollection NoteCollection { get; set; }
+        public int Lane { get; set; }
+        public InputAction AssignedAction { get; set; }
+        public Action<InputAction.CallbackContext> InputHandler { get; set; }
         public event Action<float> OnNoteHit;
         public void OnNoteDetectorPress()
         {
             foreach (var note in NoteCollection.ActiveNotes)
             {
-                float detectionRadius = 1f;
+                float detectionRadius = 0.99f;
 
                 if (Vector3.Distance(note.transform.position, transform.position) <= detectionRadius)
                 {
@@ -21,6 +25,13 @@ namespace KJakub.Octave.Game.Lines
                     return;
                 }
             }
+        }
+        private void OnDestroy()
+        {
+            if (AssignedAction != null && InputHandler != null)
+                AssignedAction.performed -= InputHandler;
+
+            OnNoteHit = null;
         }
     }
 }

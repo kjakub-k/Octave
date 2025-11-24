@@ -1,16 +1,13 @@
-using UnityEngine;
-
-public class Accuracy : MonoBehaviour
+namespace KJakub.Octave.Data
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class Accuracy
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public string Title { get; set; }
+        public float Distance { get; set; }
+        public int Weight { get; set; }
+        public Accuracy(string title = "Ok", float distance = 0.5f, int weight = 2)
+        {
+            (Title, Distance, Weight) = (title, distance, weight);
+        }
     }
 }
