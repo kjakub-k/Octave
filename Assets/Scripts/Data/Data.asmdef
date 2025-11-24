@@ -1,3 +1,16 @@
 {
-	"name": "Data"
+    "name": "Data",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e5e1ec8e90a7916438d78662ba2bf0ef"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

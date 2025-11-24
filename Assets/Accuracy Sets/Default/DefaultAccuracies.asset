@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 789ea6e805e4c86419415d5610de960d, type: 3}
+  m_Name: DefaultAccuracies
+  m_EditorClassIdentifier: ScriptableObjects::KJakub.Octave.ScriptableObjects.AccuracySetSO
+  accuracies:
+  - {fileID: 11400000, guid: 778d77803e436554d8e3e2043dffca27, type: 2}
+  - {fileID: 11400000, guid: 82f5d3c910dd26c47b214c905532ae5c, type: 2}
+  - {fileID: 11400000, guid: 92d12ec6ca605194dba8e0838bc63064, type: 2}
+  - {fileID: 11400000, guid: bf51d46e4e838a74986ec7325396cc0b, type: 2}
+  - {fileID: 11400000, guid: a1575d68b9982b74bbb866b3e090a73e, type: 2}

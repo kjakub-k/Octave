@@ -1,16 +1,17 @@
 using System.Collections.Generic;
+using KJakub.Octave.ScriptableObjects;
 namespace KJakub.Octave.Data
 {
     public class GameStats
     {
-        public List<Accuracy> HitsAccuracy { get; set; }
+        public List<AccuracySO> HitsAccuracy { get; set; }
         public int HighestCombo { get; private set; }
         public int Combo { get; private set; }
         public int Score { get { return CalculateScore(); } }
         public int Misses { get; set; }
         public GameStats() 
         {
-            HitsAccuracy = new List<Accuracy>();
+            HitsAccuracy = new List<AccuracySO>();
             Combo = 0;
             Misses = 0;
         }

@@ -2,10 +2,9 @@ using KJakub.Octave.Data;
 using KJakub.Octave.Game.Interfaces;
 using KJakub.Octave.Game.Lines;
 using KJakub.Octave.Game.Spawning;
+using KJakub.Octave.ScriptableObjects;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEditor.U2D;
 using UnityEngine;
 using UnityEngine.InputSystem;
 namespace KJakub.Octave.Game.Core
@@ -13,6 +12,8 @@ namespace KJakub.Octave.Game.Core
     public class GameController : MonoBehaviour, INoteCollection, IGameController
     {
         [Header("Properties")]
+        [SerializeField]
+        private AccuracySetSO accuracySet;
         [SerializeField]
         [Range(0, 7)]
         private int lineAmount;
@@ -26,7 +27,7 @@ namespace KJakub.Octave.Game.Core
         private GameStats stats;
         private NoteSpawner noteSpawner;
         private NoteDespawner noteDespawner;
-        private List<Accuracy> accuracies = new(); //TODO: do this with scriptable objects instead
+        private List<AccuracySO> accuracies => accuracySet.accuracies;
         private GameObjectPool notePool;
         private List<GameObject> activeNotes = new();
         private PlayerInput inputSystem;
@@ -34,21 +35,12 @@ namespace KJakub.Octave.Game.Core
         public List<GameObject> ActiveNotes { get { return activeNotes; } }
         private void Start()
         {
-            AddAccuracies();
             inputSystem = GetComponent<PlayerInput>();
             notePool = new(notePrefab, noteContainer, 40, 100);
 
             noteSpawner = new(this);
             noteDespawner = new(this);
             stats = new();
-        }
-        [Obsolete("Should be replaced with scriptable objects later")]
-        private void AddAccuracies()
-        {
-            accuracies.Add(new("Perfect", 0.1f, 4));
-            accuracies.Add(new("Great", 0.2f, 3));
-            accuracies.Add(new("Ok", 0.5f, 2));
-            accuracies.Add(new("Bad", 1f, 1));
         }
         private void Update()
         {
@@ -72,18 +64,18 @@ namespace KJakub.Octave.Game.Core
         private void NoteHit(float distance)
         {
             stats.AddCombo();
-            Accuracy nearestAccuracy = accuracies[3];
+            AccuracySO nearestAccuracy = accuracies[accuracies.Count - 1];
 
             for (int i = 0; i < accuracies.Count; i++)
             {
-                if (accuracies[3 - i].Distance > distance)
+                Debug.Log($"{distance}");
+                if (accuracies[accuracies.Count - 1 - i].Distance > distance)
                     nearestAccuracy = accuracies[i];
             }
 
-            Debug.Log($"Acc: {nearestAccuracy.Title}");
             stats.HitsAccuracy.Add(nearestAccuracy);
 
-            Debug.Log($"Combo: {stats.Combo}:{stats.HighestCombo}");
+            Debug.Log($"Acc: {nearestAccuracy.Title}");
         }
         public void EndGame()
         {

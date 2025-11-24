@@ -690,7 +690,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ca7f74880a35ba4195da6f6ceda85b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Core::KJakub.Octave.Game.Core.GameController
-  lineAmount: 2
+  accuracySet: {fileID: 11400000, guid: 84588f8c5f1e6a649abb81b7d6b1ccda, type: 2}
+  lineAmount: 4
   notePrefab: {fileID: 9130457825519608158, guid: a1cf04bb946c7b047b7c800d50733345, type: 3}
   noteContainer: {fileID: 1735738558}
   lineManager: {fileID: 185861895}
