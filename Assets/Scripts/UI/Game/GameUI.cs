@@ -21,9 +21,10 @@ namespace KJakub.Octave.UI.Game
             InitializeElements(root);
 
             gameController.GameStats.OnComboChanged += UpdateCombo;
-            gameController.GameStats.OnHit += SpawnAccuracy;
+            gameController.GameStats.OnHit += (AccuracySO acc) => SpawnAccuracy(acc.Title, acc.Weight * 10);
             gameController.GameStats.OnReset += ResetUI;
             gameController.GameStats.OnMiss += () => UpdateScore(gameController.GameStats.Score);
+            gameController.GameStats.OnMiss += () => SpawnAccuracy("Miss", -10);
         }
         private void InitializeElements(VisualElement root)
         {
@@ -41,11 +42,14 @@ namespace KJakub.Octave.UI.Game
             comboLabel.text = combo.ToString();
             highestComboLabel.text = highestCombo.ToString();
         }
-        private void SpawnAccuracy(AccuracySO accuracy)
+        private void SpawnAccuracy(string title, int score)
         {
             VisualElement accElement = new();
+            Label label = new();
             accElement.AddToClassList("accuracy");
-            accElement.AddToClassList($"{accuracy.Title.ToLower()}");
+            accElement.AddToClassList($"{title.ToLower()}");
+            label.text = $"{title} ({((score > 0) ? '+' + score.ToString() : score.ToString())})";
+            accElement.Add(label);
 
             accuracyContainer.Add(accElement);
 

@@ -64,10 +64,13 @@ namespace KJakub.Octave.Game.Core
             stats.AddCombo();
             AccuracySO nearestAccuracy = accuracies[accuracies.Count - 1];
 
-            for (int i = 0; i < accuracies.Count; i++)
+            foreach (var acc in accuracies)
             {
-                if (accuracies[accuracies.Count - 1 - i].Distance > distance)
-                    nearestAccuracy = accuracies[i];
+                if (distance <= acc.Distance)
+                {
+                    nearestAccuracy = acc;
+                    break;
+                }
             }
 
             stats.AddToAccuracySet(nearestAccuracy);
