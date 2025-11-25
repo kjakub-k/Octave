@@ -3,7 +3,9 @@
     <ui:VisualElement name="Background" style="flex-grow: 1;">
         <ui:VisualElement name="Top" style="flex-grow: 1;">
             <ui:Label text="Label" name="Score" />
-            <ui:VisualElement name="AccuracyContainer" style="flex-grow: 1;" />
+            <ui:VisualElement style="flex-grow: 1; justify-content: flex-end;">
+                <ui:Label text="Label" name="Accuracy" class="hidden" />
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="Bottom" style="flex-grow: 1;">
             <ui:Label text="Label" name="Combo" />

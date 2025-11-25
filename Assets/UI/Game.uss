@@ -50,12 +50,24 @@
     padding-left: 0;
 }
 
-.accuracy {
+#Accuracy {
+    margin-bottom: 67px;
+    font-size: 51px;
+    transition-property: translate, opacity;
+    transition-duration: 0.5s, 0.1s;
+    transition-timing-function: ease-out-bounce, ease-in;
+    opacity: 0;
+    translate: 0 0;
 }
 
-#AccuracyContainer {
-    position: absolute;
-    width: 42%;
-    height: 100%;
-    align-self: flex-end;
+#Accuracy.show {
+    opacity: 1;
+    translate: 0 -20px;
+}
+
+#Accuracy.hidden {
+    opacity: 0;
+    translate: 0 0;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in;
 }
