@@ -3,6 +3,8 @@
     -unity-font-style: bold;
     color: rgb(255, 255, 255);
     -unity-text-align: upper-right;
+    -unity-text-outline-width: 3px;
+    -unity-text-outline-color: rgb(0, 0, 0);
 }
 
 #Background {
@@ -15,26 +17,37 @@
 }
 
 #Bottom {
-    flex-direction: row;
+    flex-direction: column;
     flex-grow: 1;
     flex-basis: 50%;
-}
-
-#Left {
-    flex-grow: 1;
-}
-
-#Right {
-    flex-grow: 1;
+    align-items: center;
 }
 
 #Score {
 }
 
 #Combo {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    font-size: 44px;
 }
 
 #HighestCombo {
+    -unity-text-outline-width: 0;
+    color: rgb(170, 170, 170);
+    font-size: 22px;
+    margin-top: 0;
+    margin-right: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-left: 0;
 }
 
 .accuracy {

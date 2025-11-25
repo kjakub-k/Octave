@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Great
   m_EditorClassIdentifier: ScriptableObjects::KJakub.Octave.ScriptableObjects.AccuracySO
   Title: Great
-  Distance: 0.5
+  Distance: 0.9
   Weight: 4

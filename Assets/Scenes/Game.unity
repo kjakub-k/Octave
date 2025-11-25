@@ -182,6 +182,7 @@ MonoBehaviour:
   linePrefab: {fileID: 8136326940168482010, guid: 375f7633c26514c4fa754868df840c52, type: 3}
   noteDetectorContainer: {fileID: 30346472}
   noteDetector: {fileID: 516705148430577707, guid: 01c0c30301246164c88e2b77d4078049, type: 3}
+  detectionRadius: 2
 --- !u!4 &185861896
 Transform:
   m_ObjectHideFlags: 0
@@ -529,7 +530,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb09d59cf8baeb0489f75f529ec88d3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EditorUI
-  editorLayout: {fileID: 9197481963319205126, guid: bca36af9e67b8894bb32a8424c1c5d6a, type: 3}
   gameController: {fileID: 1195426350}
   uiController: {fileID: 913680792}
 --- !u!1 &832575517

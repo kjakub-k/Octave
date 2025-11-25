@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Perfect
   m_EditorClassIdentifier: ScriptableObjects::KJakub.Octave.ScriptableObjects.AccuracySO
   Title: Perfect
-  Distance: 0.3
+  Distance: 0.7
   Weight: 5

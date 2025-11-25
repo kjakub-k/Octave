@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 namespace KJakub.Octave.Game.Lines
 {
     public class LineManager : MonoBehaviour
@@ -14,6 +13,8 @@ namespace KJakub.Octave.Game.Lines
         private Transform noteDetectorContainer;
         [SerializeField]
         private GameObject noteDetector;
+        [SerializeField]
+        private float detectionRadius;
         public event Action<float> OnNoteHit;
         public float LineWidth { get { return linePrefab.transform.localScale.x; } }
         public float LineHeight { get { return linePrefab.transform.localScale.y; } }
@@ -60,6 +61,7 @@ namespace KJakub.Octave.Game.Lines
             var btn = Instantiate(noteDetector, pos, Quaternion.identity, noteDetectorContainer);
             NoteDetector btnND = btn.GetComponent<NoteDetector>();
             btnND.NoteCollection = noteCollection;
+            btnND.DetectionRadius = detectionRadius;
 
             void OnPerformed(InputAction.CallbackContext ctx) => btnND.OnNoteDetectorPress();
 
