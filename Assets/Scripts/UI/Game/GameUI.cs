@@ -48,6 +48,16 @@ namespace KJakub.Octave.UI.Game
         {
             comboLabel.text = combo.ToString();
             highestComboLabel.text = highestCombo.ToString();
+
+            if (combo < highestCombo)
+            {
+                highestComboLabel.RemoveFromClassList("hidden");
+            }
+
+            if (combo >= highestCombo)
+            {
+                highestComboLabel.AddToClassList("hidden");
+            }
         }
         private void ResetUI()
         {

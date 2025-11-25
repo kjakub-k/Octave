@@ -9,7 +9,7 @@
         </ui:VisualElement>
         <ui:VisualElement name="Bottom" style="flex-grow: 1;">
             <ui:Label text="Label" name="Combo" />
-            <ui:Label text="Label" name="HighestCombo" />
+            <ui:Label text="Label" name="HighestCombo" class="hidden" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -48,6 +48,16 @@
     padding-top: 0;
     padding-right: 0;
     padding-left: 0;
+    transition-property: opacity;
+    transition-duration: 0.7s;
+    transition-timing-function: ease-in;
+}
+
+#HighestCombo.hidden {
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: 0.7s;
+    transition-timing-function: ease-in;
 }
 
 #Accuracy {
