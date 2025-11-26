@@ -15,16 +15,29 @@ namespace KJakub.Octave.Game.Lines
         public event Action<float> OnNoteHit;
         public void OnNoteDetectorPress()
         {
+            GameObject closestNote = null;
+            float closestZ = float.NegativeInfinity;
+
             foreach (var note in NoteCollection.ActiveNotes)
             {
                 if (note.transform.position.x == transform.position.x)
+                {
                     if (Vector3.Distance(note.transform.position, transform.position) <= DetectionRadius)
                     {
-                        OnNoteHit?.Invoke(Vector3.Distance(note.transform.position, transform.position));
-                        NoteCollection.ActiveNotes.Remove(note);
-                        NoteCollection.NotePool.Pool.Release(note);
-                        return;
+                        if (note.transform.position.z > closestZ)
+                        {
+                            closestZ = note.transform.position.z;
+                            closestNote = note;
+                        }
                     }
+                }
+            }
+
+            if (closestNote != null)
+            {
+                OnNoteHit?.Invoke(Vector3.Distance(closestNote.transform.position, transform.position));
+                NoteCollection.ActiveNotes.Remove(closestNote);
+                NoteCollection.NotePool.Pool.Release(closestNote);
             }
         }
         private void OnDestroy()
