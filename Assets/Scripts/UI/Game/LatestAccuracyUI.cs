@@ -1,3 +1,4 @@
+using UnityEngine;
 using UnityEngine.UIElements;
 namespace KJakub.Octave.UI.Game
 {
@@ -8,9 +9,10 @@ namespace KJakub.Octave.UI.Game
         {
             this.accuracyLabel = accuracyLabel;
         }
-        public void ShowLabel(string title)
+        public void ShowLabel(string title, Color color)
         {
             accuracyLabel.text = title;
+            accuracyLabel.style.color = new StyleColor(color);
             accuracyLabel.RemoveFromClassList("show");
             accuracyLabel.RemoveFromClassList("hidden");
 

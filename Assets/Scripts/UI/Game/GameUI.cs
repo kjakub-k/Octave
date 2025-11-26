@@ -23,13 +23,13 @@ namespace KJakub.Octave.UI.Game
             gameController.GameStats.OnComboChanged += UpdateCombo;
             gameController.GameStats.OnHit += (AccuracySO acc) =>
             {
-                latestAccuracyUI.ShowLabel(acc.Title + "!");
+                latestAccuracyUI.ShowLabel(acc.Title + "!", acc.Color);
                 UpdateScore(gameController.GameStats.Score);
             };
             gameController.GameStats.OnReset += ResetUI;
             gameController.GameStats.OnMiss += () =>
             {
-                latestAccuracyUI.ShowLabel("Miss");
+                latestAccuracyUI.ShowLabel("Miss", Color.red);
                 UpdateScore(gameController.GameStats.Score);
             };
         }

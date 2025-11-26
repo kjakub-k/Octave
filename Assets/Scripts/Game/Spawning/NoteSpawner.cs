@@ -42,8 +42,7 @@ namespace KJakub.Octave.Game.Spawning
         public IEnumerator SpawnNotes(Transform lineContainer, int lineAmount, List<NoteData> notes, float laneLength)
         {
             status = NoteSpawnerStatus.Spawning;
-            float timer = -(laneLength / 10f);
-            Debug.Log(timer);
+            float timer = 0;
             //creating a shallow list because we are not modifying notes
             List<NoteData> currentNotes = new(notes);
 

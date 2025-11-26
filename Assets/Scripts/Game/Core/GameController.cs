@@ -8,6 +8,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 namespace KJakub.Octave.Game.Core
 {
+    public enum MusicStatus
+    {
+        Playing,
+        NotPlaying
+    }
     public class GameController : MonoBehaviour, INoteCollection
     {
         [Header("Properties")]
@@ -20,6 +25,8 @@ namespace KJakub.Octave.Game.Core
         private GameObject notePrefab;
         [SerializeField]
         private Transform noteContainer;
+        [SerializeField]
+        private AudioSource audioSource;
         [Header("Managers")]
         [SerializeField]
         private LineManager lineManager;
@@ -29,9 +36,11 @@ namespace KJakub.Octave.Game.Core
         private GameObjectPool notePool;
         private List<GameObject> activeNotes = new();
         private PlayerInput inputSystem;
+        private MusicStatus musicStatus;
         public GameObjectPool NotePool { get { return notePool; } }
         public List<GameObject> ActiveNotes { get { return activeNotes; } }
         public GameStats GameStats { get { return stats; } }
+        public MusicStatus MusicStatus { get { return musicStatus; } set { musicStatus = value; } }
         private List<AccuracySO> accuracies => accuracySet.Accuracies;
         private void Awake()
         {
@@ -52,12 +61,34 @@ namespace KJakub.Octave.Game.Core
         }
         public void StartGame(SongData songData)
         {
+
             lineAmount = songData.Lines;
             stats.Reset();
             noteDespawner.OnNoteOutOfBounds += stats.Miss;
             lineManager.OnNoteHit += NoteHit;
             lineManager.GenerateLines(lineAmount, this, inputSystem);
+            
+            if (songData != null)
+            {
+                float delay = -(lineManager.LineLength / 10f);
+                StartCoroutine(PlayMusic(delay, songData.Song));
+            }
+
             StartCoroutine(noteSpawner.SpawnNotes(lineManager.transform, lineAmount, songData.Notes, lineManager.LineLength));
+        }
+        private System.Collections.IEnumerator PlayMusic(float delay, AudioClip clip)
+        {
+            audioSource.clip = clip;
+
+            yield return new WaitForSeconds(delay);
+
+            while (musicStatus == MusicStatus.Playing)
+            {
+                if (audioSource.isPlaying == false)
+                    audioSource.Play();
+
+                yield return null;
+            }
         }
         private void NoteHit(float distance)
         {
@@ -81,6 +112,7 @@ namespace KJakub.Octave.Game.Core
             noteDespawner.DespawnAllNotes();
             noteDespawner.OnNoteOutOfBounds -= stats.Miss;
             lineManager.OnNoteHit -= NoteHit;
+            musicStatus = MusicStatus.NotPlaying;
         }
     }
 }

@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Bad
   m_EditorClassIdentifier: ScriptableObjects::KJakub.Octave.ScriptableObjects.AccuracySO
   Title: Bad
-  Distance: 2
+  Distance: 1.5
   Weight: 1
+  Color: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 1}

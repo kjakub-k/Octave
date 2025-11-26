@@ -182,7 +182,7 @@ MonoBehaviour:
   linePrefab: {fileID: 8136326940168482010, guid: 375f7633c26514c4fa754868df840c52, type: 3}
   noteDetectorContainer: {fileID: 30346472}
   noteDetector: {fileID: 516705148430577707, guid: 01c0c30301246164c88e2b77d4078049, type: 3}
-  detectionRadius: 2
+  detectionRadius: 1.5
 --- !u!4 &185861896
 Transform:
   m_ObjectHideFlags: 0

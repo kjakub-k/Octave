@@ -8,5 +8,6 @@ namespace KJakub.Octave.ScriptableObjects
         public string Title;
         public float Distance;
         public int Weight;
+        public Color Color;
     }
 }

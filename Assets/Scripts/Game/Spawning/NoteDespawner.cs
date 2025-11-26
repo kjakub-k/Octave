@@ -17,7 +17,7 @@ namespace KJakub.Octave.Game.Spawning
             {
                 var note = noteCollection.ActiveNotes[i];
 
-                if (note.transform.position.z > 0)
+                if (note.transform.position.z > -2)
                 {
                     DespawnNote(note);
                     OnNoteOutOfBounds?.Invoke();
