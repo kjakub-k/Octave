@@ -8,7 +8,7 @@
             "actions": [
                 {
                     "name": "Line_0",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "cbd57c13-0157-4a4c-8468-24ba23ec5432",
                     "expectedControlType": "",
                     "processors": "",
@@ -17,7 +17,7 @@
                 },
                 {
                     "name": "Line_1",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "d244036f-7760-4042-a7e7-8c9b82f61a13",
                     "expectedControlType": "",
                     "processors": "",
@@ -26,7 +26,7 @@
                 },
                 {
                     "name": "Line_2",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "08e76a77-77e8-4088-b52c-ee45249eb824",
                     "expectedControlType": "",
                     "processors": "",
@@ -35,7 +35,7 @@
                 },
                 {
                     "name": "Line_3",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "8b692523-a94d-43ba-af2a-b5e209f28599",
                     "expectedControlType": "",
                     "processors": "",
@@ -44,7 +44,7 @@
                 },
                 {
                     "name": "Line_4",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "027a5d20-e97b-4f9f-8626-d8cca27f0602",
                     "expectedControlType": "",
                     "processors": "",
@@ -53,7 +53,7 @@
                 },
                 {
                     "name": "Line_5",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "f72f66b0-18f3-4735-ba0f-c1f934cd5337",
                     "expectedControlType": "",
                     "processors": "",
@@ -62,7 +62,7 @@
                 },
                 {
                     "name": "Line_6",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "b25f2e08-a5a9-4bf4-af70-962997affa72",
                     "expectedControlType": "",
                     "processors": "",
@@ -167,7 +167,7 @@
                     "name": "Submit",
                     "type": "Button",
                     "id": "7607c7b6-cd76-4816-beef-bd0341cfe950",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false

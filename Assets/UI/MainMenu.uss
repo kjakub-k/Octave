@@ -1,0 +1,67 @@
+:root {
+}
+
+#Background {
+    flex-basis: 100%;
+    flex-grow: 1;
+    flex-direction: row;
+    background-color: rgb(38, 38, 38);
+    background-image: url("project://database/Assets/Textures/repeating_background_attempt_2.png?fileID=2800000&guid=95280fc5dae145741a6f500a4f1a628f&type=3#repeating_background_attempt_2");
+    background-repeat: repeat repeat;
+    background-size: 7% 12%;
+}
+
+#Left {
+    flex-grow: 1;
+}
+
+#Right {
+    flex-grow: 1;
+}
+
+#LeftAbsBackground {
+    background-color: rgb(26, 26, 26);
+    position: absolute;
+    width: 20%;
+    height: 100%;
+}
+
+#ButtonGroup Button {
+    background-color: rgb(229, 118, 0);
+    justify-content: space-around;
+    width: 74%;
+    height: 15%;
+    font-size: 229%;
+    -unity-font-style: bold;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+#ButtonGroup {
+    flex-grow: 1;
+    justify-content: space-around;
+    margin-left: 17%;
+}
+
+#Icon {
+    width: 65%;
+    height: 23%;
+    align-self: center;
+    background-color: rgb(38, 38, 38);
+    margin-top: 63px;
+}
+
+#ButtonGroup Button:hover {
+    scale: 1.15 1.15;
+    transition-property: scale, background-color;
+    transition-timing-function: ease-out-bounce, ease;
+    transition-duration: 0.1s, 0s;
+    color: rgb(255, 255, 255);
+    background-color: rgb(232, 147, 57);
+}

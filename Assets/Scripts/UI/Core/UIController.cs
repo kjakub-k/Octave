@@ -9,9 +9,21 @@ namespace KJakub.Octave.UI.Core
         private UIDocument editorLayout;
         [SerializeField]
         private UIDocument gameLayout;
+        [SerializeField]
+        private UIDocument mainMenuLayout;
         private void Start()
         {
-            ShowEditor();
+            ShowMainMenu();
+            HideGame();
+            HideEditor();
+        }
+        public void ShowMainMenu()
+        {
+            mainMenuLayout.rootVisualElement.style.display = DisplayStyle.Flex;
+        }
+        public void HideMainMenu()
+        {
+            mainMenuLayout.rootVisualElement.style.display = DisplayStyle.None;
         }
         public void ShowEditor()
         {
