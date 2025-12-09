@@ -10,15 +10,19 @@ namespace KJakub.Octave.Game.Lines
         [SerializeField]
         private GameObject linePrefab;
         [SerializeField]
+        private GameObject lineSidePrefab;
+        [SerializeField]
+        private Transform lineSideContainer;
+        [SerializeField]
         private Transform noteDetectorContainer;
         [SerializeField]
         private GameObject noteDetector;
         [SerializeField]
         private float detectionRadius;
         public event Action<float> OnNoteHit;
-        public float LineWidth { get { return linePrefab.transform.localScale.x; } }
-        public float LineHeight { get { return linePrefab.transform.localScale.y; } }
-        public float LineLength { get { return linePrefab.transform.localScale.z; } }
+        public float LineWidth { get { return linePrefab.GetComponentInChildren<Renderer>().bounds.size.x; } }
+        public float LineHeight { get { return linePrefab.GetComponentInChildren<Renderer>().bounds.size.y; } }
+        public float LineLength { get { return linePrefab.GetComponentInChildren<Renderer>().bounds.size.z; } }
         public void GenerateLines(int linesAmount, INoteCollection noteCollection, PlayerInput inputSystem)
         {
             List<Transform> children = new();
@@ -46,18 +50,38 @@ namespace KJakub.Octave.Game.Lines
                 Destroy(noteDetector.gameObject);
             }
 
-            float startX = -(linesAmount * LineWidth) / 2 + LineWidth / 2;
-
             for (int i = 0; i < linesAmount; i++)
             {
-                Vector3 pos = new(transform.position.x + startX + i * LineWidth + LineWidth / 2, transform.position.y, transform.position.z);
+                Vector3 pos = new(transform.position.x + i * LineWidth + LineWidth / 2, transform.position.y, transform.position.z);
                 var line = Instantiate(linePrefab, pos, transform.rotation, transform);
                 CreateNoteDetector(i, line, noteCollection, inputSystem.actions.FindAction($"Line_{linesAmount - i - 1}")); //because i accidentally reversed the lines
             }
+
+            CreateLineSides(linesAmount);
+        }
+        private void CreateLineSides(int linesAmount)
+        {
+            List<Transform> lineSides = new();
+
+            foreach (Transform lineSide in lineSideContainer)
+            {
+                lineSides.Add(lineSide);
+            }
+
+            foreach (Transform lineSide in lineSides)
+            {
+                Destroy(lineSide.gameObject);
+            }
+
+            Renderer renderer = lineSidePrefab.GetComponentInChildren<Renderer>();
+
+            Instantiate(lineSidePrefab, lineSideContainer.transform.position + Vector3.left * renderer.bounds.extents.x, Quaternion.identity, lineSideContainer);
+            Instantiate(lineSidePrefab, lineSideContainer.transform.position + Vector3.right * LineWidth * linesAmount + Vector3.right * renderer.bounds.extents.x, Quaternion.identity, lineSideContainer);
         }
         private void CreateNoteDetector(int lineNumber, GameObject line, INoteCollection noteCollection, InputAction inputAction)
         {
-            Vector3 pos = new(line.transform.position.x, line.transform.position.y + 0.5f, transform.position.z + LineLength - 0.5f);
+            Renderer renderer = noteDetector.GetComponentInChildren<Renderer>();
+            Vector3 pos = new(line.transform.position.x, line.transform.position.y + LineHeight, transform.position.z + LineLength - renderer.bounds.size.z / 2);
             var btn = Instantiate(noteDetector, pos, Quaternion.identity, noteDetectorContainer);
             NoteDetector btnND = btn.GetComponent<NoteDetector>();
             btnND.NoteCollection = noteCollection;
@@ -79,7 +103,7 @@ namespace KJakub.Octave.Game.Lines
 
             Vector3 prefabScale = linePrefab.GetComponentInChildren<MeshRenderer>().transform.localScale;
             Vector3 size = new(LineWidth * 7, LineHeight, LineLength);
-            Vector3 centerPos = new(transform.position.x + LineWidth / 2, transform.position.y, transform.position.z + LineLength / 2);
+            Vector3 centerPos = new(transform.position.x + LineWidth * 3.5f, transform.position.y, transform.position.z + LineLength / 2);
 
             Gizmos.DrawCube(centerPos, size);
         }

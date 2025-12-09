@@ -22,7 +22,7 @@ namespace KJakub.Octave.Game.Spawning
         {
             Transform line = lineContainer.GetChild(lineIndex);
             GameObject note = noteCollection.NotePool.Pool.Get();
-            note.transform.position = line.position + Vector3.up * 0.5f;
+            note.transform.position = line.position;
             noteCollection.ActiveNotes.Add(note);
         }
         public void Stop()
