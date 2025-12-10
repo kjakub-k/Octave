@@ -1,4 +1,5 @@
 using KJakub.Octave.Data;
+using KJakub.Octave.Game.Camera;
 using KJakub.Octave.Game.Lines;
 using KJakub.Octave.Game.Spawning;
 using KJakub.Octave.ScriptableObjects;
@@ -30,6 +31,8 @@ namespace KJakub.Octave.Game.Core
         [Header("Managers")]
         [SerializeField]
         private LineManager lineManager;
+        [SerializeField]
+        private CameraMover cameraMover;
         private GameStats stats;
         private NoteSpawner noteSpawner;
         private NoteDespawner noteDespawner;
@@ -67,6 +70,7 @@ namespace KJakub.Octave.Game.Core
             noteDespawner.OnNoteOutOfBounds += stats.Miss;
             lineManager.OnNoteHit += NoteHit;
             lineManager.GenerateLines(lineAmount, this, inputSystem);
+            cameraMover.UpdateCamera(lineAmount * lineManager.LineWidth / 2);
             
             if (songData != null)
             {

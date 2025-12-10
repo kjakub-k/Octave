@@ -1,8 +1,5 @@
-using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
-
 namespace KJakub.Octave.UI.Menu
 {
     public class ScrollingBackgroundUI
