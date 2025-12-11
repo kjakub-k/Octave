@@ -100,3 +100,6 @@ InitTestScene*.unity*
 
 # External assets that are not allowed to be re-distributed
 /[Aa]ssets/[Ee]xternal/*
+
+# Plugins
+/[Aa]ssets/[Pp]lugins/*

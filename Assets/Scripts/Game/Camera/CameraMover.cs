@@ -1,4 +1,3 @@
-using Codice.CM.Common;
 using UnityEngine;
 namespace KJakub.Octave.Game.Camera
 {
