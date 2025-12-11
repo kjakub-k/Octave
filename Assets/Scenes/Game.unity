@@ -421,7 +421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game.Camera::KJakub.Octave.Game.Camera.CameraMover
   camera: {fileID: 0}
-  speed: 10.51
+  duration: 0.98
 --- !u!1 &793386696
 GameObject:
   m_ObjectHideFlags: 0
