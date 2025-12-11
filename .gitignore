@@ -103,3 +103,5 @@ InitTestScene*.unity*
 
 # Plugins
 /[Aa]ssets/[Pp]lugins/*
+!/[Aa]ssets/[Pp]lugins/Plugins.asmdef
+!/[Aa]ssets/[Pp]lugins/Plugins.asmdef.meta
