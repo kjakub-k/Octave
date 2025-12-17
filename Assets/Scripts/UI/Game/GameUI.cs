@@ -2,6 +2,8 @@ using KJakub.Octave.Game.Core;
 using KJakub.Octave.ScriptableObjects;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using DG.Tweening;
 namespace KJakub.Octave.UI.Game
 {
     public class GameUI : MonoBehaviour
@@ -22,6 +24,8 @@ namespace KJakub.Octave.UI.Game
         private TMP_Text scoreLabel;
         [SerializeField]
         private TMP_Text comboLabel;
+        [SerializeField]
+        private Image deathScreen;
         private void Start()
         {
             gameController.GameStats.OnComboChanged += UpdateCombo;
@@ -33,6 +37,7 @@ namespace KJakub.Octave.UI.Game
             gameController.Health.OnHealthRemoved += (int amount) => healthBarUI.UpdateHealth(amount, gameController.Health.MaxHealth);
             gameController.Health.OnHealthAdded += (int amount) => healthBarUI.UpdateHealth(amount, gameController.Health.MaxHealth);
             gameController.OnDefaultSharedColorChanged += (Color color) => healthBarUI.ChangeFillColor(color, gameController.ColorChangeDuration);
+            gameController.OnLose += DeathScreen;
         }
         private void UpdateScore(int score)
         {
@@ -52,6 +57,13 @@ namespace KJakub.Octave.UI.Game
             {
                 highestComboUI.Hide();
             }
+        }
+        private void DeathScreen()
+        {
+            DOTween.Sequence()
+                .SetTarget(deathScreen)
+                .Append(deathScreen.DOFade(0.5f, 2f))
+                .Append(deathScreen.DOFade(0, 0)).SetUpdate(true);
         }
         private void ResetUI()
         {

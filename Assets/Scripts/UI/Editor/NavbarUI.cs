@@ -20,6 +20,14 @@ namespace KJakub.Octave.UI.Editor
                     background.AddToClassList("closed");
                     VisualElement rteContainer = root.Q<VisualElement>("RTEContainer");
                     rteContainer.RemoveFromClassList("closed");
+                    navbarLogic.StartCoreGame(root);
+                }),
+                ("Play Game", () =>
+                {
+                    VisualElement background = root.Q<VisualElement>("Background");
+                    background.AddToClassList("closed");
+                    VisualElement rteContainer = root.Q<VisualElement>("RTEContainer");
+                    rteContainer.RemoveFromClassList("closed");
                     navbarLogic.StartGame(root);
                 })
             });

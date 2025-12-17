@@ -1,4 +1,5 @@
 using KJakub.Octave.Data;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,11 +36,11 @@ namespace KJakub.Octave.Game.Spawning
 
             while (status == NoteSpawnerStatus.Spawning)
             {
-                SpawnNote(lineContainer, Random.Range(0, lineAmount));
+                SpawnNote(lineContainer, UnityEngine.Random.Range(0, lineAmount));
                 yield return new WaitForSeconds(1f);
             }
         }
-        public IEnumerator SpawnNotes(Transform lineContainer, int lineAmount, List<NoteData> notes, float laneLength)
+        public IEnumerator SpawnNotes(Transform lineContainer, int lineAmount, List<NoteData> notes, float laneLength, Action onFinishedSpawning)
         {
             status = NoteSpawnerStatus.Spawning;
             float timer = 0;
@@ -60,6 +61,14 @@ namespace KJakub.Octave.Game.Spawning
                 }
 
                 timer += Time.deltaTime;
+
+                if (currentNotes.Count <= 0)
+                {
+                    status = NoteSpawnerStatus.NotSpawning;
+                    yield return new WaitForSeconds(6f);
+                    onFinishedSpawning?.Invoke();
+                }
+
                 yield return null;
             }
         }

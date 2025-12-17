@@ -57,6 +57,7 @@ namespace KJakub.Octave.Game.Core
         private List<GameObject> activeNotes = new();
         private PlayerInput inputSystem;
         private MusicStatus musicStatus;
+        private SongData songData;
         public GameObjectPool NotePool { get { return notePool; } }
         public List<GameObject> ActiveNotes { get { return activeNotes; } }
         public GameStats GameStats { get { return stats; } }
@@ -66,6 +67,8 @@ namespace KJakub.Octave.Game.Core
         public float ColorChangeDuration { get { return colorChangeDuration; } }
         private List<AccuracySO> accuracies => accuracySet.Accuracies;
         public event Action<Color> OnDefaultSharedColorChanged;
+        public event Action OnLose;
+        public event Action OnFinished;
         private void Awake()
         {
             //so other scripts can connect to its events
@@ -87,7 +90,14 @@ namespace KJakub.Octave.Game.Core
         {
             noteDespawner.CheckIfOutOfBounds();
         }
-        public void StartGame(SongData songData)
+        public void PlayGame(SongData songData)
+        {
+
+            StartCoreGame(songData);
+            this.songData = songData;
+            health.OnDeath += Death;
+        }
+        public void StartCoreGame(SongData songData)
         {
 
             lineAmount = songData.Lines;
@@ -105,7 +115,7 @@ namespace KJakub.Octave.Game.Core
             }
 
             ChangeDefaultColor(1);
-            StartCoroutine(noteSpawner.SpawnNotes(lineManager.transform, lineAmount, songData.Notes, lineManager.LineLength));
+            StartCoroutine(noteSpawner.SpawnNotes(lineManager.transform, lineAmount, songData.Notes, lineManager.LineLength, OnFinished));
             StartCoroutine(thermometer.Decrease());
         }
         private void NoteMiss()
@@ -113,7 +123,7 @@ namespace KJakub.Octave.Game.Core
             stats.Miss();
             stats.AddToScore(-10);
             thermometer.Add(-10);
-            health.Damage(10);
+            health.Damage(20);
         }
         private System.Collections.IEnumerator PlayMusic(float delay, AudioClip clip)
         {
@@ -143,7 +153,7 @@ namespace KJakub.Octave.Game.Core
                 }
             }
 
-            thermometer.Add(nearestAccuracy.Weight * 10);
+            thermometer.Add(nearestAccuracy.Weight * 5);
             health.Heal(nearestAccuracy.Weight * 5);
             stats.AddToScore(nearestAccuracy.Weight * 10 * thermometer.Weight);
             stats.AddToAccuracySet(nearestAccuracy);
@@ -167,12 +177,44 @@ namespace KJakub.Octave.Game.Core
                 OnDefaultSharedColorChanged?.Invoke(sharedMaterialColors[index]);
             }
         }
+        private void Death()
+        {
+            health.OnDeath -= Death;
+            StartCoroutine(DeathScreen());
+        }
+        private System.Collections.IEnumerator DeathScreen()
+        {
+            OnLose?.Invoke();
+
+            DOTween.To(
+                () => Time.timeScale,
+                x =>
+                {
+                    Time.timeScale = x;
+                },
+                0f,
+                1f
+            ).SetUpdate(true);
+
+            yield return new WaitForSecondsRealtime(2f);
+
+            EndCoreGame();
+            Time.timeScale = 1f;
+            PlayGame(songData);
+        }
         public void EndGame()
+        {
+            StopCoroutine(DeathScreen());
+            Time.timeScale = 1f;
+            EndCoreGame();
+            health.OnDeath -= Death;
+        }
+        public void EndCoreGame()
         {
             noteSpawner.Stop();
             thermometer.Stop();
             noteDespawner.DespawnAllNotes();
-            noteDespawner.OnNoteOutOfBounds -= stats.Miss;
+            noteDespawner.OnNoteOutOfBounds -= NoteMiss;
             lineManager.OnNoteHit -= NoteHit;
             musicStatus = MusicStatus.NotPlaying;
         }

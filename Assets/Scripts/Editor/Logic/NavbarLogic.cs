@@ -10,6 +10,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using KJakub.Octave.Game.Core;
 using KJakub.Octave.UI.Core;
+using System;
 namespace KJakub.Octave.Editor.Logic
 {
     public class NavbarLogic
@@ -95,10 +96,15 @@ namespace KJakub.Octave.Editor.Logic
             if (snapping != null)
                 songData.Snapping = snapping.Value;
         }
+        public void StartCoreGame(VisualElement root)
+        {
+            uiController.ShowGame();
+            gameController.StartCoreGame(songData);
+        }
         public void StartGame(VisualElement root)
         {
             uiController.ShowGame();
-            gameController.StartGame(songData);
+            gameController.PlayGame(songData);
         }
     }
 }

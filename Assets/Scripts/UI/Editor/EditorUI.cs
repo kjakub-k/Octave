@@ -20,6 +20,7 @@ namespace KJakub.Octave.UI.Editor
         {
             var root = GetComponent<UIDocument>().rootVisualElement;
             InitializeScripts(root);
+            gameController.OnFinished += () => ReturnToEditor(root);
         }
         private void InitializeScripts(VisualElement root)
         {
@@ -34,12 +35,14 @@ namespace KJakub.Octave.UI.Editor
         {
             Button btn = root.Q<Button>("ReturnToEditorBtn");
             
-            btn.clicked += () => {
-                uiController.HideGame();
-                root.Q<VisualElement>("Background").RemoveFromClassList("closed");
-                root.Q<VisualElement>("RTEContainer").AddToClassList("closed");
-                gameController.EndGame();
-            };
+            btn.clicked += () => ReturnToEditor(root);
+        }
+        private void ReturnToEditor(VisualElement root)
+        {
+            uiController.HideGame();
+            root.Q<VisualElement>("Background").RemoveFromClassList("closed");
+            root.Q<VisualElement>("RTEContainer").AddToClassList("closed");
+            gameController.EndGame();
         }
     }
 }

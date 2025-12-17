@@ -8,7 +8,7 @@ namespace KJakub.Octave.Game.Core
         public int MaxHealth { get; private set; }
         public event Action<int> OnHealthAdded;
         public event Action<int> OnHealthRemoved;
-        public event Action<int> OnDeath;
+        public event Action OnDeath;
         public Health(int maxHealth)
         {
             MaxHealth = maxHealth;
@@ -34,7 +34,7 @@ namespace KJakub.Octave.Game.Core
             if (Amount <= 0)
             {
                 Amount = 0;
-                OnDeath?.Invoke(Amount);
+                OnDeath?.Invoke();
             }
         }
     }
