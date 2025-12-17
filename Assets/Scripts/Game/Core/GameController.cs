@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using DG.Tweening;
 namespace KJakub.Octave.Game.Core
 {
     public enum MusicStatus
@@ -26,9 +27,21 @@ namespace KJakub.Octave.Game.Core
         private GameObject notePrefab;
         [SerializeField]
         private Transform noteContainer;
+        [Header("Properties - Environment")]
+        [SerializeField]
+        private Material defaultSharedMaterial;
+        [SerializeField]
+        private Color[] sharedMaterialColors;
+        [SerializeField]
+        private float colorChangeDuration;
+        [Header("Properties - Thermometer")]
+        [SerializeField]
+        private float thermometerStartingValue;
+        [SerializeField]
+        private float thermometerDecreaseBy;
+        [Header("Components")]
         [SerializeField]
         private AudioSource audioSource;
-        [Header("Managers")]
         [SerializeField]
         private LineManager lineManager;
         [SerializeField]
@@ -36,6 +49,7 @@ namespace KJakub.Octave.Game.Core
         private GameStats stats;
         private NoteSpawner noteSpawner;
         private NoteDespawner noteDespawner;
+        private Thermometer thermometer;
         private GameObjectPool notePool;
         private List<GameObject> activeNotes = new();
         private PlayerInput inputSystem;
@@ -43,12 +57,14 @@ namespace KJakub.Octave.Game.Core
         public GameObjectPool NotePool { get { return notePool; } }
         public List<GameObject> ActiveNotes { get { return activeNotes; } }
         public GameStats GameStats { get { return stats; } }
+        public Thermometer Thermometer { get { return thermometer; } }
         public MusicStatus MusicStatus { get { return musicStatus; } set { musicStatus = value; } }
         private List<AccuracySO> accuracies => accuracySet.Accuracies;
         private void Awake()
         {
             //so other scripts can connect to its events
             stats = new();
+            thermometer = new(thermometerDecreaseBy, thermometerStartingValue);
         }
         private void Start()
         {
@@ -57,6 +73,8 @@ namespace KJakub.Octave.Game.Core
 
             noteSpawner = new(this);
             noteDespawner = new(this);
+
+            thermometer.OnWeightChanged += ChangeDefaultColor;
         }
         private void Update()
         {
@@ -67,7 +85,7 @@ namespace KJakub.Octave.Game.Core
 
             lineAmount = songData.Lines;
             stats.Reset();
-            noteDespawner.OnNoteOutOfBounds += stats.Miss;
+            noteDespawner.OnNoteOutOfBounds += NoteMiss;
             lineManager.OnNoteHit += NoteHit;
             lineManager.GenerateLines(lineAmount, this, inputSystem);
             cameraMover.UpdateCamera(lineAmount * lineManager.LineWidth / 2);
@@ -79,6 +97,13 @@ namespace KJakub.Octave.Game.Core
             }
 
             StartCoroutine(noteSpawner.SpawnNotes(lineManager.transform, lineAmount, songData.Notes, lineManager.LineLength));
+            StartCoroutine(thermometer.Decrease());
+        }
+        private void NoteMiss()
+        {
+            stats.Miss();
+            stats.AddToScore(-10);
+            thermometer.Add(-10);
         }
         private System.Collections.IEnumerator PlayMusic(float delay, AudioClip clip)
         {
@@ -108,11 +133,25 @@ namespace KJakub.Octave.Game.Core
                 }
             }
 
+            thermometer.Add(nearestAccuracy.Weight * 10);
+            stats.AddToScore(nearestAccuracy.Weight * 10 * thermometer.Weight);
             stats.AddToAccuracySet(nearestAccuracy);
+        }
+        private void ChangeDefaultColor(int weight)
+        {
+            if (weight == 10)
+                defaultSharedMaterial.DOColor(sharedMaterialColors[3], colorChangeDuration);
+            else if (weight == 5)
+                defaultSharedMaterial.DOColor(sharedMaterialColors[2], colorChangeDuration);
+            else if (weight == 2)
+                defaultSharedMaterial.DOColor(sharedMaterialColors[1], colorChangeDuration);
+            else if (weight == 1)
+                defaultSharedMaterial.DOColor(sharedMaterialColors[0], colorChangeDuration);
         }
         public void EndGame()
         {
             noteSpawner.Stop();
+            thermometer.Stop();
             noteDespawner.DespawnAllNotes();
             noteDespawner.OnNoteOutOfBounds -= stats.Miss;
             lineManager.OnNoteHit -= NoteHit;

@@ -6,7 +6,9 @@
         "Game.Core",
         "Data",
         "ScriptableObjects",
-        "UI.Core"
+        "UI.Core",
+        "Unity.TextMeshPro",
+        "Plugins"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,39 +1,51 @@
+using DG.Tweening;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
 namespace KJakub.Octave.UI.Game
 {
-    public class LatestAccuracyUI
+    public class LatestAccuracyUI : MonoBehaviour
     {
-        private Label accuracyLabel;
-        public LatestAccuracyUI(Label accuracyLabel)
+        [Header("Components")]
+        [SerializeField] private TMP_Text titleLabel;
+        [Header("Properties")]
+        [SerializeField] private float scaleStrength = 0.2f;
+        [SerializeField] private float fadeDuration = 0.3f;
+        [SerializeField] private float moveDistance = 20f;
+        [SerializeField] private float animDuration = 0.3f;
+        [SerializeField] private float lifeDuration = 1f;
+
+        private Vector3 startScale;
+        private Vector3 startPos;
+        private Sequence sequence;
+
+        private void Awake()
         {
-            this.accuracyLabel = accuracyLabel;
+            startScale = titleLabel.rectTransform.localScale;
+            startPos = titleLabel.rectTransform.anchoredPosition;
         }
+
         public void ShowLabel(string title, Color color)
         {
-            accuracyLabel.text = title;
-            accuracyLabel.style.color = new StyleColor(color);
-            accuracyLabel.RemoveFromClassList("show");
-            accuracyLabel.RemoveFromClassList("hidden");
+            sequence?.Kill();
 
-            accuracyLabel.schedule.Execute(() =>
-            {
-                accuracyLabel.AddToClassList("hidden");
+            titleLabel.text = title;
+            titleLabel.color = color;
 
-                accuracyLabel.schedule.Execute(() =>
-                {
-                    accuracyLabel.RemoveFromClassList("hidden");
-                    accuracyLabel.AddToClassList("show");
+            var rect = titleLabel.rectTransform;
+            rect.localScale = startScale;
+            rect.anchoredPosition = startPos;
+            titleLabel.alpha = 0f;
 
-                }).StartingIn(1);
-
-            }).StartingIn(1);
-
-            accuracyLabel.schedule.Execute(() =>
-            {
-                accuracyLabel.RemoveFromClassList("show");
-                accuracyLabel.AddToClassList("hidden");
-            }).StartingIn(700);
+            sequence = DOTween.Sequence()
+                .SetTarget(titleLabel)
+                .Append(titleLabel.DOFade(1f, fadeDuration))
+                .Join(rect.DOAnchorPosY(startPos.y + moveDistance, animDuration))
+                .Join(rect.DOScale(startScale * (1f + scaleStrength), animDuration))
+                .AppendInterval(lifeDuration)
+                .Append(rect.DOAnchorPos(startPos, animDuration))
+                .Join(rect.DOScale(startScale, animDuration))
+                .Join(titleLabel.DOFade(0f, fadeDuration))
+                .SetEase(Ease.OutCubic);
         }
     }
 }

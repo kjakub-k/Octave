@@ -1,44 +1,33 @@
 using KJakub.Octave.Game.Core;
 using KJakub.Octave.ScriptableObjects;
 using UnityEngine;
-using UnityEngine.UIElements;
+using TMPro;
 namespace KJakub.Octave.UI.Game
 {
     public class GameUI : MonoBehaviour
     {
-        [SerializeField]
-        private VisualTreeAsset gameLayout;
         [Header("Managers")]
         [SerializeField]
         private GameController gameController;
+        [Header("Components")]
+        [SerializeField]
         private LatestAccuracyUI latestAccuracyUI;
-        private Label scoreLabel;
-        private Label comboLabel;
-        private Label highestComboLabel;
+        [SerializeField]
+        private HighestComboUI highestComboUI;
+        [SerializeField]
+        private ThermometerUI thermometerUI;
+        [SerializeField]
+        private TMP_Text scoreLabel;
+        [SerializeField]
+        private TMP_Text comboLabel;
         private void Start()
         {
-            var root = GetComponent<UIDocument>().rootVisualElement;
-            InitializeElements(root);
-
             gameController.GameStats.OnComboChanged += UpdateCombo;
-            gameController.GameStats.OnHit += (AccuracySO acc) =>
-            {
-                latestAccuracyUI.ShowLabel(acc.Title + "!", acc.Color);
-                UpdateScore(gameController.GameStats.Score);
-            };
+            gameController.GameStats.OnHit += (AccuracySO acc) => latestAccuracyUI.ShowLabel(acc.Title + "!", acc.Color);
             gameController.GameStats.OnReset += ResetUI;
-            gameController.GameStats.OnMiss += () =>
-            {
-                latestAccuracyUI.ShowLabel("Miss", Color.red);
-                UpdateScore(gameController.GameStats.Score);
-            };
-        }
-        private void InitializeElements(VisualElement root)
-        {
-            scoreLabel = root.Q<Label>("Score");
-            comboLabel = root.Q<Label>("Combo");
-            highestComboLabel = root.Q<Label>("HighestCombo");
-            latestAccuracyUI = new(root.Q<Label>("Accuracy"));
+            gameController.GameStats.OnMiss += () => latestAccuracyUI.ShowLabel("Miss", Color.red);
+            gameController.Thermometer.OnThermometerChanged += thermometerUI.UpdateValue;
+            gameController.GameStats.OnScoreChanged += UpdateScore;
         }
         private void UpdateScore(int score)
         {
@@ -47,16 +36,16 @@ namespace KJakub.Octave.UI.Game
         private void UpdateCombo(int combo, int highestCombo)
         {
             comboLabel.text = combo.ToString();
-            highestComboLabel.text = highestCombo.ToString();
+            highestComboUI.ChangeText(highestCombo.ToString());
 
             if (combo < highestCombo)
             {
-                highestComboLabel.RemoveFromClassList("hidden");
+                highestComboUI.Show();
             }
 
             if (combo >= highestCombo)
             {
-                highestComboLabel.AddToClassList("hidden");
+                highestComboUI.Hide();
             }
         }
         private void ResetUI()

@@ -8,11 +8,15 @@ namespace KJakub.Octave.UI.Core
         [SerializeField]
         private UIDocument editorLayout;
         [SerializeField]
-        private UIDocument gameLayout;
+        private Canvas gameLayout;
         [SerializeField]
         private UIDocument mainMenuLayout;
-        private void Start()
+        private void Awake()
         {
+            editorLayout.gameObject.SetActive(true);
+            mainMenuLayout.gameObject.SetActive(true);
+            gameLayout.gameObject.SetActive(true);
+
             ShowMainMenu();
             HideGame();
             HideEditor();
@@ -35,11 +39,11 @@ namespace KJakub.Octave.UI.Core
         }
         public void ShowGame()
         {
-            gameLayout.rootVisualElement.style.display = DisplayStyle.Flex;
+            gameLayout.gameObject.SetActive(true);
         }
         public void HideGame()
         {
-            gameLayout.rootVisualElement.style.display = DisplayStyle.None;
+            gameLayout.gameObject.SetActive(false);
         }
     }
 }

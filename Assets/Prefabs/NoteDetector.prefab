@@ -45,6 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4867f1b40410ff047a87c1c9b652bbbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Lines::KJakub.Octave.Game.Input.NoteDetector
+  materials:
+  - {fileID: 2100000, guid: cf749192899d4594c9e68b5a5357e2b4, type: 2}
+  - {fileID: 2100000, guid: f4254f3a4739fa7488d247d6abc5a743, type: 2}
+  render: {fileID: 1797621372814682656}
 --- !u!1001 &1095494822256866980
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -121,5 +125,10 @@ PrefabInstance:
 --- !u!4 &628608123151257935 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 957d3601adba0a44486d0f23011ff53f, type: 3}
+  m_PrefabInstance: {fileID: 1095494822256866980}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1797621372814682656 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 957d3601adba0a44486d0f23011ff53f, type: 3}
   m_PrefabInstance: {fileID: 1095494822256866980}
   m_PrefabAsset: {fileID: 0}

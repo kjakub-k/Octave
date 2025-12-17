@@ -8,6 +8,7 @@
 }
 
 #Background {
+    flex-direction: row;
 }
 
 #Top {
@@ -24,18 +25,6 @@
 }
 
 #Score {
-}
-
-#Combo {
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    font-size: 44px;
 }
 
 #HighestCombo {
@@ -80,4 +69,21 @@
     translate: 0 0;
     transition-duration: 0.2s;
     transition-timing-function: ease-in;
+}
+
+#ColumnMiddle {
+    align-items: center;
+    flex-basis: 10%;
+}
+
+#Column {
+    align-items: center;
+    justify-content: center;
+    flex-basis: 45%;
+}
+
+#Thermostat {
+    width: 44%;
+    height: 60%;
+    position: absolute;
 }

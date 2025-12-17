@@ -87,11 +87,18 @@ namespace KJakub.Octave.Game.Lines
             btnND.NoteCollection = noteCollection;
             btnND.DetectionRadius = detectionRadius;
 
-            void OnPerformed(InputAction.CallbackContext ctx) => btnND.OnNoteDetectorPress();
+            void OnPerformed(InputAction.CallbackContext ctx)
+            {
+                btnND.OnNoteDetectorPress();
+                btnND.ChangeMaterial(1);
+            }
+            void OnCancelled(InputAction.CallbackContext ctx) => btnND.ChangeMaterial(0);
 
-            btnND.InputHandler = OnPerformed;
+            btnND.PerformedInputHandler = OnPerformed;
+            btnND.CanceledInputHandler = OnCancelled;
             btnND.OnNoteHit += OnNoteHit;
             inputAction.performed += OnPerformed;
+            inputAction.canceled += OnCancelled;
             btnND.AssignedAction = inputAction;
         }
         private void OnDrawGizmos()

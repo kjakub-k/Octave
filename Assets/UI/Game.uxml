@@ -1,15 +1,22 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/Game.uss?fileID=7433441132597879392&amp;guid=0c1fa5465c6b5d24993e20d338968f29&amp;type=3#Game" />
     <ui:VisualElement name="Background" style="flex-grow: 1;">
-        <ui:VisualElement name="Top" style="flex-grow: 1;">
+        <ui:VisualElement name="Column">
+            <ui:VisualElement name="Thermostat">
+                <ui:VisualElement name="ThermostatBG" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Textures/thermometer_bg.png?fileID=2800000&amp;guid=f77683696435a974f8e69ca1ab46d6cd&amp;type=3#thermometer_bg&quot;); -unity-background-scale-mode: stretch-to-fill;">
+                    <ui:VisualElement name="ThermostatFill" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Textures/thermometer_fill.png?fileID=2800000&amp;guid=9c109de1cea756640b19c072f6e0d912&amp;type=3#thermometer_fill&quot;);">
+                        <ui:Label text="0&#10;" name="Combo" style="position: absolute; top: 82%; left: 35%; height: 53px; width: 109px; font-size: 39%; -unity-text-align: middle-center;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:Label text="5001" name="HighestCombo" style="position: absolute; top: 496px; left: 538px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="ColumnMiddle">
             <ui:Label text="Label" name="Score" />
-            <ui:VisualElement style="flex-grow: 1; justify-content: flex-end;">
+            <ui:VisualElement style="justify-content: flex-end; margin-top: 41px;">
                 <ui:Label text="Label" name="Accuracy" class="hidden" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="Bottom" style="flex-grow: 1;">
-            <ui:Label text="Label" name="Combo" />
-            <ui:Label text="Label" name="HighestCombo" class="hidden" />
-        </ui:VisualElement>
+        <ui:VisualElement name="Column" />
     </ui:VisualElement>
 </ui:UXML>

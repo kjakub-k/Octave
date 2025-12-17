@@ -1,8 +1,6 @@
 using KJakub.Octave.ScriptableObjects;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 namespace KJakub.Octave.Data
 {
     public class GameStats
@@ -10,12 +8,13 @@ namespace KJakub.Octave.Data
         public List<AccuracySO> HitsAccuracy { get; private set; }
         public int HighestCombo { get; private set; }
         public int Combo { get; private set; }
-        public int Score { get { return CalculateScore(); } }
+        public int Score { get; private set; }
         public int Misses { get; private set; }
         public event Action<int, int> OnComboChanged;
         public event Action OnMiss;
         public event Action OnReset;
         public event Action<AccuracySO> OnHit;
+        public event Action<int> OnScoreChanged;
         public GameStats() 
         {
             HitsAccuracy = new List<AccuracySO>();
@@ -35,6 +34,7 @@ namespace KJakub.Octave.Data
             Combo = 0;
             HighestCombo = 0;
             Misses = 0;
+            Score = 0;
         }
         public void Miss()
         {
@@ -61,18 +61,10 @@ namespace KJakub.Octave.Data
 
             OnComboChanged?.Invoke(Combo, HighestCombo);
         }
-        private int CalculateScore()
+        public void AddToScore(int score)
         {
-            int score = 0;
-
-            foreach (var accuracy in HitsAccuracy)
-            {
-                score += accuracy.Weight * 10;
-            }
-
-            score -= Misses * 10;
-            
-            return score;
+            Score += score;
+            OnScoreChanged?.Invoke(Score);
         }
     }
 }
