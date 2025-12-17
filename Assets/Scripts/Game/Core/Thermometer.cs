@@ -51,22 +51,25 @@ namespace KJakub.Octave.Game.Core
                     OnThermometerChanged?.Invoke(percent);
                 }
 
-                if (percent > 90 && Weight != 10)
+                if (percent > maxPercent)
+                    percent = maxPercent;
+
+                if (percent >= 90 && percent <= 100 && Weight != 10)
                 {
                     Weight = 10;
                     OnWeightChanged?.Invoke(Weight);
                 }
-                else if (percent > 70 && Weight != 5)
+                else if (percent >= 70 && percent < 90 && Weight != 5)
                 {
                     Weight = 5;
                     OnWeightChanged?.Invoke(Weight);
                 }
-                else if (percent > 40 && Weight != 2)
+                else if (percent >= 40 && percent < 70 && Weight != 2)
                 {
                     Weight = 2;
                     OnWeightChanged?.Invoke(Weight);
                 }
-                else if (percent < 40 && Weight != 0)
+                else if (percent < 40 && Weight != 1)
                 {
                     Weight = 1;
                     OnWeightChanged?.Invoke(Weight);

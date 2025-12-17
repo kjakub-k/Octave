@@ -17,6 +17,8 @@ namespace KJakub.Octave.UI.Game
         [SerializeField]
         private ThermometerUI thermometerUI;
         [SerializeField]
+        private HealthBarUI healthBarUI;
+        [SerializeField]
         private TMP_Text scoreLabel;
         [SerializeField]
         private TMP_Text comboLabel;
@@ -28,6 +30,9 @@ namespace KJakub.Octave.UI.Game
             gameController.GameStats.OnMiss += () => latestAccuracyUI.ShowLabel("Miss", Color.red);
             gameController.Thermometer.OnThermometerChanged += thermometerUI.UpdateValue;
             gameController.GameStats.OnScoreChanged += UpdateScore;
+            gameController.Health.OnHealthRemoved += (int amount) => healthBarUI.UpdateHealth(amount, gameController.Health.MaxHealth);
+            gameController.Health.OnHealthAdded += (int amount) => healthBarUI.UpdateHealth(amount, gameController.Health.MaxHealth);
+            gameController.OnDefaultSharedColorChanged += (Color color) => healthBarUI.ChangeFillColor(color, gameController.ColorChangeDuration);
         }
         private void UpdateScore(int score)
         {

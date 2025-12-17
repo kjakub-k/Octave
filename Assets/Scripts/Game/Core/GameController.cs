@@ -27,6 +27,8 @@ namespace KJakub.Octave.Game.Core
         private GameObject notePrefab;
         [SerializeField]
         private Transform noteContainer;
+        [SerializeField]
+        private int maxHealth;
         [Header("Properties - Environment")]
         [SerializeField]
         private Material defaultSharedMaterial;
@@ -50,6 +52,7 @@ namespace KJakub.Octave.Game.Core
         private NoteSpawner noteSpawner;
         private NoteDespawner noteDespawner;
         private Thermometer thermometer;
+        private Health health;
         private GameObjectPool notePool;
         private List<GameObject> activeNotes = new();
         private PlayerInput inputSystem;
@@ -58,13 +61,17 @@ namespace KJakub.Octave.Game.Core
         public List<GameObject> ActiveNotes { get { return activeNotes; } }
         public GameStats GameStats { get { return stats; } }
         public Thermometer Thermometer { get { return thermometer; } }
+        public Health Health { get { return health; } }
         public MusicStatus MusicStatus { get { return musicStatus; } set { musicStatus = value; } }
+        public float ColorChangeDuration { get { return colorChangeDuration; } }
         private List<AccuracySO> accuracies => accuracySet.Accuracies;
+        public event Action<Color> OnDefaultSharedColorChanged;
         private void Awake()
         {
             //so other scripts can connect to its events
             stats = new();
             thermometer = new(thermometerDecreaseBy, thermometerStartingValue);
+            health = new(maxHealth);
         }
         private void Start()
         {
@@ -89,6 +96,7 @@ namespace KJakub.Octave.Game.Core
             lineManager.OnNoteHit += NoteHit;
             lineManager.GenerateLines(lineAmount, this, inputSystem);
             cameraMover.UpdateCamera(lineAmount * lineManager.LineWidth / 2);
+            health.Heal(1000);
             
             if (songData != null)
             {
@@ -96,6 +104,7 @@ namespace KJakub.Octave.Game.Core
                 StartCoroutine(PlayMusic(delay, songData.Song));
             }
 
+            ChangeDefaultColor(1);
             StartCoroutine(noteSpawner.SpawnNotes(lineManager.transform, lineAmount, songData.Notes, lineManager.LineLength));
             StartCoroutine(thermometer.Decrease());
         }
@@ -104,6 +113,7 @@ namespace KJakub.Octave.Game.Core
             stats.Miss();
             stats.AddToScore(-10);
             thermometer.Add(-10);
+            health.Damage(10);
         }
         private System.Collections.IEnumerator PlayMusic(float delay, AudioClip clip)
         {
@@ -134,19 +144,28 @@ namespace KJakub.Octave.Game.Core
             }
 
             thermometer.Add(nearestAccuracy.Weight * 10);
+            health.Heal(nearestAccuracy.Weight * 5);
             stats.AddToScore(nearestAccuracy.Weight * 10 * thermometer.Weight);
             stats.AddToAccuracySet(nearestAccuracy);
         }
         private void ChangeDefaultColor(int weight)
         {
+            int index = -1;
+
             if (weight == 10)
-                defaultSharedMaterial.DOColor(sharedMaterialColors[3], colorChangeDuration);
+                index = 3;
             else if (weight == 5)
-                defaultSharedMaterial.DOColor(sharedMaterialColors[2], colorChangeDuration);
+                index = 2;
             else if (weight == 2)
-                defaultSharedMaterial.DOColor(sharedMaterialColors[1], colorChangeDuration);
+                index = 1;
             else if (weight == 1)
-                defaultSharedMaterial.DOColor(sharedMaterialColors[0], colorChangeDuration);
+                index = 0;
+
+            if (index != -1)
+            {
+                defaultSharedMaterial.DOColor(sharedMaterialColors[index], colorChangeDuration);
+                OnDefaultSharedColorChanged?.Invoke(sharedMaterialColors[index]);
+            }
         }
         public void EndGame()
         {
