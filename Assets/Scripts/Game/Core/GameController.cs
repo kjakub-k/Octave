@@ -15,14 +15,11 @@ namespace KJakub.Octave.Game.Core
         Playing,
         NotPlaying
     }
-    public class GameController : MonoBehaviour, INoteCollection
+    public class GameController : MonoBehaviour
     {
         [Header("Properties")]
         [SerializeField]
         private AccuracySetSO accuracySet;
-        [SerializeField]
-        [Range(0, 7)]
-        private int lineAmount;
         [SerializeField]
         private GameObject notePrefab;
         [SerializeField]
@@ -47,19 +44,17 @@ namespace KJakub.Octave.Game.Core
         [SerializeField]
         private LineManager lineManager;
         [SerializeField]
+        private NoteDespawner noteDespawner;
+        [SerializeField]
         private CameraMover cameraMover;
         private GameStats stats;
         private NoteSpawner noteSpawner;
-        private NoteDespawner noteDespawner;
         private Thermometer thermometer;
         private Health health;
-        private GameObjectPool notePool;
-        private List<GameObject> activeNotes = new();
+        private NoteRuntimeCollection noteRuntimeCollection;
         private PlayerInput inputSystem;
         private MusicStatus musicStatus;
         private SongData songData;
-        public GameObjectPool NotePool { get { return notePool; } }
-        public List<GameObject> ActiveNotes { get { return activeNotes; } }
         public GameStats GameStats { get { return stats; } }
         public Thermometer Thermometer { get { return thermometer; } }
         public Health Health { get { return health; } }
@@ -79,16 +74,17 @@ namespace KJakub.Octave.Game.Core
         private void Start()
         {
             inputSystem = GetComponent<PlayerInput>();
-            notePool = new(notePrefab, noteContainer, 40, 100);
 
-            noteSpawner = new(this);
-            noteDespawner = new(this);
+            noteRuntimeCollection = new(notePrefab, noteContainer);
+            noteSpawner = new(noteRuntimeCollection);
 
             thermometer.OnWeightChanged += ChangeDefaultColor;
+            noteDespawner.OnNoteOutOfBounds += NoteMiss;
+            lineManager.OnNoteHit += NoteHit;
         }
         private void Update()
         {
-            noteDespawner.CheckIfOutOfBounds();
+            noteDespawner.CheckIfOutOfBounds(noteRuntimeCollection);
         }
         public void PlayGame(SongData songData)
         {
@@ -99,13 +95,9 @@ namespace KJakub.Octave.Game.Core
         }
         public void StartCoreGame(SongData songData)
         {
-
-            lineAmount = songData.Lines;
             stats.Reset();
-            noteDespawner.OnNoteOutOfBounds += NoteMiss;
-            lineManager.OnNoteHit += NoteHit;
-            lineManager.GenerateLines(lineAmount, this, inputSystem);
-            cameraMover.UpdateCamera(lineAmount * lineManager.LineWidth / 2);
+            lineManager.GenerateLines(songData.Lines, noteRuntimeCollection, inputSystem);
+            cameraMover.UpdateCamera(songData.Lines * lineManager.LineWidth / 2);
             health.Heal(1000);
             
             if (songData != null)
@@ -115,7 +107,7 @@ namespace KJakub.Octave.Game.Core
             }
 
             ChangeDefaultColor(1);
-            StartCoroutine(noteSpawner.SpawnNotes(lineManager.transform, lineAmount, songData.Notes, lineManager.LineLength, OnFinished));
+            StartCoroutine(noteSpawner.SpawnNotes(lineManager.transform, songData.Lines, songData.Notes, lineManager.LineLength, OnFinished, lineManager.LineLength / 10f + 1f));
             StartCoroutine(thermometer.Decrease());
         }
         private void NoteMiss()
@@ -213,9 +205,7 @@ namespace KJakub.Octave.Game.Core
         {
             noteSpawner.Stop();
             thermometer.Stop();
-            noteDespawner.DespawnAllNotes();
-            noteDespawner.OnNoteOutOfBounds -= NoteMiss;
-            lineManager.OnNoteHit -= NoteHit;
+            noteDespawner.DespawnAllNotes(noteRuntimeCollection);
             musicStatus = MusicStatus.NotPlaying;
         }
     }

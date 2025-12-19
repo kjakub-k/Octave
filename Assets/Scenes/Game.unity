@@ -1883,6 +1883,50 @@ MonoBehaviour:
   moveDistance: 20
   animDuration: 0.3
   lifeDuration: 1
+--- !u!1 &894912135
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 894912136}
+  - component: {fileID: 894912137}
+  m_Layer: 0
+  m_Name: NoteDespawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &894912136
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894912135}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.61, y: 0, z: -2.37}
+  m_LocalScale: {x: 12.74, y: 0, z: 0.01}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1721970680}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &894912137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894912135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad9350bb245b76044aac647b2810196b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Spawning::KJakub.Octave.Game.Spawning.NoteDespawner
 --- !u!1 &913680790
 GameObject:
   m_ObjectHideFlags: 0
@@ -2169,6 +2213,7 @@ MonoBehaviour:
   thermometerDecreaseBy: 0.01
   audioSource: {fileID: 1195426352}
   lineManager: {fileID: 185861895}
+  noteDespawner: {fileID: 894912137}
   cameraMover: {fileID: 330585548}
 --- !u!114 &1195426351
 MonoBehaviour:
@@ -2898,6 +2943,7 @@ Transform:
   - {fileID: 1735738558}
   - {fileID: 30346472}
   - {fileID: 582547274}
+  - {fileID: 894912136}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1735738557

@@ -1,6 +1,7 @@
 using KJakub.Octave.Data;
 using KJakub.Octave.Managers.CommandManager;
 using KJakub.Octave.Managers.CommandManager.NoteCommandManager;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 namespace KJakub.Octave.UI.Editor
@@ -75,10 +76,16 @@ namespace KJakub.Octave.UI.Editor
                     {
                         if (evt.button == 0)
                         {
+                            if (currentSongData.Notes.Where(n => n.Time == note.Time && n.Lane == note.Lane).Any())
+                                return;
+
                             AddNoteCommand cmd = new(note, currentSongData.Notes, noteType);
                             commandManager.Execute(cmd);
                         } else if (evt.button == 1)
                         {
+                            if (currentSongData.Notes.Where(n => n.Time == note.Time && n.Lane == note.Lane).Any())
+                                return;
+
                             RemoveNoteCommand cmd = new(note, currentSongData.Notes, noteType);
                             commandManager.Execute(cmd);
                         }

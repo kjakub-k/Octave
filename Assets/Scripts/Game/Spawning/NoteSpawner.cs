@@ -12,10 +12,10 @@ namespace KJakub.Octave.Game.Spawning
     }
     public class NoteSpawner
     {
-        private INoteCollection noteCollection;
+        private NoteRuntimeCollection noteCollection;
         private NoteSpawnerStatus status;
         public NoteSpawnerStatus Status { get { return status; } }
-        public NoteSpawner(INoteCollection noteCollection)
+        public NoteSpawner(NoteRuntimeCollection noteCollection)
         {
             this.noteCollection = noteCollection;
         }
@@ -30,17 +30,7 @@ namespace KJakub.Octave.Game.Spawning
         {
             status = NoteSpawnerStatus.NotSpawning;
         }
-        public IEnumerator SpawnRandomNotesCoroutine(Transform lineContainer, int lineAmount)
-        {
-            status = NoteSpawnerStatus.Spawning;
-
-            while (status == NoteSpawnerStatus.Spawning)
-            {
-                SpawnNote(lineContainer, UnityEngine.Random.Range(0, lineAmount));
-                yield return new WaitForSeconds(1f);
-            }
-        }
-        public IEnumerator SpawnNotes(Transform lineContainer, int lineAmount, List<NoteData> notes, float laneLength, Action onFinishedSpawning)
+        public IEnumerator SpawnNotes(Transform lineContainer, int lineAmount, List<NoteData> notes, float laneLength, Action onFinishedSpawning, float onFinishedSpawningDelay)
         {
             status = NoteSpawnerStatus.Spawning;
             float timer = 0;
@@ -65,7 +55,7 @@ namespace KJakub.Octave.Game.Spawning
                 if (currentNotes.Count <= 0)
                 {
                     status = NoteSpawnerStatus.NotSpawning;
-                    yield return new WaitForSeconds(6f);
+                    yield return new WaitForSeconds(onFinishedSpawningDelay);
                     onFinishedSpawning?.Invoke();
                 }
 

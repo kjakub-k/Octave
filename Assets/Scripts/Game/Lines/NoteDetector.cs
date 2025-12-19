@@ -10,8 +10,8 @@ namespace KJakub.Octave.Game.Lines
         private Material[] materials;
         [SerializeField]
         private Renderer render;
-        public float DetectionRadius { get; set; }
-        public INoteCollection NoteCollection { get; set; }
+        public float DetectionSize { get; set; }
+        public NoteRuntimeCollection NoteCollection { get; set; }
         public int Lane { get; set; }
         public InputAction AssignedAction { get; set; }
         public Action<InputAction.CallbackContext> PerformedInputHandler { get; set; }
@@ -36,22 +36,21 @@ namespace KJakub.Octave.Game.Lines
         private GameObject GetClosestNote()
         {
             GameObject closestNote = null;
-            float closestDistance = float.PositiveInfinity;
 
             foreach (var note in NoteCollection.ActiveNotes)
             {
                 if (note.transform.position.x != transform.position.x)
                     continue;
 
-                float deltaZ = transform.position.z - note.transform.position.z;
+                float distance = transform.position.z - note.transform.position.z;
 
-                if (deltaZ < 0 || deltaZ > DetectionRadius)
-                    continue;
-
-                if (deltaZ < closestDistance)
+                if (distance <= DetectionSize)
                 {
-                    closestDistance = deltaZ;
-                    closestNote = note;
+                    if (closestNote == null)
+                        closestNote = note;
+
+                    if (closestNote.transform.position.z < note.transform.position.z)
+                        closestNote = note;
                 }
             }
 
