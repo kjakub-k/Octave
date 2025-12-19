@@ -100,14 +100,13 @@ namespace KJakub.Octave.Game.Core
             cameraMover.UpdateCamera(songData.Lines * lineManager.LineWidth / 2);
             health.Heal(1000);
             
+            float delay = lineManager.LineLength / 10f;
+
             if (songData != null)
-            {
-                float delay = -(lineManager.LineLength / 10f);
                 StartCoroutine(PlayMusic(delay, songData.Song));
-            }
 
             ChangeDefaultColor(1);
-            StartCoroutine(noteSpawner.SpawnNotes(lineManager.transform, songData.Lines, songData.Notes, lineManager.LineLength, OnFinished, lineManager.LineLength / 10f + 1f));
+            StartCoroutine(noteSpawner.SpawnNotes(lineManager.transform, songData.Lines, songData.Notes, lineManager.LineLength, OnFinished, delay + 1f));
             StartCoroutine(thermometer.Decrease());
         }
         private void NoteMiss()

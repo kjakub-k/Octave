@@ -83,9 +83,6 @@ namespace KJakub.Octave.UI.Editor
                             commandManager.Execute(cmd);
                         } else if (evt.button == 1)
                         {
-                            if (currentSongData.Notes.Where(n => n.Time == note.Time && n.Lane == note.Lane).Any())
-                                return;
-
                             RemoveNoteCommand cmd = new(note, currentSongData.Notes, noteType);
                             commandManager.Execute(cmd);
                         }
