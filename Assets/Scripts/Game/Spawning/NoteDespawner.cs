@@ -1,22 +1,41 @@
 using System;
+using System.Collections;
 using UnityEngine;
 namespace KJakub.Octave.Game.Spawning
 {
+    public enum DespawnerStatus
+    {
+        Despawning,
+        NotDespawning
+    }
     public class NoteDespawner : MonoBehaviour
     {
         public event Action OnNoteOutOfBounds;
-        public void CheckIfOutOfBounds(NoteRuntimeCollection noteCollection)
+        public event Action OnFinishedDespawning;
+        private DespawnerStatus status = DespawnerStatus.NotDespawning;
+        public IEnumerator CheckIfOutOfBounds(NoteRuntimeCollection noteCollection)
         {
-            for (int i = 0; i < noteCollection.ActiveNotes.Count; i++)
-            {
-                var note = noteCollection.ActiveNotes[i];
+            status = DespawnerStatus.Despawning;
 
-                if (note.transform.position.z >= transform.position.z)
+            while (status == DespawnerStatus.Despawning)
+            {
+                for (int i = 0; i < noteCollection.ActiveNotes.Count; i++)
                 {
-                    DespawnNote(note, noteCollection);
-                    OnNoteOutOfBounds?.Invoke();
+                    var note = noteCollection.ActiveNotes[i];
+
+                    if (note.transform.position.z >= transform.position.z)
+                    {
+                        DespawnNote(note, noteCollection);
+                        OnNoteOutOfBounds?.Invoke();
+                    }
                 }
+
+                yield return null;
             }
+        }
+        public void Stop()
+        {
+            status = DespawnerStatus.NotDespawning;
         }
         private void DespawnNote(GameObject note, NoteRuntimeCollection noteCollection)
         {

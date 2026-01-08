@@ -83,10 +83,6 @@ namespace KJakub.Octave.Game.Core
             noteDespawner.OnNoteOutOfBounds += NoteMiss;
             lineManager.OnNoteHit += NoteHit;
         }
-        private void Update()
-        {
-            noteDespawner.CheckIfOutOfBounds(noteRuntimeCollection);
-        }
         public void PlayGame(SongData songData)
         {
 
@@ -103,11 +99,12 @@ namespace KJakub.Octave.Game.Core
 
             float delay = lineManager.LineLength / notePrefab.GetComponent<NoteGO>().Speed;
 
-            if (songData != null)
+            if (songData.Song != null)
                 StartCoroutine(PlayMusic(delay, songData.Song));
 
             ChangeDefaultColor(1);
             StartCoroutine(noteSpawner.SpawnNotes(lineManager.transform, songData.Lines, songData.Notes, lineManager.LineLength, OnFinished, delay + 1f));
+            StartCoroutine(noteDespawner.CheckIfOutOfBounds(noteRuntimeCollection));
             StartCoroutine(thermometer.Decrease());
         }
         private void NoteMiss()
@@ -195,7 +192,7 @@ namespace KJakub.Octave.Game.Core
 
             EndCoreGame();
             Time.timeScale = 1f;
-            PlayGame(songData);
+            OnFinished?.Invoke();
         }
         public void EndGame()
         {
@@ -208,6 +205,7 @@ namespace KJakub.Octave.Game.Core
         {
             noteSpawner.Stop();
             thermometer.Stop();
+            noteDespawner.Stop();
             noteDespawner.DespawnAllNotes(noteRuntimeCollection);
             musicStatus = MusicStatus.NotPlaying;
         }
