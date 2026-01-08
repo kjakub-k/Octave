@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: ScriptableObjects::KJakub.Octave.ScriptableObjects.AccuracySO
   Title: Ok
   Distance: 1.2
-  Weight: 2
+  Weight: -5
   Color: {r: 0.96981126, g: 0.7861504, b: 0.1884727, a: 1}

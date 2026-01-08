@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using Unity.Plastic.Newtonsoft.Json;
 public enum SnappingType
 {
     Full = 1,
@@ -18,6 +19,7 @@ namespace KJakub.Octave.Data
         private int bpm;
         private SnappingType snapping;
         private List<NoteData> notes;
+        [JsonIgnore]
         public AudioClip Song
         {
             get { return song; }

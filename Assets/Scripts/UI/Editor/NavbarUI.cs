@@ -29,7 +29,12 @@ namespace KJakub.Octave.UI.Editor
                     VisualElement rteContainer = root.Q<VisualElement>("RTEContainer");
                     rteContainer.RemoveFromClassList("closed");
                     navbarLogic.StartGame(root);
-                })
+                }),
+                ("Leave Editor", () =>
+                {
+                    navbarLogic.LeaveEditor();
+                }
+                )
             });
             AddOptionsToDropdownMenu("Edit", new() { 
                 ("Undo", navbarLogic.Undo), 

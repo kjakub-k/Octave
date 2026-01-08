@@ -11,7 +11,7 @@ namespace KJakub.Octave.Editor.Logic
         public void Save(SongData songData, SongMetadata metadata)
         {
             string defaultName = metadata.SongName ?? "Song";
-            string savePath = StandaloneFileBrowser.SaveFilePanel("Save Song As", "", defaultName, "meta");
+            string savePath = StandaloneFileBrowser.SaveFilePanel("Save Song As", "", defaultName, "json");
 
             if (string.IsNullOrEmpty(savePath))
                 return;
@@ -19,16 +19,15 @@ namespace KJakub.Octave.Editor.Logic
             string directory = Path.GetDirectoryName(savePath);
             string songName = Path.GetFileNameWithoutExtension(savePath);
 
-            string metaPath = Path.Combine(directory, songName + ".meta");
-            string jsonPath = Path.Combine(directory, songName + ".json");
-            string wavPath = Path.Combine(directory, songName + ".wav");
-
-            string metaJson = JsonConvert.SerializeObject(metadata);
+            string metaPath = Path.Combine(directory, "metadata.json");
+            string metaJson = JsonConvert.SerializeObject(metadata, Formatting.Indented);
             File.WriteAllText(metaPath, metaJson);
 
-            string notesJson = JsonConvert.SerializeObject(new NotesWrapper(songData.Notes));
-            File.WriteAllText(jsonPath, notesJson);
+            string notesJsonPath = Path.Combine(directory, "notes.json");
+            string notesJson = JsonConvert.SerializeObject(new NotesWrapper(songData.Notes), Formatting.Indented);
+            File.WriteAllText(notesJsonPath, notesJson);
 
+            string wavPath = Path.Combine(directory, songName + ".wav");
             byte[] wavBytes = AudioFileManager.ToWav(songData.Song);
             File.WriteAllBytes(wavPath, wavBytes);
         }

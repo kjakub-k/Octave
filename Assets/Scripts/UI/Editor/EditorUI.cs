@@ -27,11 +27,11 @@ namespace KJakub.Octave.UI.Editor
             EditorPopupUI popup = new(root);
             SaveUI saveWindow = new(root, new SaveLogic(), currentSongData);
             NavbarUI navbar = new(root, new NavbarLogic(cmdManager, currentSongData, popup, saveWindow, gameController, uiController));
-            ReturnToEditorBtn(root);
+            CreateReturnToEditorBtn(root);
             InfoUI info = new(root, currentSongData);
             TimelineUI timeline = new(root, currentSongData, cmdManager);
         }
-        private void ReturnToEditorBtn(VisualElement root)
+        private void CreateReturnToEditorBtn(VisualElement root)
         {
             Button btn = root.Q<Button>("ReturnToEditorBtn");
             

@@ -31,18 +31,17 @@ namespace KJakub.Octave.Editor.Logic
         }
         public void Load()
         {
-            var paths = StandaloneFileBrowser.OpenFilePanel("Load Song", "", "meta", false);
+            var paths = StandaloneFileBrowser.OpenFilePanel("Load Song", "", "json", false);
 
             if (paths.Length == 0)
                 return;
 
             string metaPath = paths[0];
             string directory = Path.GetDirectoryName(metaPath);
-            string songName = Path.GetFileNameWithoutExtension(metaPath);
 
-            string jsonPath = Path.Combine(directory, songName + ".json");
-            string wavPath = Path.Combine(directory, songName + ".wav");
-
+            string jsonPath = Path.Combine(directory, "notes.json");
+            string songName = Directory.GetParent(jsonPath).Name;
+            string wavPath = Path.Combine(directory, songName + $".wav");
             if (!File.Exists(jsonPath) || !File.Exists(wavPath))
                 return;
 
@@ -105,6 +104,12 @@ namespace KJakub.Octave.Editor.Logic
         {
             uiController.ShowGame();
             gameController.PlayGame(songData);
+        }
+        public void LeaveEditor()
+        {
+            uiController.HideEditor();
+            uiController.HideGame();
+            uiController.ShowMainMenu();
         }
     }
 }

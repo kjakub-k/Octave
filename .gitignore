@@ -105,3 +105,8 @@ InitTestScene*.unity*
 /[Aa]ssets/[Pp]lugins/*
 !/[Aa]ssets/[Pp]lugins/Plugins.asmdef
 !/[Aa]ssets/[Pp]lugins/Plugins.asmdef.meta
+
+#Packages that are not allowed to be re-distributed
+/[Pp]ackages/*
+!/[Pp]ackages/manifest.json
+!/[Pp]ackages/packages-lock.json

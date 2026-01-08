@@ -1,11 +1,13 @@
 {
-    "name": "UI.Menu",
+    "name": "UI.LevelSelect",
     "rootNamespace": "",
     "references": [
         "GUID:db620a959e4a8bd46a906892c54d19aa",
-        "GUID:8a0370d7dcfcb614885261adb07fee01",
         "GUID:56afb0dfa83ee9b4e87e24cdff13f492",
-        "GUID:7a127247856f0d14b845c15c09423cad"
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:2fcf0db18a1dd6546a6a0f8b06f1698f",
+        "GUID:d3ff2462f3e0c8b49b191c54febfa1d2"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

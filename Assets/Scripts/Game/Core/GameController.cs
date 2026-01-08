@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
+using KJakub.Octave.Game.Notes;
 namespace KJakub.Octave.Game.Core
 {
     public enum MusicStatus
@@ -99,8 +100,8 @@ namespace KJakub.Octave.Game.Core
             lineManager.GenerateLines(songData.Lines, noteRuntimeCollection, inputSystem);
             cameraMover.UpdateCamera(songData.Lines * lineManager.LineWidth / 2);
             health.Heal(1000);
-            
-            float delay = lineManager.LineLength / 10f;
+
+            float delay = lineManager.LineLength / notePrefab.GetComponent<NoteGO>().Speed;
 
             if (songData != null)
                 StartCoroutine(PlayMusic(delay, songData.Song));
@@ -119,6 +120,7 @@ namespace KJakub.Octave.Game.Core
         private System.Collections.IEnumerator PlayMusic(float delay, AudioClip clip)
         {
             audioSource.clip = clip;
+            musicStatus = MusicStatus.Playing;
 
             yield return new WaitForSeconds(delay);
 
@@ -129,6 +131,8 @@ namespace KJakub.Octave.Game.Core
 
                 yield return null;
             }
+
+            audioSource.Stop();
         }
         private void NoteHit(float distance)
         {
@@ -144,7 +148,7 @@ namespace KJakub.Octave.Game.Core
                 }
             }
 
-            thermometer.Add(nearestAccuracy.Weight * 5);
+            thermometer.Add(nearestAccuracy.Weight * 2);
             health.Heal(nearestAccuracy.Weight * 5);
             stats.AddToScore(nearestAccuracy.Weight * 10 * thermometer.Weight);
             stats.AddToAccuracySet(nearestAccuracy);

@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UIElements;
-
 namespace KJakub.Octave.UI.Core
 {
     public class UIController : MonoBehaviour
@@ -10,16 +9,24 @@ namespace KJakub.Octave.UI.Core
         [SerializeField]
         private Canvas gameLayout;
         [SerializeField]
+        private Canvas albumSelectionLayout;
+        [SerializeField]
+        private Canvas levelSelectionLayout;
+        [SerializeField]
         private UIDocument mainMenuLayout;
         private void Awake()
         {
             editorLayout.gameObject.SetActive(true);
             mainMenuLayout.gameObject.SetActive(true);
+            levelSelectionLayout.gameObject.SetActive(true);
+            albumSelectionLayout.gameObject.SetActive(true);
             gameLayout.gameObject.SetActive(true);
 
             ShowMainMenu();
             HideGame();
             HideEditor();
+            HideLevelSelectionMenu();
+            HideAlbumSelectionMenu();
         }
         public void ShowMainMenu()
         {
@@ -44,6 +51,22 @@ namespace KJakub.Octave.UI.Core
         public void HideGame()
         {
             gameLayout.gameObject.SetActive(false);
+        }
+        public void ShowAlbumSelectionMenu()
+        {
+            albumSelectionLayout.gameObject.SetActive(true);
+        }
+        public void HideAlbumSelectionMenu()
+        {
+            albumSelectionLayout.gameObject.SetActive(false);
+        }
+        public void ShowLevelSelectionMenu()
+        {
+            levelSelectionLayout.gameObject.SetActive(true);
+        }
+        public void HideLevelSelectionMenu()
+        {
+            levelSelectionLayout.gameObject.SetActive(false);
         }
     }
 }
