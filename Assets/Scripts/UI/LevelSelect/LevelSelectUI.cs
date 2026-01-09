@@ -60,18 +60,16 @@ namespace KJakub.Octave.UI.LevelSelect
                 var level = levels[i];
                 var pref = Instantiate(levelInfoPrefab, content);
                 pref.GetComponentInChildren<TMP_Text>().text = $"{level.Metadata.SongName} by {level.Metadata.Author}";
-                
+                LevelItemUI lvlItemUI = pref.GetComponent<LevelItemUI>();
+
+                lvlItemUI.LevelSelectUI = this;
+                lvlItemUI.IndexToGive = i;
+
                 if (i == 0)
                 {
                     pref.GetComponent<LevelItemUI>().UpdateSelection();
                 }
             }
-
-            LayoutRebuilder.ForceRebuildLayoutImmediate(
-        content as RectTransform
-    );
-
-            content.GetChild(0).GetComponent<LevelItemUI>().UpdateSelection();
         }
         public void OnNavigate(Vector2 input)
         {
@@ -84,6 +82,11 @@ namespace KJakub.Octave.UI.LevelSelect
 
             UpdateSelection();
             UpdateSongLabel(album.Levels[currentSongIndex].Metadata.SongName);
+        }
+        public void OnLevelPressed(int newIndex)
+        {
+            currentSongIndex = newIndex;
+            UpdateSelection();
         }
         public void Play()
         {

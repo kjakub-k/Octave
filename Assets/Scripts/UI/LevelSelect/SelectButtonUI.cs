@@ -2,9 +2,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 namespace KJakub.Octave.UI.AlbumSelect
 {
-    public class AlbumSelectButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public class AlbumSelectButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         [Header("Scale")]
         [SerializeField]
@@ -16,24 +17,31 @@ namespace KJakub.Octave.UI.AlbumSelect
         private Color hoverColor = Color.white;
         [SerializeField]
         private float colorDuration = 0.1f;
+        [Header("Text")]
+        private Color textHoverColor = Color.white;
         [Header("Ease")]
         [SerializeField]
         private Ease ease = Ease.OutBack;
         private Vector3 startScale;
+        private Color startTextColor;
         private Color startColor;
         private Image image;
+        private TMP_Text text;
         private Tween scaleTween;
         private Tween colorTween;
-        void Awake()
+        private void Awake()
         {
             image = GetComponent<Image>();
             startScale = transform.localScale;
             startColor = image.color;
+            text = GetComponentInChildren<TMP_Text>();
+            startTextColor = text.color;
         }
         public void OnPointerEnter(PointerEventData eventData)
         {
             scaleTween?.Kill();
             colorTween?.Kill();
+            text.color = textHoverColor;
 
             scaleTween = transform
                 .DOScale(startScale * hoverScale, scaleDuration)
@@ -46,6 +54,7 @@ namespace KJakub.Octave.UI.AlbumSelect
         {
             scaleTween?.Kill();
             colorTween?.Kill();
+            text.color = startTextColor;
 
             scaleTween = transform
                 .DOScale(startScale, scaleDuration)
@@ -60,6 +69,10 @@ namespace KJakub.Octave.UI.AlbumSelect
             colorTween?.Kill();
             transform.localScale = startScale;
             image.color = startColor;
+        }
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            text.color = startTextColor;
         }
     }
 }
