@@ -33,7 +33,7 @@ namespace KJakub.Octave.UI.LevelSelect
         private void EndGame()
         {
             uiController.HideGame();
-            uiController.ShowLevelSelectionMenu();
+            uiController.ShowResults();
             gameController.OnFinished -= EndGame;
         }
         public void Initialize(AlbumData album)

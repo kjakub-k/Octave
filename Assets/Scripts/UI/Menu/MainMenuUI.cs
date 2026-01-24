@@ -3,6 +3,7 @@ using KJakub.Octave.Managers.AudioFileManager;
 using KJakub.Octave.UI.AlbumSelect;
 using KJakub.Octave.UI.Core;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using Unity.Plastic.Newtonsoft.Json;
@@ -33,15 +34,21 @@ namespace KJakub.Octave.UI.Menu
         {
             root.Q<Button>("PlayBtn").clicked += () =>
             {
-                uiController.ShowAlbumSelectionMenu();
-                albumSelectUI.Initialize(LoadAllAlbums());
-                uiController.HideMainMenu();
+                uiController.Transition(() =>
+                {
+                    uiController.ShowAlbumSelectionMenu();
+                    albumSelectUI.Initialize(LoadAllAlbums());
+                    uiController.HideMainMenu();
+                });
             };
             root.Q<Button>("EditorBtn").clicked += () =>
             {
-                uiController.ShowEditor();
-                uiController.ShowGame();
-                uiController.HideMainMenu();
+                uiController.Transition(() =>
+                {
+                    uiController.ShowEditor();
+                    uiController.ShowGame();
+                    uiController.HideMainMenu();
+                });
             };
             root.Q<Button>("ExitBtn").clicked += () =>
             {

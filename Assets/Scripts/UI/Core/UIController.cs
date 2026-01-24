@@ -1,3 +1,6 @@
+using DG.Tweening;
+using KJakub.Octave.UI.BlackScreen;
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 namespace KJakub.Octave.UI.Core
@@ -13,20 +16,42 @@ namespace KJakub.Octave.UI.Core
         [SerializeField]
         private Canvas levelSelectionLayout;
         [SerializeField]
+        private Canvas resultsLayout;
+        [SerializeField]
         private UIDocument mainMenuLayout;
+        [SerializeField]
+        private BlackScreenUI blackScreen;
         private void Awake()
         {
             editorLayout.gameObject.SetActive(true);
             mainMenuLayout.gameObject.SetActive(true);
-            levelSelectionLayout.gameObject.SetActive(true);
-            albumSelectionLayout.gameObject.SetActive(true);
-            gameLayout.gameObject.SetActive(true);
+            ShowGame();
+            ShowAlbumSelectionMenu();
+            ShowLevelSelectionMenu();
+            ShowResults();
 
             ShowMainMenu();
             HideGame();
             HideEditor();
             HideLevelSelectionMenu();
             HideAlbumSelectionMenu();
+            HideResults();
+        }
+        public void Transition(Action changeUI)
+        {
+            Sequence sequence = DOTween.Sequence();
+
+            sequence.Append(blackScreen.Show());
+            sequence.AppendCallback(() =>
+            {
+                changeUI?.Invoke();
+            });
+            sequence.AppendInterval(1f);
+            sequence.Append(blackScreen.Hide());
+        }
+        public void ShowResults()
+        {
+            resultsLayout.gameObject.SetActive(true);
         }
         public void ShowMainMenu()
         {
@@ -51,6 +76,10 @@ namespace KJakub.Octave.UI.Core
         public void HideGame()
         {
             gameLayout.gameObject.SetActive(false);
+        }
+        public void HideResults()
+        {
+            resultsLayout.gameObject.SetActive(false);
         }
         public void ShowAlbumSelectionMenu()
         {

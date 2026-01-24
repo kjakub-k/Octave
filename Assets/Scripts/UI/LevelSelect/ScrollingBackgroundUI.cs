@@ -4,7 +4,8 @@ namespace KJakub.Octave.UI.AlbumSelect
 {
     public class ScrollingBackgroundUI : MonoBehaviour
     {
-        public float scrollSpeed = 0.1f;
+        public float scrollSpeedX = 0.1f;
+        public float scrollSpeedY = 0.1f;
         private RawImage img;
 
         void Start()
@@ -15,8 +16,8 @@ namespace KJakub.Octave.UI.AlbumSelect
         void Update()
         {
             img.uvRect = new Rect(
-                img.uvRect.x - scrollSpeed * Time.deltaTime,
-                img.uvRect.y + scrollSpeed * Time.deltaTime,
+                img.uvRect.x - scrollSpeedX * Time.deltaTime,
+                img.uvRect.y + scrollSpeedY * Time.deltaTime,
                 img.uvRect.width,
                 img.uvRect.height
             );
