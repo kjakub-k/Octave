@@ -52,10 +52,13 @@ namespace KJakub.Octave.Game.Core
         private NoteSpawner noteSpawner;
         private Thermometer thermometer;
         private Health health;
+        private PressRecorder pressRecorder;
         private NoteRuntimeCollection noteRuntimeCollection;
         private PlayerInput inputSystem;
         private MusicStatus musicStatus;
         private SongData songData;
+        private List<(float, int)?> presses = new List<(float, int)?>();
+        public List<(float, int)?> Presses { get { return presses; } }
         public GameStats GameStats { get { return stats; } }
         public Thermometer Thermometer { get { return thermometer; } }
         public Health Health { get { return health; } }
@@ -69,6 +72,7 @@ namespace KJakub.Octave.Game.Core
         {
             //so other scripts can connect to its events
             stats = new();
+            pressRecorder = new();
             thermometer = new(thermometerDecreaseBy, thermometerStartingValue);
             health = new(maxHealth);
         }
@@ -83,17 +87,32 @@ namespace KJakub.Octave.Game.Core
             noteDespawner.OnNoteOutOfBounds += NoteMiss;
             lineManager.OnNoteHit += NoteHit;
         }
-        public void PlayGame(SongData songData)
+        public void PlayGame(SongData songData, List<(float, int)?> presses = null)
         {
-
-            StartCoreGame(songData);
+            StartCoreGame(songData, presses);
             this.songData = songData;
             health.OnDeath += Death;
         }
-        public void StartCoreGame(SongData songData)
+        private void AddToPresses(float time, int line)
+        {
+            presses.Add((time, line));
+        }
+        public void StartCoreGame(SongData songData, List<(float, int)?> presses = null)
         {
             stats.Reset();
-            lineManager.GenerateLines(songData.Lines, noteRuntimeCollection, inputSystem);
+            lineManager.GenerateLines(songData.Lines, noteRuntimeCollection, inputSystem, (presses == null) ? true : false);
+
+            if (presses == null)
+            {
+                this.presses.Clear();
+                pressRecorder.OnPress += AddToPresses;
+                StartCoroutine(pressRecorder.RecordPresses(inputSystem, songData.Lines));
+            }
+            else
+            {
+                StartCoroutine(pressRecorder.DoPresses(lineManager.NoteDetectors, presses));
+            }
+
             cameraMover.UpdateCamera(songData.Lines * lineManager.LineWidth / 2);
             health.Heal(1000);
 
@@ -204,6 +223,8 @@ namespace KJakub.Octave.Game.Core
         public void EndCoreGame()
         {
             noteSpawner.Stop();
+            pressRecorder.Stop();
+            pressRecorder.OnPress -= AddToPresses;
             thermometer.Stop();
             noteDespawner.Stop();
             noteDespawner.DespawnAllNotes(noteRuntimeCollection);

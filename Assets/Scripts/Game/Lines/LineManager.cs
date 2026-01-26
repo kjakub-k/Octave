@@ -19,13 +19,16 @@ namespace KJakub.Octave.Game.Lines
         private GameObject noteDetector;
         [SerializeField]
         private float detectionRadius;
+        private NoteDetector[] noteDetectors;
+        public NoteDetector[] NoteDetectors { get { return noteDetectors; } }
         public event Action<float> OnNoteHit;
         public float LineWidth { get { return linePrefab.GetComponentInChildren<Renderer>().bounds.size.x; } }
         public float LineHeight { get { return linePrefab.GetComponentInChildren<Renderer>().bounds.size.y; } }
         public float LineLength { get { return linePrefab.GetComponentInChildren<Renderer>().bounds.size.z; } }
-        public void GenerateLines(int linesAmount, NoteRuntimeCollection noteCollection, PlayerInput inputSystem)
+        public void GenerateLines(int linesAmount, NoteRuntimeCollection noteCollection, PlayerInput inputSystem, bool pressable)
         {
             List<Transform> children = new();
+            this.noteDetectors = new NoteDetector[linesAmount];
 
             foreach (Transform child in transform)
             {
@@ -54,7 +57,8 @@ namespace KJakub.Octave.Game.Lines
             {
                 Vector3 pos = new(transform.position.x + i * LineWidth + LineWidth / 2, transform.position.y, transform.position.z);
                 var line = Instantiate(linePrefab, pos, transform.rotation, transform);
-                CreateNoteDetector(i, line, noteCollection, inputSystem.actions.FindAction($"Line_{linesAmount - i - 1}")); //because i accidentally reversed the lines
+                var btnND = CreateNoteDetector(i, line, noteCollection, (pressable == true) ? inputSystem.actions.FindAction($"Line_{linesAmount - i - 1}") : null); //because i accidentally reversed the lines
+                this.noteDetectors[i] = btnND;
             }
 
             CreateLineSides(linesAmount);
@@ -78,7 +82,7 @@ namespace KJakub.Octave.Game.Lines
             Instantiate(lineSidePrefab, lineSideContainer.transform.position + Vector3.left * renderer.bounds.extents.x, Quaternion.identity, lineSideContainer);
             Instantiate(lineSidePrefab, lineSideContainer.transform.position + Vector3.right * LineWidth * linesAmount + Vector3.right * renderer.bounds.extents.x, Quaternion.identity, lineSideContainer);
         }
-        private void CreateNoteDetector(int lineNumber, GameObject line, NoteRuntimeCollection noteCollection, InputAction inputAction)
+        private NoteDetector CreateNoteDetector(int lineNumber, GameObject line, NoteRuntimeCollection noteCollection, InputAction inputAction)
         {
             Renderer renderer = noteDetector.GetComponentInChildren<Renderer>();
             Vector3 pos = new(line.transform.position.x, line.transform.position.y + LineHeight, transform.position.z + LineLength - renderer.bounds.size.z / 2);
@@ -87,19 +91,21 @@ namespace KJakub.Octave.Game.Lines
             btnND.NoteCollection = noteCollection;
             btnND.DetectionSize = detectionRadius;
 
-            void OnPerformed(InputAction.CallbackContext ctx)
-            {
-                btnND.OnNoteDetectorPress();
-                btnND.ChangeMaterial(1);
-            }
+            void OnPerformed(InputAction.CallbackContext ctx) => btnND.OnNoteDetectorPress();
             void OnCancelled(InputAction.CallbackContext ctx) => btnND.ChangeMaterial(0);
 
             btnND.PerformedInputHandler = OnPerformed;
             btnND.CanceledInputHandler = OnCancelled;
             btnND.OnNoteHit += OnNoteHit;
-            inputAction.performed += OnPerformed;
-            inputAction.canceled += OnCancelled;
-            btnND.AssignedAction = inputAction;
+
+            if (inputAction != null)
+            {
+                inputAction.performed += OnPerformed;
+                inputAction.canceled += OnCancelled;
+                btnND.AssignedAction = inputAction;
+            }
+
+            return btnND;
         }
         private void OnDrawGizmos()
         {

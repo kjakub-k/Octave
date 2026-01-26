@@ -5,6 +5,7 @@ using TMPro;
 using KJakub.Octave.UI.Core;
 using UnityEngine.InputSystem;
 using KJakub.Octave.Game.Core;
+using KJakub.Octave.UI.Results;
 namespace KJakub.Octave.UI.LevelSelect
 {
     public class LevelSelectUI : MonoBehaviour 
@@ -17,6 +18,8 @@ namespace KJakub.Octave.UI.LevelSelect
         private GameController gameController;
         [SerializeField]
         private GameObject levelInfoPrefab;
+        [SerializeField]
+        private ResultsUI resultsUI;
         [SerializeField]
         private PlayerInput inputSystem;
         [Header("Components")]
@@ -34,6 +37,7 @@ namespace KJakub.Octave.UI.LevelSelect
         {
             uiController.HideGame();
             uiController.ShowResults();
+            resultsUI.UpdateUI(album.Levels[currentSongIndex].Metadata);
             gameController.OnFinished -= EndGame;
         }
         public void Initialize(AlbumData album)
@@ -91,11 +95,13 @@ namespace KJakub.Octave.UI.LevelSelect
         public void Play()
         {
             var level = album.Levels[currentSongIndex];
+            var songData = new SongData(level.Song, level.Metadata.Lines, level.Metadata.BPM, level.Metadata.Snapping, level.Notes.Notes);
 
             uiController.HideLevelSelectionMenu();
             uiController.ShowGame();
+            resultsUI.SaveInfo(songData, EndGame);
             gameController.OnFinished += EndGame;
-            gameController.PlayGame(new SongData(level.Song, level.Metadata.Lines, level.Metadata.BPM, level.Metadata.Snapping, level.Notes.Notes));
+            gameController.PlayGame(songData);
         }
         private void UpdateSelection()
         {
