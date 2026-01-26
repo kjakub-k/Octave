@@ -1,6 +1,7 @@
 using KJakub.Octave.ScriptableObjects;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 namespace KJakub.Octave.Data
 {
     public class GameStats
@@ -10,6 +11,16 @@ namespace KJakub.Octave.Data
         public int Combo { get; private set; }
         public int Score { get; private set; }
         public int Misses { get; private set; }
+        public int TotalHits { get
+            {
+                int totalHits = 0;
+
+                foreach (var hit in HitsAccuracy)
+                    totalHits++;
+
+                return totalHits;
+            } 
+        }
         public event Action<int, int> OnComboChanged;
         public event Action OnMiss;
         public event Action OnReset;
@@ -20,6 +31,22 @@ namespace KJakub.Octave.Data
             HitsAccuracy = new List<AccuracySO>();
             Combo = 0;
             Misses = 0;
+        }
+        public float GetAccuracyPercentage()
+        {
+            int maxWeight = HitsAccuracy.Max(a => a.Weight);
+            float earned = 0;
+            float max = 0;
+
+            foreach (var hit in HitsAccuracy)
+            {
+                earned += hit.Weight;
+                max += maxWeight;
+            }
+
+            max += Misses * maxWeight;
+
+            return max <= 0 ? 0 : (earned / max) * 100f;
         }
         public void AddToAccuracySet(AccuracySO acc)
         {

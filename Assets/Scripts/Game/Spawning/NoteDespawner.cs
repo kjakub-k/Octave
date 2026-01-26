@@ -11,7 +11,6 @@ namespace KJakub.Octave.Game.Spawning
     public class NoteDespawner : MonoBehaviour
     {
         public event Action OnNoteOutOfBounds;
-        public event Action OnFinishedDespawning;
         private DespawnerStatus status = DespawnerStatus.NotDespawning;
         public IEnumerator CheckIfOutOfBounds(NoteRuntimeCollection noteCollection)
         {

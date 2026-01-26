@@ -4,6 +4,7 @@ using KJakub.Octave.UI.Core;
 using System;
 using TMPro;
 using UnityEngine;
+using System.Collections.Generic;
 namespace KJakub.Octave.UI.Results 
 { 
     public class ResultsUI : MonoBehaviour
@@ -17,13 +18,28 @@ namespace KJakub.Octave.UI.Results
         [Header("Components")]
         [SerializeField]
         private TMP_Text songLabel;
+        [SerializeField]
+        private TMP_Text hitsLabel;
+        [SerializeField]
+        private TMP_Text accuracyLabel;
+        [SerializeField]
+        private TMP_Text scoreLabel;
+        [SerializeField]
+        private TMP_Text missesLabel;
+        [SerializeField]
+        private TMP_Text maxComboLabel;
         public void SaveInfo(SongData songData, Action onGameEnd)
         {
             (this.songData, this.onGameEnd) = (songData, onGameEnd);
         }
-        public void UpdateUI(SongMetadata metadata)
+        public void UpdateUI(SongMetadata metadata, GameStats stats)
         {
             songLabel.text = metadata.SongName + " by " + metadata.Author;
+            hitsLabel.text = $"{stats.TotalHits}";
+            scoreLabel.text = $"{stats.Score}";
+            missesLabel.text = $"{stats.Misses}";
+            maxComboLabel.text = $"{stats.HighestCombo}";
+            accuracyLabel.text = $"{stats.GetAccuracyPercentage():0.00}%";
         }
         public void ReturnToMenu()
         {

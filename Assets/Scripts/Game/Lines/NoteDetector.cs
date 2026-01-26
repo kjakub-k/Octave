@@ -25,8 +25,6 @@ namespace KJakub.Octave.Game.Lines
         public void OnNoteDetectorPress()
         {
             GameObject closestNote = GetClosestNote();
-            ChangeMaterial(1);
-            Debug.Log(closestNote);
 
             if (closestNote != null)
             {
