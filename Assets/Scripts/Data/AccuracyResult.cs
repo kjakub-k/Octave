@@ -1,16 +1,16 @@
+using KJakub.Octave.ScriptableObjects;
 using UnityEngine;
-
-public class AccuracyResult : MonoBehaviour
+namespace KJakub.Octave.Data
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class AccuracyResult
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public float TimeHitInSeconds { get; private set; }
+        public AccuracySO Accuracy { get; private set; }
+        public int Weight { get { return Accuracy.Weight; } }
+        public Color Color { get { return Accuracy.Color; } }
+        public AccuracyResult(float timeHitInSeconds, AccuracySO accuracy)
+        {
+            (TimeHitInSeconds, Accuracy) = (timeHitInSeconds, accuracy);
+        }
     }
 }

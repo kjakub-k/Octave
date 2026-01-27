@@ -15,6 +15,8 @@ namespace KJakub.Octave.UI.Results
         private GameController gameController;
         [SerializeField]
         private UIController uiController;
+        [SerializeField]
+        private ResultsGraphUI resultsGraphUI;
         [Header("Components")]
         [SerializeField]
         private TMP_Text songLabel;
@@ -40,6 +42,7 @@ namespace KJakub.Octave.UI.Results
             missesLabel.text = $"{stats.Misses}";
             maxComboLabel.text = $"{stats.HighestCombo}";
             accuracyLabel.text = $"{stats.GetAccuracyPercentage():0.00}%";
+            resultsGraphUI.DrawOnGraph(stats.HitsAccuracy, stats.LevelLength);
         }
         public void ReturnToMenu()
         {

@@ -2,7 +2,6 @@ using KJakub.Octave.Game.Spawning;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 namespace KJakub.Octave.Game.Lines
 {
     public class NoteDetector : MonoBehaviour
@@ -25,6 +24,7 @@ namespace KJakub.Octave.Game.Lines
         public void OnNoteDetectorPress()
         {
             GameObject closestNote = GetClosestNote();
+            ChangeMaterial(1);
 
             if (closestNote != null)
             {

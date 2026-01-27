@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
+using KJakub.Octave.Data;
 namespace KJakub.Octave.UI.Game
 {
     public class GameUI : MonoBehaviour
@@ -29,7 +30,7 @@ namespace KJakub.Octave.UI.Game
         private void Start()
         {
             gameController.GameStats.OnComboChanged += UpdateCombo;
-            gameController.GameStats.OnHit += (AccuracySO acc) => latestAccuracyUI.ShowLabel(acc.Title + "!", acc.Color);
+            gameController.GameStats.OnHit += (AccuracyResult accRes) => latestAccuracyUI.ShowLabel(accRes.Accuracy.Title + "!", accRes.Accuracy.Color);
             gameController.GameStats.OnReset += ResetUI;
             gameController.GameStats.OnMiss += () => latestAccuracyUI.ShowLabel("Miss", Color.red);
             gameController.Thermometer.OnThermometerChanged += thermometerUI.UpdateValue;

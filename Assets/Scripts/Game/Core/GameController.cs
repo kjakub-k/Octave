@@ -122,6 +122,7 @@ namespace KJakub.Octave.Game.Core
                 StartCoroutine(PlayMusic(delay, songData.Song));
 
             ChangeDefaultColor(1);
+            StartCoroutine(RecordLevelLength(delay));
             StartCoroutine(noteSpawner.SpawnNotes(lineManager.transform, songData.Lines, songData.Notes, lineManager.LineLength, OnFinished, delay + 1f));
             StartCoroutine(noteDespawner.CheckIfOutOfBounds(noteRuntimeCollection));
             StartCoroutine(thermometer.Decrease());
@@ -132,6 +133,30 @@ namespace KJakub.Octave.Game.Core
             stats.AddToScore(-10);
             thermometer.Add(-10);
             health.Damage(20);
+        }
+        public enum LevelLengthRecorderStatus
+        {
+            Running,
+            Inactive
+        }
+        private LevelLengthRecorderStatus status;
+        private System.Collections.IEnumerator RecordLevelLength(float delay)
+        {
+            status = LevelLengthRecorderStatus.Running;
+
+            yield return new WaitForSeconds(delay);
+
+            while (status == LevelLengthRecorderStatus.Running)
+            {
+                stats.SetLevelLength(stats.LevelLength + Time.deltaTime);
+                yield return null;
+            }
+
+            status = LevelLengthRecorderStatus.Inactive;
+        }
+        private void StopLevelLengthRecorder()
+        {
+            status = LevelLengthRecorderStatus.Inactive;
         }
         private System.Collections.IEnumerator PlayMusic(float delay, AudioClip clip)
         {
@@ -167,7 +192,7 @@ namespace KJakub.Octave.Game.Core
             thermometer.Add(nearestAccuracy.Weight * 2);
             health.Heal(nearestAccuracy.Weight * 5);
             stats.AddToScore(nearestAccuracy.Weight * 10 * thermometer.Weight);
-            stats.AddToAccuracySet(nearestAccuracy);
+            stats.AddToAccuracySet(audioSource.time, nearestAccuracy);
         }
         private void ChangeDefaultColor(int weight)
         {
@@ -227,6 +252,7 @@ namespace KJakub.Octave.Game.Core
             pressRecorder.OnPress -= AddToPresses;
             thermometer.Stop();
             noteDespawner.Stop();
+            StopLevelLengthRecorder();
             noteDespawner.DespawnAllNotes(noteRuntimeCollection);
             musicStatus = MusicStatus.NotPlaying;
         }
