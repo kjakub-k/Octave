@@ -50,6 +50,14 @@ namespace KJakub.Octave.UI.Menu
                     uiController.HideMainMenu();
                 });
             };
+            root.Q<Button>("SettingsBtn").clicked += () =>
+            {
+                uiController.Transition(() =>
+                {
+                    uiController.ShowSettings();
+                    uiController.HideMainMenu();
+                });
+            };
             root.Q<Button>("ExitBtn").clicked += () =>
             {
                 Application.Quit();

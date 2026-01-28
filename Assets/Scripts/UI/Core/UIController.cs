@@ -21,6 +21,8 @@ namespace KJakub.Octave.UI.Core
         private UIDocument mainMenuLayout;
         [SerializeField]
         private BlackScreenUI blackScreen;
+        [SerializeField]
+        private Canvas settingsLayout;
         private void Awake()
         {
             editorLayout.gameObject.SetActive(true);
@@ -29,8 +31,10 @@ namespace KJakub.Octave.UI.Core
             ShowAlbumSelectionMenu();
             ShowLevelSelectionMenu();
             ShowResults();
+            ShowSettings();
 
             ShowMainMenu();
+            HideSettings();
             HideGame();
             HideEditor();
             HideLevelSelectionMenu();
@@ -48,6 +52,14 @@ namespace KJakub.Octave.UI.Core
             });
             sequence.AppendInterval(1f);
             sequence.Append(blackScreen.Hide());
+        }
+        public void ShowSettings()
+        {
+            settingsLayout.gameObject.SetActive(true);
+        }
+        public void HideSettings()
+        {
+            settingsLayout.gameObject.SetActive(false);
         }
         public void ShowResults()
         {
