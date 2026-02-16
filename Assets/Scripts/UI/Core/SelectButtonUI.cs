@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
-namespace KJakub.Octave.UI.AlbumSelect
+namespace KJakub.Octave.UI.Core
 {
     public class AlbumSelectButtonUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {

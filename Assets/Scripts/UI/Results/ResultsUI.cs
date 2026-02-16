@@ -10,6 +10,7 @@ namespace KJakub.Octave.UI.Results
     public class ResultsUI : MonoBehaviour
     {
         private SongData songData;
+        private SongMetadata songMetadata;
         private Action onGameEnd;
         [SerializeField]
         private GameController gameController;
@@ -30,9 +31,9 @@ namespace KJakub.Octave.UI.Results
         private TMP_Text missesLabel;
         [SerializeField]
         private TMP_Text maxComboLabel;
-        public void SaveInfo(SongData songData, Action onGameEnd)
+        public void SaveInfo(SongData songData, SongMetadata songMetadata, Action onGameEnd)
         {
-            (this.songData, this.onGameEnd) = (songData, onGameEnd);
+            (this.songData, this.songMetadata, this.onGameEnd) = (songData, songMetadata, onGameEnd);
         }
         public void UpdateUI(SongMetadata metadata, GameStats stats)
         {
@@ -58,6 +59,12 @@ namespace KJakub.Octave.UI.Results
         {
             uiController.HideResults();
             uiController.ShowGame();
+            SaveInfo(songData, songMetadata, () =>
+            {
+                uiController.ShowResults();
+                uiController.HideGame();
+                UpdateUI(songMetadata, gameController.GameStats);
+            });
             gameController.OnFinished += OnGameEnd;
             gameController.PlayGame(songData);
         }
@@ -65,6 +72,11 @@ namespace KJakub.Octave.UI.Results
         {
             uiController.HideResults();
             uiController.ShowGame();
+            SaveInfo(songData, songMetadata, () =>
+            {
+                uiController.ShowResults();
+                uiController.HideGame();
+            });
             gameController.OnFinished += OnGameEnd;
             gameController.PlayGame(songData, gameController.Presses);
         }

@@ -10,7 +10,6 @@ namespace KJakub.Octave.Data
         public ResolutionData Resolution;
         public int QualityIndex;
         public string RebindsJson;
-
         public SettingsProfile(float musicVolume, float soundVolume, int noteSpeed, ResolutionData resData, int qualityIndex, string rebindsJson)
         {
             (MusicVolume, SoundVolume, NoteSpeed, Resolution, QualityIndex, RebindsJson) = (musicVolume, soundVolume, noteSpeed, resData, qualityIndex, rebindsJson);

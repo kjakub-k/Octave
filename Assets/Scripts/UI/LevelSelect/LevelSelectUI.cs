@@ -99,7 +99,7 @@ namespace KJakub.Octave.UI.LevelSelect
 
             uiController.HideLevelSelectionMenu();
             uiController.ShowGame();
-            resultsUI.SaveInfo(songData, EndGame);
+            resultsUI.SaveInfo(songData, level.Metadata, EndGame);
             gameController.OnFinished += EndGame;
             gameController.PlayGame(songData);
         }

@@ -56,7 +56,6 @@ namespace KJakub.Octave.Game.Core
         private NoteRuntimeCollection noteRuntimeCollection;
         private PlayerInput inputSystem;
         private MusicStatus musicStatus;
-        private SongData songData;
         private List<(float, int)?> presses = new List<(float, int)?>();
         public List<(float, int)?> Presses { get { return presses; } }
         public GameStats GameStats { get { return stats; } }
@@ -90,7 +89,6 @@ namespace KJakub.Octave.Game.Core
         public void PlayGame(SongData songData, List<(float, int)?> presses = null)
         {
             StartCoreGame(songData, presses);
-            this.songData = songData;
             health.OnDeath += Death;
         }
         private void AddToPresses(float time, int line)
@@ -106,7 +104,7 @@ namespace KJakub.Octave.Game.Core
             {
                 this.presses.Clear();
                 pressRecorder.OnPress += AddToPresses;
-                StartCoroutine(pressRecorder.RecordPresses(inputSystem, songData.Lines));
+                pressRecorder.StartRecording(inputSystem, songData.Lines);
             }
             else
             {

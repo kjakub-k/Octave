@@ -12,7 +12,7 @@ namespace KJakub.Octave.Game.Core
         Inactive,
         PlayingPresses
     }
-    public class PressRecorder
+    public class PressRecorder : MonoBehaviour
     {
         private PressRecorderStatus status = PressRecorderStatus.Inactive;
         public event Action<float, int> OnPress;
@@ -34,7 +34,8 @@ namespace KJakub.Octave.Game.Core
                     {
                         detectors[press.Value.Item2].OnNoteDetectorPress();
                         shallowPresses.Remove(press);
-                        Debug.Log("clicked");
+                        yield return null;
+                        detectors[press.Value.Item2].ChangeMaterial(0);
                     }
                 }
 
@@ -46,23 +47,26 @@ namespace KJakub.Octave.Game.Core
 
             status = PressRecorderStatus.Inactive;
         }
-        public IEnumerator RecordPresses(PlayerInput playerInput, int linesAmount)
+        private double recordingStartTime;
+        public void StartRecording(PlayerInput playerInput, int linesAmount)
         {
             status = PressRecorderStatus.Recording;
-            float timer = 0;
+            recordingStartTime = Time.timeAsDouble;
 
-            while (status == PressRecorderStatus.Recording)
+            for (int i = 0; i < linesAmount; i++)
             {
-                timer += Time.deltaTime;
-                for (int i = 0; i < linesAmount; i++)
-                {
-                    if (playerInput.actions.FindAction($"Line_{linesAmount - i - 1}").WasPressedThisFrame())
-                        OnPress?.Invoke(timer, i);
-                }
-                yield return null;
-            }
+                int index = i;
+                var action = playerInput.actions.FindAction($"Line_{linesAmount - i - 1}");
 
-            status = PressRecorderStatus.Inactive;
+                action.performed += ctx =>
+                {
+                    if (status != PressRecorderStatus.Recording) 
+                        return;
+
+                    double relativeTime = ctx.time - recordingStartTime;
+                    OnPress?.Invoke((float)relativeTime, index);
+                };
+            }
         }
         public void Stop()
         {

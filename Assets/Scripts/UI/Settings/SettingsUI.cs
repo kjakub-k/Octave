@@ -11,24 +11,18 @@ namespace KJakub.Octave.UI.Settings
     {
         [SerializeField] private UIController uiController;
         [SerializeField] private SettingsManager settingsManager;
-
         [Header("Audio")]
         [SerializeField] private Slider musicVolumeSlider;
         [SerializeField] private Slider soundVolumeSlider;
-
         [Header("Gameplay")]
         [SerializeField] private Slider noteSpeedSlider;
         [SerializeField] private TMP_Text noteSpeedValueText;
-
         [Header("Video")]
         [SerializeField] private TMP_Dropdown resolutionDropdown;
         [SerializeField] private TMP_Dropdown qualityDropdown;
-
         [Header("Profiles")]
         [SerializeField] private TMP_Dropdown profileDropdown;
-
         private Resolution[] availableResolutions;
-
         private void Start()
         {
             SetupQualityDropdown();
@@ -36,20 +30,17 @@ namespace KJakub.Octave.UI.Settings
             SetupProfileDropdown();
             LoadCurrentProfileIntoUI();
         }
-
         public void BackToMenu()
         {
             settingsManager.SaveSettingsToJSON();
             uiController.ShowMainMenu();
             uiController.HideSettings();
         }
-
         private void SetupQualityDropdown()
         {
             qualityDropdown.ClearOptions();
             qualityDropdown.AddOptions(new List<string>(QualitySettings.names));
         }
-
         private void SetupResolutionDropdown()
         {
             availableResolutions = Screen.resolutions;
@@ -61,7 +52,6 @@ namespace KJakub.Octave.UI.Settings
 
             resolutionDropdown.AddOptions(options);
         }
-
         private void SetupProfileDropdown()
         {
             profileDropdown.ClearOptions();
@@ -73,7 +63,6 @@ namespace KJakub.Octave.UI.Settings
             profileDropdown.AddOptions(options);
             profileDropdown.value = settingsManager.SafeProfileIndex;
         }
-
         public void LoadCurrentProfileIntoUI()
         {
             var profile = settingsManager.CurrentProfile;
@@ -86,11 +75,8 @@ namespace KJakub.Octave.UI.Settings
 
             qualityDropdown.SetValueWithoutNotify(profile.QualityIndex);
 
-            resolutionDropdown.SetValueWithoutNotify(
-                FindResolutionIndex(profile.Resolution)
-            );
+            resolutionDropdown.SetValueWithoutNotify(FindResolutionIndex(profile.Resolution));
         }
-
         public void ApplySettings()
         {
             var profile = settingsManager.CurrentProfile;
@@ -106,7 +92,6 @@ namespace KJakub.Octave.UI.Settings
             ApplyToSystem(profile, res.refreshRateRatio);
             settingsManager.SaveSettingsToJSON();
         }
-
         private void ApplyToSystem(SettingsProfile profile, RefreshRate refreshRate)
         {
             AudioListener.volume = profile.MusicVolume;
@@ -120,18 +105,15 @@ namespace KJakub.Octave.UI.Settings
                 refreshRate
             );
         }
-
         public void OnNoteSpeedChanged(float value)
         {
             noteSpeedValueText.text = Mathf.RoundToInt(value).ToString();
         }
-
         public void OnProfileChanged(int index)
         {
             settingsManager.SetProfileIndex(index);
             LoadCurrentProfileIntoUI();
         }
-
         public void CreateNewProfile()
         {
             settingsManager.CreateNewProfile(new SettingsProfile(
@@ -146,19 +128,16 @@ namespace KJakub.Octave.UI.Settings
             SetupProfileDropdown();
             profileDropdown.value = settingsManager.SafeProfileIndex;
         }
-
         public void DeleteCurrentProfile()
         {
             settingsManager.DeleteCurrentProfile();
             SetupProfileDropdown();
             LoadCurrentProfileIntoUI();
         }
-
         public void RevertChanges()
         {
             LoadCurrentProfileIntoUI();
         }
-
         private int FindResolutionIndex(ResolutionData data)
         {
             for (int i = 0; i < availableResolutions.Length; i++)
