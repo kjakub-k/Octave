@@ -23,6 +23,8 @@ namespace KJakub.Octave.UI.Core
         private BlackScreenUI blackScreen;
         [SerializeField]
         private Canvas settingsLayout;
+        [SerializeField]
+        private Canvas practiceModeLayout;
         private void Awake()
         {
             editorLayout.gameObject.SetActive(true);
@@ -31,6 +33,7 @@ namespace KJakub.Octave.UI.Core
             ShowAlbumSelectionMenu();
             ShowLevelSelectionMenu();
             ShowResults();
+            ShowPracticeMode();
             ShowSettings();
 
             ShowMainMenu();
@@ -40,6 +43,7 @@ namespace KJakub.Octave.UI.Core
             HideLevelSelectionMenu();
             HideAlbumSelectionMenu();
             HideResults();
+            HidePracticeMode();
         }
         public void Transition(Action changeUI)
         {
@@ -64,6 +68,14 @@ namespace KJakub.Octave.UI.Core
         public void ShowResults()
         {
             resultsLayout.gameObject.SetActive(true);
+        }
+        public void ShowPracticeMode()
+        {
+            practiceModeLayout.gameObject.SetActive(true);
+        }
+        public void HidePracticeMode()
+        {
+            practiceModeLayout.gameObject.SetActive(false);
         }
         public void ShowMainMenu()
         {

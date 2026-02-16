@@ -92,6 +92,15 @@ namespace KJakub.Octave.UI.LevelSelect
             currentSongIndex = newIndex;
             UpdateSelection();
         }
+        public void Practice()
+        {
+            var level = album.Levels[currentSongIndex];
+            var songData = new SongData(level.Song, level.Metadata.Lines, level.Metadata.BPM, level.Metadata.Snapping, level.Notes.Notes);
+
+            uiController.ShowPracticeMode();
+            uiController.ShowGame();
+            uiController.HideLevelSelectionMenu();
+        }
         public void Play()
         {
             var level = album.Levels[currentSongIndex];

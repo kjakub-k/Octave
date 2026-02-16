@@ -19,27 +19,32 @@ namespace KJakub.Octave.Game.Core
         public IEnumerator DoPresses(NoteDetector[] detectors, List<(float, int)?> presses)
         {
             status = PressRecorderStatus.PlayingPresses;
-            List<(float, int)?> shallowPresses = new(presses);
-            float timer = 0;
+            var shallowPresses = new List<(float, int)?>(presses);
+
+            double playbackStartTime = Time.realtimeSinceStartupAsDouble;
 
             while (status == PressRecorderStatus.PlayingPresses)
             {
-                timer += Time.deltaTime;
+                double currentTime = Time.realtimeSinceStartupAsDouble - playbackStartTime;
 
                 for (int i = shallowPresses.Count - 1; i >= 0; i--)
                 {
                     var press = shallowPresses[i];
 
-                    if (press.Value.Item1 <= timer)
+                    if (press.HasValue && press.Value.Item1 <= currentTime)
                     {
-                        detectors[press.Value.Item2].OnNoteDetectorPress();
-                        shallowPresses.Remove(press);
+                        int index = press.Value.Item2;
+
+                        detectors[index].OnNoteDetectorPress();
+                        shallowPresses.RemoveAt(i);
+
                         yield return null;
-                        detectors[press.Value.Item2].ChangeMaterial(0);
+
+                        detectors[index].ChangeMaterial(0);
                     }
                 }
 
-                if (shallowPresses.Count <= 0)
+                if (shallowPresses.Count == 0)
                     status = PressRecorderStatus.Inactive;
 
                 yield return null;
@@ -63,7 +68,7 @@ namespace KJakub.Octave.Game.Core
                     if (status != PressRecorderStatus.Recording) 
                         return;
 
-                    double relativeTime = ctx.time - recordingStartTime;
+                    double relativeTime = Time.timeAsDouble - recordingStartTime;
                     OnPress?.Invoke((float)relativeTime, index);
                 };
             }
