@@ -52,6 +52,7 @@ namespace KJakub.Octave.Game.Core
         private NoteSpawner noteSpawner;
         private Thermometer thermometer;
         private Health health;
+        [SerializeField]
         private PressRecorder pressRecorder;
         private NoteRuntimeCollection noteRuntimeCollection;
         private PlayerInput inputSystem;
@@ -71,7 +72,6 @@ namespace KJakub.Octave.Game.Core
         {
             //so other scripts can connect to its events
             stats = new();
-            pressRecorder = new();
             thermometer = new(thermometerDecreaseBy, thermometerStartingValue);
             health = new(maxHealth);
         }
@@ -90,6 +90,16 @@ namespace KJakub.Octave.Game.Core
         {
             StartCoreGame(songData, presses);
             health.OnDeath += Death;
+        }
+        public void Practice(SongData songData)
+        {
+            stats.Reset();
+            lineManager.GenerateLines(songData.Lines, noteRuntimeCollection, inputSystem, true);
+            cameraMover.UpdateCamera(songData.Lines * lineManager.LineWidth / 2);
+            health.Heal(1000);
+            ChangeDefaultColor(1);
+            StartCoroutine(noteSpawner.SpawnNotes(lineManager.transform, songData.Lines, songData.Notes, lineManager.LineLength, OnFinished, 3));
+            StartCoroutine(noteDespawner.CheckIfOutOfBounds(noteRuntimeCollection));
         }
         private void AddToPresses(float time, int line)
         {

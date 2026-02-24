@@ -1,3 +1,17 @@
 {
-	"name": "UI.Practice"
+    "name": "UI.Practice",
+    "rootNamespace": "",
+    "references": [
+        "GUID:2fcf0db18a1dd6546a6a0f8b06f1698f",
+        "GUID:db620a959e4a8bd46a906892c54d19aa"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

@@ -17,6 +17,8 @@ namespace KJakub.Octave.UI.LevelSelect
         [SerializeField]
         private GameController gameController;
         [SerializeField]
+        private PracticeController practiceController;
+        [SerializeField]
         private GameObject levelInfoPrefab;
         [SerializeField]
         private ResultsUI resultsUI;
@@ -97,8 +99,8 @@ namespace KJakub.Octave.UI.LevelSelect
             var level = album.Levels[currentSongIndex];
             var songData = new SongData(level.Song, level.Metadata.Lines, level.Metadata.BPM, level.Metadata.Snapping, level.Notes.Notes);
 
+            practiceController.StartPractice(songData);
             uiController.ShowPracticeMode();
-            uiController.ShowGame();
             uiController.HideLevelSelectionMenu();
         }
         public void Play()
