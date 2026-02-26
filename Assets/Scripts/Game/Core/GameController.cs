@@ -59,6 +59,11 @@ namespace KJakub.Octave.Game.Core
         private MusicStatus musicStatus;
         private List<(float, int)?> presses = new List<(float, int)?>();
         public List<(float, int)?> Presses { get { return presses; } }
+        public GameObject NotePrefab { get { return notePrefab; } }
+        public NoteSpawner NoteSpawner { get { return noteSpawner; } }
+        public NoteDespawner NoteDespawner { get { return noteDespawner; } }
+        public NoteRuntimeCollection NoteRuntimeCollection { get { return noteRuntimeCollection; } }
+        public LineManager LineManager { get { return lineManager; } }
         public GameStats GameStats { get { return stats; } }
         public Thermometer Thermometer { get { return thermometer; } }
         public Health Health { get { return health; } }
@@ -98,7 +103,6 @@ namespace KJakub.Octave.Game.Core
             cameraMover.UpdateCamera(songData.Lines * lineManager.LineWidth / 2);
             health.Heal(1000);
             ChangeDefaultColor(1);
-            StartCoroutine(noteSpawner.SpawnNotes(lineManager.transform, songData.Lines, songData.Notes, lineManager.LineLength, OnFinished, 3));
             StartCoroutine(noteDespawner.CheckIfOutOfBounds(noteRuntimeCollection));
         }
         private void AddToPresses(float time, int line)

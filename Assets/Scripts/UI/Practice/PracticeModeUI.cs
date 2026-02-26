@@ -1,6 +1,5 @@
 using KJakub.Octave.Game.Core;
 using KJakub.Octave.UI.Core;
-using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 namespace KJakub.Octave.UI.Practice 
 {
@@ -12,11 +11,11 @@ namespace KJakub.Octave.UI.Practice
         private UIController uiController;
         public void StepForward()
         {
-            practiceController.ChangeTime(5);
+            practiceController.SpawnNotes(practiceController.Timer + 5);
         }
         public void StepBackward()
         {
-            practiceController.ChangeTime(-5);
+            practiceController.SpawnNotes(practiceController.Timer - 5);
         }
         public void OnStartSliderChanged(float value)
         {

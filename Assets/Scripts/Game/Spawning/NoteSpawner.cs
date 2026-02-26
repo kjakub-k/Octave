@@ -2,6 +2,7 @@ using KJakub.Octave.Data;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 namespace KJakub.Octave.Game.Spawning
 {
@@ -14,7 +15,9 @@ namespace KJakub.Octave.Game.Spawning
     {
         private NoteRuntimeCollection noteCollection;
         private NoteSpawnerStatus status;
+        private float practiceTimer;
         public NoteSpawnerStatus Status { get { return status; } }
+        public float PracticeTimer { get { return practiceTimer; } set { practiceTimer = value; } }
         public NoteSpawner(NoteRuntimeCollection noteCollection)
         {
             this.noteCollection = noteCollection;
@@ -29,6 +32,40 @@ namespace KJakub.Octave.Game.Spawning
         public void Stop()
         {
             status = NoteSpawnerStatus.NotSpawning;
+        }
+        public IEnumerator StartSpawningNotesFromTime(Transform lineContainer, int lineAmount, List<NoteData> notes, float laneLength, float start, float end, float space)
+        {
+            status = NoteSpawnerStatus.Spawning;
+            practiceTimer = start;
+            List<NoteData> shallowNotes = notes.Where(n => n.Time >= start && n.Time <= end).ToList();
+            List<NoteData> currentNotes = shallowNotes.Where(n => n.Time >= start + space).ToList();
+
+            while (true)
+            {
+                //using a for loop instead of a foreach because I am removing notes inside it;
+                //foreach would break if i did so
+                for (int i = currentNotes.Count - 1; i >= 0; i--)
+                {
+                    if (practiceTimer >= currentNotes[i].Time)
+                    {
+                        SpawnNote(lineContainer, lineAmount - currentNotes[i].Lane - 1); //reversed the lanes on accident
+                        currentNotes.RemoveAt(i);
+                    }
+                }
+
+                practiceTimer += Time.deltaTime;
+
+                if (status == NoteSpawnerStatus.NotSpawning)
+                    yield break;
+
+                if (currentNotes.Count <= 0)
+                {
+                    practiceTimer = start;
+                    currentNotes = new(shallowNotes);
+                }
+
+                yield return null;
+            }
         }
         public IEnumerator SpawnNotes(Transform lineContainer, int lineAmount, List<NoteData> notes, float laneLength, Action onFinishedSpawning, float onFinishedSpawningDelay)
         {
