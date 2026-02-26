@@ -3,7 +3,6 @@ using KJakub.Octave.Managers.AudioFileManager;
 using KJakub.Octave.UI.AlbumSelect;
 using KJakub.Octave.UI.Core;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using Unity.Plastic.Newtonsoft.Json;

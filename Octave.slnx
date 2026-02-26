@@ -1,0 +1,27 @@
+﻿<Solution>
+  <Project Path="ScriptableObjects.csproj" />
+  <Project Path="Managers.AudioFileManager.csproj" />
+  <Project Path="CommandManager.NoteCommandManager.csproj" />
+  <Project Path="UI.Editor.csproj" />
+  <Project Path="Game.Core.csproj" />
+  <Project Path="Plugins.csproj" />
+  <Project Path="Game.Spawning.csproj" />
+  <Project Path="Game.Lines.csproj" />
+  <Project Path="UI.AlbumSelect.csproj" />
+  <Project Path="Data.csproj" />
+  <Project Path="UI.Results.csproj" />
+  <Project Path="UI.Game.csproj" />
+  <Project Path="Editor.Logic.csproj" />
+  <Project Path="Editor.Interfaces.csproj" />
+  <Project Path="Game.Notes.csproj" />
+  <Project Path="UI.BlackScreen.csproj" />
+  <Project Path="SettingsManager.csproj" />
+  <Project Path="Managers.CommandManager.csproj" />
+  <Project Path="UI.Core.csproj" />
+  <Project Path="CustomElements.csproj" />
+  <Project Path="Game.Camera.csproj" />
+  <Project Path="UI.Menu.csproj" />
+  <Project Path="UI.LevelSelect.csproj" />
+  <Project Path="UI.Settings.csproj" />
+  <Project Path="UI.Practice.csproj" />
+</Solution>

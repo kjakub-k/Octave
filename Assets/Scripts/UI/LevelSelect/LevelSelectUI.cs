@@ -99,9 +99,9 @@ namespace KJakub.Octave.UI.LevelSelect
             var level = album.Levels[currentSongIndex];
             var songData = new SongData(level.Song, level.Metadata.Lines, level.Metadata.BPM, level.Metadata.Snapping, level.Notes.Notes);
 
-            practiceController.StartPractice(songData);
             uiController.ShowPracticeMode();
             uiController.HideLevelSelectionMenu();
+            practiceController.StartPractice(songData);
         }
         public void Play()
         {

@@ -29,16 +29,38 @@ namespace KJakub.Octave.Game.Spawning
             note.transform.position = line.position;
             noteCollection.ActiveNotes.Add(note);
         }
+        public void SpawnNoteAt(Transform lineContainer, int lineIndex, float distance)
+        {
+            Transform line = lineContainer.GetChild(lineIndex);
+            GameObject note = noteCollection.NotePool.Pool.Get();
+            note.transform.position = line.position + Vector3.forward * distance;
+            noteCollection.ActiveNotes.Add(note);
+        }
         public void Stop()
         {
             status = NoteSpawnerStatus.NotSpawning;
         }
-        public IEnumerator StartSpawningNotesFromTime(Transform lineContainer, int lineAmount, List<NoteData> notes, float laneLength, float start, float end, float space)
+        public IEnumerator StartSpawningNotesFromTime(Transform lineContainer, int lineAmount, List<NoteData> notes, float travelTime, float start, float end, float current, float noteSpeed)
         {
             status = NoteSpawnerStatus.Spawning;
-            practiceTimer = start;
-            List<NoteData> shallowNotes = notes.Where(n => n.Time >= start && n.Time <= end).ToList();
-            List<NoteData> currentNotes = shallowNotes.Where(n => n.Time >= start + space).ToList();
+            practiceTimer = current;
+
+            List<NoteData> shallowNotes = new(notes.Where(n => n.Time >= start && n.Time <= end).ToList());
+
+            if (shallowNotes.Count <= 0)
+            {
+                Debug.Log("No notes");
+                yield break;
+            }
+
+            List<NoteData> notesBeforeThat = new(notes.Where(n => n.Time < practiceTimer && n.Time >= practiceTimer - travelTime).ToList());
+            List<NoteData> currentNotes = new(notes.Where(n => n.Time >= practiceTimer && n.Time <= end).ToList());
+
+            for (int i = notesBeforeThat.Count - 1; i >= 0; i--)
+            {
+                SpawnNoteAt(lineContainer, lineAmount - notesBeforeThat[i].Lane - 1, noteSpeed * (practiceTimer - notesBeforeThat[i].Time));
+                notesBeforeThat.RemoveAt(i);
+            }
 
             while (true)
             {
@@ -58,7 +80,7 @@ namespace KJakub.Octave.Game.Spawning
                 if (status == NoteSpawnerStatus.NotSpawning)
                     yield break;
 
-                if (currentNotes.Count <= 0)
+                if (practiceTimer >= end)
                 {
                     practiceTimer = start;
                     currentNotes = new(shallowNotes);
