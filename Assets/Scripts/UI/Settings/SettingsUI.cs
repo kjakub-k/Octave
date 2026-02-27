@@ -1,4 +1,5 @@
 using KJakub.Octave.Data;
+using KJakub.Octave.Game.Core;
 using KJakub.Octave.Managers.SettingsManager;
 using KJakub.Octave.UI.Core;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace KJakub.Octave.UI.Settings
     {
         [SerializeField] private UIController uiController;
         [SerializeField] private SettingsManager settingsManager;
+        [SerializeField] private InputController inputController;
+        [SerializeField] private int currentLaneCount = 4;
         [Header("Audio")]
         [SerializeField] private Slider musicVolumeSlider;
         [SerializeField] private Slider soundVolumeSlider;
@@ -76,6 +79,17 @@ namespace KJakub.Octave.UI.Settings
             qualityDropdown.SetValueWithoutNotify(profile.QualityIndex);
 
             resolutionDropdown.SetValueWithoutNotify(FindResolutionIndex(profile.Resolution));
+
+            int laneCount = GetCurrentLaneCount();
+
+            if (profile.RebindsByLaneCount.TryGetValue(laneCount, out string json))
+                inputController.LoadLayoutRebinds(json);
+            else
+                inputController.LoadLayoutRebinds(null);
+        }
+        private int GetCurrentLaneCount()
+        {
+            return currentLaneCount;
         }
         public void ApplySettings()
         {
@@ -88,6 +102,11 @@ namespace KJakub.Octave.UI.Settings
 
             var res = availableResolutions[resolutionDropdown.value];
             profile.Resolution = new ResolutionData(res.width, res.height);
+
+            int laneCount = GetCurrentLaneCount(); // however you track this
+
+            profile.RebindsByLaneCount[laneCount] =
+                inputController.SaveCurrentLayoutRebinds();
 
             ApplyToSystem(profile, res.refreshRateRatio);
             settingsManager.SaveSettingsToJSON();
@@ -122,7 +141,7 @@ namespace KJakub.Octave.UI.Settings
                 Mathf.RoundToInt(noteSpeedSlider.value),
                 new ResolutionData(Screen.width, Screen.height),
                 QualitySettings.GetQualityLevel(),
-                string.Empty
+                new Dictionary<int, string>()
             ));
 
             SetupProfileDropdown();

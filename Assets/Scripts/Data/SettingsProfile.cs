@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using UnityEngine;
 namespace KJakub.Octave.Data
 {
     [Serializable]
@@ -9,10 +11,15 @@ namespace KJakub.Octave.Data
         public int NoteSpeed;
         public ResolutionData Resolution;
         public int QualityIndex;
-        public string RebindsJson;
-        public SettingsProfile(float musicVolume, float soundVolume, int noteSpeed, ResolutionData resData, int qualityIndex, string rebindsJson)
+        public Dictionary<int, string> RebindsByLaneCount = new();
+        public SettingsProfile(float musicVolume, float soundVolume, int noteSpeed, ResolutionData resData, int qualityIndex, Dictionary<int, string> rebindsByLaneCount)
         {
-            (MusicVolume, SoundVolume, NoteSpeed, Resolution, QualityIndex, RebindsJson) = (musicVolume, soundVolume, noteSpeed, resData, qualityIndex, rebindsJson);
+            (MusicVolume, SoundVolume, NoteSpeed, Resolution, QualityIndex, RebindsByLaneCount) = (musicVolume, soundVolume, noteSpeed, resData, qualityIndex, rebindsByLaneCount);
+        }
+        public void EnsureInitialized()
+        {
+            if (RebindsByLaneCount == null)
+                RebindsByLaneCount = new Dictionary<int, string>();
         }
     }
     [Serializable]

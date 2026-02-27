@@ -2,8 +2,9 @@ using KJakub.Octave.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using UnityEngine;
 using Unity.Plastic.Newtonsoft.Json;
+using UnityEngine;
+using UnityEngine.Profiling;
 namespace KJakub.Octave.Managers.SettingsManager
 {
     public class SettingsManager : MonoBehaviour
@@ -44,8 +45,13 @@ namespace KJakub.Octave.Managers.SettingsManager
             try
             {
                 string json = File.ReadAllText(SavePath);
-                return JsonConvert.DeserializeObject<List<SettingsProfile>>(json)
-                       ?? new List<SettingsProfile>();
+                var profiles = JsonConvert.DeserializeObject<List<SettingsProfile>>(json)
+                               ?? new List<SettingsProfile>();
+
+                foreach (var profile in profiles)
+                    profile.EnsureInitialized();
+
+                return profiles;
             }
             catch
             {
@@ -83,14 +89,16 @@ namespace KJakub.Octave.Managers.SettingsManager
 
         private void CreateDefaultProfile()
         {
-            Profiles.Add(new SettingsProfile(
+            var profile = new SettingsProfile(
                 1f,
                 1f,
                 10,
                 new ResolutionData(1920, 1080),
                 QualitySettings.GetQualityLevel(),
-                string.Empty
-            ));
+                new Dictionary<int, string>()
+            );
+            profile.EnsureInitialized();
+            Profiles.Add(profile);
         }
     }
 }
