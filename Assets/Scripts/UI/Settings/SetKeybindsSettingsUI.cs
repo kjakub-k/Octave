@@ -14,6 +14,11 @@ namespace KJakub.Octave.UI.Settings
         [SerializeField] private int currentLaneCount = 4;
 
         private List<GameObject> spawnedItems = new();
+        public void OnRhythmModeDropdownChanged(int value)
+        {
+            currentLaneCount = value + 1;
+            BuildUI(currentLaneCount);
+        }
         public void Open()
         {
             scrollView.SetActive(true);
