@@ -7,6 +7,7 @@ namespace KJakub.Octave.UI.Editor
     public class SaveUI : IEditorSave
     {
         private VisualElement saveWindow;
+        private TextField idField;
         private TextField songNameField;
         private TextField authorField;
         private TextField mapperField;
@@ -15,6 +16,7 @@ namespace KJakub.Octave.UI.Editor
         public SaveUI(VisualElement root, SaveLogic logic, SongData songData)
         {
             saveWindow = root.Q<VisualElement>("SaveWindow");
+            idField = root.Q<TextField>("IDTextField");
             songNameField = root.Q<TextField>("SongNameTextField");
             authorField = root.Q<TextField>("AuthorTextField");
             mapperField = root.Q<TextField>("MapperTextField");
@@ -23,7 +25,7 @@ namespace KJakub.Octave.UI.Editor
 
             saveBtn.clicked += () => 
             {
-                logic.Save(songData, new(songNameField.value, authorField.value, mapperField.value, songData.BPM, songData.Lines, songData.Snapping));
+                logic.Save(songData, new(idField.value, songNameField.value, authorField.value, mapperField.value, songData.BPM, songData.Lines, songData.Snapping));
                 Hide();  
             };
             exitBtn.clicked += () => Hide();

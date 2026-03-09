@@ -597,3 +597,17 @@
 #RTEContainer.closed {
     visibility: hidden;
 }
+
+#IDTextField {
+    width: 38%;
+    align-self: center;
+}
+
+#IDTextField Label {
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+    -unity-text-align: middle-left;
+    font-size: 91%;
+}
+
+
