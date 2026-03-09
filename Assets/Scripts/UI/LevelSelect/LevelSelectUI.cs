@@ -89,6 +89,11 @@ namespace KJakub.Octave.UI.LevelSelect
             UpdateSelection();
             UpdateSongLabel(album.Levels[currentSongIndex].Metadata.SongName);
         }
+        private void UpdateLevelPlayerData()
+        {
+            // load level player data from appdata, if it does not exist create a new one
+            // write offsets for level
+        }
         public void OnLevelPressed(int newIndex)
         {
             currentSongIndex = newIndex;
