@@ -6,6 +6,8 @@ using KJakub.Octave.UI.Core;
 using UnityEngine.InputSystem;
 using KJakub.Octave.Game.Core;
 using KJakub.Octave.UI.Results;
+using System.IO;
+using Unity.Plastic.Newtonsoft.Json;
 namespace KJakub.Octave.UI.LevelSelect
 {
     public class LevelSelectUI : MonoBehaviour 
@@ -39,8 +41,20 @@ namespace KJakub.Octave.UI.LevelSelect
         {
             uiController.HideGame();
             uiController.ShowResults();
+            UpdateStats(album.Levels[currentSongIndex].Metadata.ID, gameController.GameStats);
             resultsUI.UpdateUI(album.Levels[currentSongIndex].Metadata, gameController.GameStats);
             gameController.OnFinished -= EndGame;
+        }
+        private void UpdateStats(string levelId, GameStats gameStats)
+        {
+            string path = $"{Application.persistentDataPath}/LevelPlayerData/{levelId}.json";
+            LevelPlayerData lpd = ReturnLevelPlayerData(path);
+
+            if (lpd.BestStats.Score < gameStats.Score)
+            {
+                lpd.BestStats = gameStats;
+                SaveLevelPlayerData(path, lpd);
+            }
         }
         public void Initialize(AlbumData album)
         {
@@ -89,10 +103,29 @@ namespace KJakub.Octave.UI.LevelSelect
             UpdateSelection();
             UpdateSongLabel(album.Levels[currentSongIndex].Metadata.SongName);
         }
-        private void UpdateLevelPlayerData()
+        private LevelPlayerData ReturnLevelPlayerData(string path)
         {
-            // load level player data from appdata, if it does not exist create a new one
-            // write offsets for level
+            string json;
+            LevelPlayerData lpd;
+
+            if (!File.Exists(path))
+            {
+                lpd = new(new GameStats());
+                json = JsonConvert.SerializeObject(lpd);
+                File.WriteAllText(path, json);
+                return lpd;
+            }
+
+            json = File.ReadAllText(path);
+            lpd = JsonConvert.DeserializeObject<LevelPlayerData>(json);
+            return lpd;
+        }
+        private void SaveLevelPlayerData(string path, LevelPlayerData newLPD)
+        {
+            string json;
+
+            json = JsonConvert.SerializeObject(newLPD);
+            File.WriteAllText(path, json);
         }
         public void OnLevelPressed(int newIndex)
         {
