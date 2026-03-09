@@ -18,6 +18,7 @@ namespace KJakub.Octave.UI.Core
         [SerializeField]
         private float colorDuration = 0.1f;
         [Header("Text")]
+        [SerializeField]
         private Color textHoverColor = Color.white;
         [Header("Ease")]
         [SerializeField]
