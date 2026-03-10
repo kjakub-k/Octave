@@ -305,6 +305,7 @@ MonoBehaviour:
   scaleDuration: 0.1
   hoverColor: {r: 0.9098039, g: 0.5764706, b: 0.22352941, a: 1}
   colorDuration: 0.1
+  textHoverColor: {r: 1, g: 1, b: 1, a: 1}
   ease: 27
 --- !u!1001 &21443818
 PrefabInstance:
@@ -332,7 +333,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -340,7 +341,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_SizeDelta.x
@@ -380,11 +381,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 745.185
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -515.69995
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2348,7 +2349,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &202452186
 Transform:
   m_ObjectHideFlags: 0
@@ -2934,6 +2935,7 @@ MonoBehaviour:
   scaleDuration: 0.1
   hoverColor: {r: 0.9098039, g: 0.5764706, b: 0.22352941, a: 1}
   colorDuration: 0.1
+  textHoverColor: {r: 1, g: 1, b: 1, a: 1}
   ease: 27
 --- !u!114 &234339076
 MonoBehaviour:
@@ -3471,7 +3473,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -3479,7 +3481,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_SizeDelta.x
@@ -3519,11 +3521,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 745.185
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -796.1
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4852,6 +4854,7 @@ MonoBehaviour:
   scaleDuration: 0.1
   hoverColor: {r: 0.9098039, g: 0.5764706, b: 0.22352941, a: 1}
   colorDuration: 0.1
+  textHoverColor: {r: 1, g: 1, b: 1, a: 1}
   ease: 27
 --- !u!1 &441070323
 GameObject:
@@ -5090,6 +5093,7 @@ MonoBehaviour:
   scaleDuration: 0.1
   hoverColor: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 1}
   colorDuration: 0.1
+  textHoverColor: {r: 1, g: 1, b: 1, a: 1}
   ease: 27
 --- !u!1 &454593270
 GameObject:
@@ -5214,10 +5218,10 @@ RectTransform:
   - {fileID: 999645562}
   m_Father: {fileID: 1135284502}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 243.78375, y: -35.091694}
+  m_SizeDelta: {x: 64.0775, y: 64.18339}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &455255940
 MonoBehaviour:
@@ -5282,7 +5286,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 455255943}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1393739041}
+        m_TargetAssemblyTypeName: KJakub.Octave.UI.LevelSelect.LevelSelectUI, UI.LevelSelect
+        m_MethodName: OnMusicOffsetChanged
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &455255942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5299,6 +5315,7 @@ MonoBehaviour:
   scaleDuration: 0
   hoverColor: {r: 1, g: 1, b: 1, a: 1}
   colorDuration: 0.1
+  textHoverColor: {r: 1, g: 1, b: 1, a: 1}
   ease: 27
 --- !u!114 &455255943
 MonoBehaviour:
@@ -6162,7 +6179,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -6170,7 +6187,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_SizeDelta.x
@@ -6210,11 +6227,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 745.185
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -95.1
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -6388,6 +6405,7 @@ MonoBehaviour:
   scaleDuration: 0.1
   hoverColor: {r: 0.9098039, g: 0.5764706, b: 0.22352941, a: 1}
   colorDuration: 0.1
+  textHoverColor: {r: 1, g: 1, b: 1, a: 1}
   ease: 27
 --- !u!1 &567206219
 GameObject:
@@ -8135,7 +8153,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -8143,7 +8161,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_SizeDelta.x
@@ -8183,11 +8201,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 745.185
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -375.5
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -8397,10 +8415,10 @@ RectTransform:
   - {fileID: 1883318526}
   m_Father: {fileID: 1135284502}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 317.86127, y: -35.091694}
+  m_SizeDelta: {x: 64.0775, y: 64.18339}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &787778265
 MonoBehaviour:
@@ -8465,7 +8483,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 787778268}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1393739041}
+        m_TargetAssemblyTypeName: KJakub.Octave.UI.LevelSelect.LevelSelectUI, UI.LevelSelect
+        m_MethodName: OnMusicOffsetChanged
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: -1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &787778267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8482,6 +8512,7 @@ MonoBehaviour:
   scaleDuration: 0
   hoverColor: {r: 1, g: 1, b: 1, a: 1}
   colorDuration: 0.1
+  textHoverColor: {r: 1, g: 1, b: 1, a: 1}
   ease: 27
 --- !u!114 &787778268
 MonoBehaviour:
@@ -9092,6 +9123,7 @@ MonoBehaviour:
   scaleDuration: 0.1
   hoverColor: {r: 0.9098039, g: 0.5764706, b: 0.22352941, a: 1}
   colorDuration: 0.1
+  textHoverColor: {r: 1, g: 1, b: 1, a: 1}
   ease: 27
 --- !u!114 &819321261
 MonoBehaviour:
@@ -9947,10 +9979,10 @@ RectTransform:
   - {fileID: 1349117143}
   m_Father: {fileID: 1410950767}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 317.86127, y: -35.091694}
+  m_SizeDelta: {x: 64.0775, y: 64.18339}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &906304247
 MonoBehaviour:
@@ -10015,7 +10047,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 906304249}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1393739041}
+        m_TargetAssemblyTypeName: KJakub.Octave.UI.LevelSelect.LevelSelectUI, UI.LevelSelect
+        m_MethodName: OnInputOffsetChanged
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: -1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &906304249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10070,6 +10114,7 @@ MonoBehaviour:
   scaleDuration: 0
   hoverColor: {r: 1, g: 1, b: 1, a: 1}
   colorDuration: 0.1
+  textHoverColor: {r: 1, g: 1, b: 1, a: 1}
   ease: 27
 --- !u!1 &913680790
 GameObject:
@@ -11104,6 +11149,7 @@ MonoBehaviour:
   scaleDuration: 0.1
   hoverColor: {r: 0.9098039, g: 0.5764706, b: 0.22352941, a: 1}
   colorDuration: 0.1
+  textHoverColor: {r: 1, g: 1, b: 1, a: 1}
   ease: 27
 --- !u!114 &1025964208
 MonoBehaviour:
@@ -11323,7 +11369,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -11331,7 +11377,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_SizeDelta.x
@@ -11371,11 +11417,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 745.185
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -235.29999
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -11432,10 +11478,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1135284502}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 42.79375, y: -35.091694}
+  m_SizeDelta: {x: 79.5875, y: 64.18339}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1072960142
 MonoBehaviour:
@@ -13544,6 +13590,7 @@ MonoBehaviour:
   scaleDuration: 0.1
   hoverColor: {r: 0.9098039, g: 0.5764706, b: 0.22352941, a: 1}
   colorDuration: 0.1
+  textHoverColor: {r: 1, g: 1, b: 1, a: 1}
   ease: 27
 --- !u!1 &1195426348
 GameObject:
@@ -13932,10 +13979,10 @@ RectTransform:
   - {fileID: 1410950767}
   m_Father: {fileID: 1286282694}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 352.9, y: 70.18339}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1215439428
 GameObject:
@@ -14259,10 +14306,10 @@ RectTransform:
   - {fileID: 1523618500}
   m_Father: {fileID: 1410950767}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 243.78375, y: -35.091694}
+  m_SizeDelta: {x: 64.0775, y: 64.18339}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1232417332
 MonoBehaviour:
@@ -14327,7 +14374,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1232417334}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1393739041}
+        m_TargetAssemblyTypeName: KJakub.Octave.UI.LevelSelect.LevelSelectUI, UI.LevelSelect
+        m_MethodName: OnInputOffsetChanged
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1232417334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14382,6 +14441,7 @@ MonoBehaviour:
   scaleDuration: 0
   hoverColor: {r: 1, g: 1, b: 1, a: 1}
   colorDuration: 0.1
+  textHoverColor: {r: 1, g: 1, b: 1, a: 1}
   ease: 27
 --- !u!1 &1233896637
 GameObject:
@@ -14942,10 +15002,10 @@ RectTransform:
   - {fileID: 2121364137}
   m_Father: {fileID: 1470112659}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 523.6872, y: -50}
+  m_SizeDelta: {x: 298.2248, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1297294588
 MonoBehaviour:
@@ -14963,6 +15023,7 @@ MonoBehaviour:
   scaleDuration: 0.1
   hoverColor: {r: 0.9098039, g: 0.5764706, b: 0.22352941, a: 1}
   colorDuration: 0.1
+  textHoverColor: {r: 1, g: 1, b: 1, a: 1}
   ease: 27
 --- !u!114 &1297294589
 MonoBehaviour:
@@ -16536,13 +16597,14 @@ GameObject:
   - component: {fileID: 1393739039}
   - component: {fileID: 1393739038}
   - component: {fileID: 1393739041}
+  - component: {fileID: 1393739042}
   m_Layer: 0
   m_Name: LevelSelectUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1393739037
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16653,10 +16715,25 @@ MonoBehaviour:
   practiceController: {fileID: 1195426353}
   levelInfoPrefab: {fileID: 1869213287773197271, guid: c1983d918a319d3498197339f1e685fa, type: 3}
   resultsUI: {fileID: 712001486}
+  levelOffsetsUI: {fileID: 1393739042}
   inputSystem: {fileID: 1195426351}
   image: {fileID: 821911763}
   songNameLabel: {fileID: 503042811}
   content: {fileID: 801261288}
+--- !u!114 &1393739042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393739036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0b5e9bdc0ebf974696ac259fc2c3bc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UI.LevelSelect::KJakub.Octave.UI.LevelSelect.LevelOffsetsUI
+  musicOffsetLabel: {fileID: 2102967805}
+  inputOffsetLabel: {fileID: 1453666465}
 --- !u!1 &1395107747
 GameObject:
   m_ObjectHideFlags: 0
@@ -16815,10 +16892,10 @@ RectTransform:
   - {fileID: 1135284502}
   m_Father: {fileID: 1286282694}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: -89.28339}
+  m_SizeDelta: {x: 352.9, y: 70.18339}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1402670439
 GameObject:
@@ -17736,10 +17813,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1410950767}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 147.16626, y: -35.091694}
+  m_SizeDelta: {x: 109.1575, y: 64.18339}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1453666464
 MonoBehaviour:
@@ -20577,10 +20654,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1410950767}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 42.79375, y: -35.091694}
+  m_SizeDelta: {x: 79.5875, y: 64.18339}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1672024144
 MonoBehaviour:
@@ -20728,7 +20805,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -20736,7 +20813,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_SizeDelta.x
@@ -20776,11 +20853,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 745.185
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -655.89996
       objectReference: {fileID: 0}
     - target: {fileID: 8727378685029444897, guid: c1983d918a319d3498197339f1e685fa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -22156,7 +22233,7 @@ RectTransform:
   m_Father: {fileID: 886069243}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -24998,10 +25075,10 @@ RectTransform:
   - {fileID: 313840153}
   m_Father: {fileID: 1470112659}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 149.1124, y: -50}
+  m_SizeDelta: {x: 298.2248, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1981203779
 MonoBehaviour:
@@ -25113,6 +25190,7 @@ MonoBehaviour:
   scaleDuration: 0.1
   hoverColor: {r: 0.9098039, g: 0.5764706, b: 0.22352941, a: 1}
   colorDuration: 0.1
+  textHoverColor: {r: 1, g: 1, b: 1, a: 1}
   ease: 27
 --- !u!1 &1989805670
 GameObject:
@@ -25596,6 +25674,7 @@ MonoBehaviour:
   scaleDuration: 0.1
   hoverColor: {r: 0.9098039, g: 0.5764706, b: 0.22352941, a: 1}
   colorDuration: 0.1
+  textHoverColor: {r: 1, g: 1, b: 1, a: 1}
   ease: 27
 --- !u!1 &2024320402
 GameObject:
@@ -26894,10 +26973,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1135284502}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 147.16626, y: -35.091694}
+  m_SizeDelta: {x: 109.1575, y: 64.18339}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2102967804
 MonoBehaviour:
@@ -27572,6 +27651,7 @@ MonoBehaviour:
   scaleDuration: 0.1
   hoverColor: {r: 0.9098039, g: 0.5764706, b: 0.22352941, a: 1}
   colorDuration: 0.1
+  textHoverColor: {r: 1, g: 1, b: 1, a: 1}
   ease: 27
 --- !u!1 &2136610054
 GameObject:

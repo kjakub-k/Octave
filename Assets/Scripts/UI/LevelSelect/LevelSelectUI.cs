@@ -25,6 +25,8 @@ namespace KJakub.Octave.UI.LevelSelect
         [SerializeField]
         private ResultsUI resultsUI;
         [SerializeField]
+        private LevelOffsetsUI levelOffsetsUI;
+        [SerializeField]
         private PlayerInput inputSystem;
         [Header("Components")]
         [SerializeField]
@@ -45,6 +47,20 @@ namespace KJakub.Octave.UI.LevelSelect
             resultsUI.UpdateUI(album.Levels[currentSongIndex].Metadata, gameController.GameStats);
             gameController.OnFinished -= EndGame;
         }
+        public void OnInputOffsetChanged(int value)
+        {
+            string path = $"{Application.persistentDataPath}/LevelPlayerData/{album.Levels[currentSongIndex].Metadata.ID}.json";
+            LevelPlayerData lpd = ReturnLevelPlayerData(path);
+            levelOffsetsUI.ChangeInputOffset(lpd, value);
+            SaveLevelPlayerData(path, lpd);
+        }
+        public void OnMusicOffsetChanged(int value)
+        {
+            string path = $"{Application.persistentDataPath}/LevelPlayerData/{album.Levels[currentSongIndex].Metadata.ID}.json";
+            LevelPlayerData lpd = ReturnLevelPlayerData(path);
+            levelOffsetsUI.ChangeMusicOffset(lpd, value);
+            SaveLevelPlayerData(path, lpd);
+        }
         private void UpdateStats(string levelId, GameStats gameStats)
         {
             string path = $"{Application.persistentDataPath}/LevelPlayerData/{levelId}.json";
@@ -63,6 +79,7 @@ namespace KJakub.Octave.UI.LevelSelect
             image.texture = album.CoverImage;
             UpdateSongLabel(album.Levels[currentSongIndex].Metadata.SongName);
             GenerateLevels(album.Levels);
+            levelOffsetsUI.UpdateAllLabels(ReturnLevelPlayerData($"{Application.persistentDataPath}/LevelPlayerData/{album.Levels[currentSongIndex].Metadata.ID}.json"));
         }
         private void UpdateSongLabel(string newText)
         {
@@ -102,11 +119,15 @@ namespace KJakub.Octave.UI.LevelSelect
 
             UpdateSelection();
             UpdateSongLabel(album.Levels[currentSongIndex].Metadata.SongName);
+            levelOffsetsUI.UpdateAllLabels(ReturnLevelPlayerData($"{Application.persistentDataPath}/LevelPlayerData/{album.Levels[currentSongIndex].Metadata.ID}.json"));
         }
         private LevelPlayerData ReturnLevelPlayerData(string path)
         {
             string json;
             LevelPlayerData lpd;
+
+            if (!Directory.Exists($"{Application.persistentDataPath}/LevelPlayerData"))
+                Directory.CreateDirectory($"{Application.persistentDataPath}/LevelPlayerData");
 
             if (!File.Exists(path))
             {
@@ -139,7 +160,7 @@ namespace KJakub.Octave.UI.LevelSelect
 
             uiController.ShowPracticeMode();
             uiController.HideLevelSelectionMenu();
-            practiceController.StartPractice(songData);
+            practiceController.StartPractice(songData, ReturnLevelPlayerData($"{Application.persistentDataPath}/LevelPlayerData/{album.Levels[currentSongIndex].Metadata.ID}.json"));
         }
         public void Play()
         {

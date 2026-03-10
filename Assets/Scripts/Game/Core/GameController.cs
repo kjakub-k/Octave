@@ -91,15 +91,15 @@ namespace KJakub.Octave.Game.Core
             noteDespawner.OnNoteOutOfBounds += NoteMiss;
             lineManager.OnNoteHit += NoteHit;
         }
-        public void PlayGame(SongData songData, List<(float, int)?> presses = null)
+        public void PlayGame(SongData songData, List<(float, int)?> presses = null, int inputOffset = 0, int musicOffset = 0)
         {
-            StartCoreGame(songData, presses);
+            StartCoreGame(songData, presses, inputOffset, musicOffset);
             health.OnDeath += Death;
         }
-        public void Practice(SongData songData)
+        public void Practice(SongData songData, LevelPlayerData lpd)
         {
             stats.Reset();
-            lineManager.GenerateLines(songData.Lines, noteRuntimeCollection, inputSystem, true);
+            lineManager.GenerateLines(songData.Lines, noteRuntimeCollection, inputSystem, true, notePrefab.GetComponent<NoteGO>().Speed, lpd.InputOffset);
             cameraMover.UpdateCamera(songData.Lines * lineManager.LineWidth / 2);
             health.Heal(1000);
             ChangeDefaultColor(1);
@@ -109,10 +109,10 @@ namespace KJakub.Octave.Game.Core
         {
             presses.Add((time, line));
         }
-        public void StartCoreGame(SongData songData, List<(float, int)?> presses = null)
+        public void StartCoreGame(SongData songData, List<(float, int)?> presses = null, int inputOffset = 0, int musicOffset = 0)
         {
             stats.Reset();
-            lineManager.GenerateLines(songData.Lines, noteRuntimeCollection, inputSystem, (presses == null) ? true : false);
+            lineManager.GenerateLines(songData.Lines, noteRuntimeCollection, inputSystem, (presses == null) ? true : false, notePrefab.GetComponent<NoteGO>().Speed, inputOffset / 1000);
 
             if (presses == null)
             {
@@ -131,7 +131,7 @@ namespace KJakub.Octave.Game.Core
             float delay = lineManager.LineLength / notePrefab.GetComponent<NoteGO>().Speed;
 
             if (songData.Song != null)
-                StartCoroutine(PlayMusic(delay, songData.Song));
+                StartCoroutine(PlayMusic(delay + (musicOffset / 1000), songData.Song));
 
             ChangeDefaultColor(1);
             StartCoroutine(RecordLevelLength(delay));

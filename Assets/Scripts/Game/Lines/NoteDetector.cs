@@ -11,6 +11,8 @@ namespace KJakub.Octave.Game.Lines
         [SerializeField]
         private Renderer render;
         public float DetectionSize { get; set; }
+        public float NoteSpeed { get; set; }
+        public int InputOffset { get; set; }
         public NoteRuntimeCollection NoteCollection { get; set; }
         public int Lane { get; set; }
         public InputAction AssignedAction { get; set; }
@@ -26,9 +28,11 @@ namespace KJakub.Octave.Game.Lines
             GameObject closestNote = GetClosestNote();
             ChangeMaterial(1);
 
+            float offsetDistance = NoteSpeed * InputOffset;
+
             if (closestNote != null)
             {
-                float distance = Mathf.Abs(transform.position.z - closestNote.transform.position.z);
+                float distance = Mathf.Abs(transform.position.z - (closestNote.transform.position.z + offsetDistance));
                 OnNoteHit?.Invoke(distance);
                 NoteCollection.ActiveNotes.Remove(closestNote);
                 NoteCollection.NotePool.Pool.Release(closestNote);

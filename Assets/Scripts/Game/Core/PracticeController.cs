@@ -14,10 +14,10 @@ namespace KJakub.Octave.Game.Core
         public event Action OnPracticeModeEntered;
         public SongData SongData { get { return songData; } }
         public float Timer { get { return gameController.NoteSpawner.PracticeTimer; } }
-        public void StartPractice(SongData songData)
+        public void StartPractice(SongData songData, LevelPlayerData lpd)
         {
             this.songData = songData;
-            gameController.Practice(songData);
+            gameController.Practice(songData, lpd);
             start = 0;
             end = songData.Song.length;
             SpawnNotes(0);
