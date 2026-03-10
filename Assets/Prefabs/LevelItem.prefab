@@ -56,6 +56,7 @@ MonoBehaviour:
   scaleDuration: 0.1
   hoverColor: {r: 0.9098039, g: 0.5764706, b: 0.22352941, a: 1}
   colorDuration: 0.1
+  textHoverColor: {r: 1, g: 1, b: 1, a: 1}
   ease: 27
 --- !u!1 &4192097527580526852
 GameObject:
@@ -199,8 +200,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 74da5ee2ceed73f4b84f47327b96dee1, type: 2}
+  m_sharedMaterial: {fileID: 8330723624296904572, guid: 74da5ee2ceed73f4b84f47327b96dee1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -235,6 +236,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
