@@ -63,6 +63,53 @@ namespace KJakub.Octave.Game.Lines
 
             CreateLineSides(linesAmount);
         }
+        public void GenerateLines(int linesAmount)
+        {
+            List<Transform> children = new();
+            this.noteDetectors = new NoteDetector[linesAmount];
+
+            foreach (Transform child in transform)
+            {
+                children.Add(child);
+            }
+
+            foreach (Transform child in children)
+            {
+                Destroy(child.gameObject);
+            }
+
+            List<Transform> noteDetectors = new();
+
+            foreach (Transform child in noteDetectorContainer)
+            {
+                noteDetectors.Add(child);
+            }
+
+            foreach (Transform noteDetector in noteDetectors)
+            {
+
+                Destroy(noteDetector.gameObject);
+            }
+
+            for (int i = 0; i < linesAmount; i++)
+            {
+                Vector3 pos = new(transform.position.x + i * LineWidth + LineWidth / 2, transform.position.y, transform.position.z);
+                var line = Instantiate(linePrefab, pos, transform.rotation, transform);
+                var btnND = CreateNoteDetector(i, line); //because i accidentally reversed the lines
+                this.noteDetectors[i] = btnND;
+            }
+
+            CreateLineSides(linesAmount);
+        }
+        private NoteDetector CreateNoteDetector(int lineNumber, GameObject line)
+        {
+            Renderer renderer = noteDetector.GetComponentInChildren<Renderer>();
+            Vector3 pos = new(line.transform.position.x, line.transform.position.y + LineHeight, transform.position.z + LineLength - renderer.bounds.size.z / 2);
+            var btn = Instantiate(noteDetector, pos, Quaternion.identity, noteDetectorContainer);
+            NoteDetector btnND = btn.GetComponent<NoteDetector>();
+
+            return btnND;
+        }
         private void CreateLineSides(int linesAmount)
         {
             List<Transform> lineSides = new();

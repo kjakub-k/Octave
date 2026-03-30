@@ -1,5 +1,5 @@
 {
-    "name": "Managers.AudioFileManager",
+    "name": "AudioFileManager",
     "rootNamespace": "",
     "references": [],
     "includePlatforms": [],

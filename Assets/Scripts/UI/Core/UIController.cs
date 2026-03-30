@@ -18,25 +18,30 @@ namespace KJakub.Octave.UI.Core
         [SerializeField]
         private Canvas resultsLayout;
         [SerializeField]
-        private UIDocument mainMenuLayout;
+        private Canvas mainMenuLayout;
         [SerializeField]
         private BlackScreenUI blackScreen;
         [SerializeField]
         private Canvas settingsLayout;
         [SerializeField]
         private Canvas practiceModeLayout;
+        [SerializeField]
+        private Canvas achievementLayout;
+        [SerializeField]
+        private Canvas tutorialLayout;
         private void Awake()
         {
             editorLayout.gameObject.SetActive(true);
-            mainMenuLayout.gameObject.SetActive(true);
+            ShowMainMenu();
             ShowGame();
             ShowAlbumSelectionMenu();
             ShowLevelSelectionMenu();
             ShowResults();
             ShowPracticeMode();
             ShowSettings();
+            ShowAchievements();
+            ShowTutorial();
 
-            ShowMainMenu();
             HideSettings();
             HideGame();
             HideEditor();
@@ -44,6 +49,8 @@ namespace KJakub.Octave.UI.Core
             HideAlbumSelectionMenu();
             HideResults();
             HidePracticeMode();
+            HideAchievements();
+            HideTutorial();
         }
         public void Transition(Action changeUI)
         {
@@ -56,6 +63,22 @@ namespace KJakub.Octave.UI.Core
             });
             sequence.AppendInterval(1f);
             sequence.Append(blackScreen.Hide());
+        }
+        public void ShowTutorial()
+        {
+            tutorialLayout.gameObject.SetActive(true);
+        }
+        public void HideTutorial()
+        {
+            tutorialLayout.gameObject.SetActive(false);
+        }
+        public void ShowAchievements()
+        {
+            achievementLayout.gameObject.SetActive(true);
+        }
+        public void HideAchievements()
+        {
+            achievementLayout.gameObject.SetActive(false);
         }
         public void ShowSettings()
         {
@@ -79,11 +102,11 @@ namespace KJakub.Octave.UI.Core
         }
         public void ShowMainMenu()
         {
-            mainMenuLayout.rootVisualElement.style.display = DisplayStyle.Flex;
+            mainMenuLayout.gameObject.SetActive(true);
         }
         public void HideMainMenu()
         {
-            mainMenuLayout.rootVisualElement.style.display = DisplayStyle.None;
+            mainMenuLayout.gameObject.SetActive(false);
         }
         public void ShowEditor()
         {

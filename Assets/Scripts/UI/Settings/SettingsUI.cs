@@ -33,6 +33,14 @@ namespace KJakub.Octave.UI.Settings
             SetupProfileDropdown();
             LoadCurrentProfileIntoUI();
         }
+        public void SetLaneCount(int count)
+        {
+            currentLaneCount = count;
+        }
+        public int GetLaneCount()
+        {
+            return currentLaneCount;
+        }
         public void BackToMenu()
         {
             settingsManager.SaveSettingsToJSON();
@@ -80,16 +88,12 @@ namespace KJakub.Octave.UI.Settings
 
             resolutionDropdown.SetValueWithoutNotify(FindResolutionIndex(profile.Resolution));
 
-            int laneCount = GetCurrentLaneCount();
+            int laneCount = currentLaneCount;
 
             if (profile.RebindsByLaneCount.TryGetValue(laneCount, out string json))
                 inputController.LoadLayoutRebinds(json);
             else
                 inputController.LoadLayoutRebinds(null);
-        }
-        private int GetCurrentLaneCount()
-        {
-            return currentLaneCount;
         }
         public void ApplySettings()
         {
@@ -103,7 +107,7 @@ namespace KJakub.Octave.UI.Settings
             var res = availableResolutions[resolutionDropdown.value];
             profile.Resolution = new ResolutionData(res.width, res.height);
 
-            int laneCount = GetCurrentLaneCount(); // however you track this
+            int laneCount = currentLaneCount;
 
             profile.RebindsByLaneCount[laneCount] =
                 inputController.SaveCurrentLayoutRebinds();

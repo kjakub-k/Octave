@@ -1,10 +1,8 @@
 using KJakub.Octave.Data;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
-using UnityEngine.Profiling;
 namespace KJakub.Octave.Managers.SettingsManager
 {
     public class SettingsManager : MonoBehaviour

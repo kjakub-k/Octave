@@ -1,11 +1,9 @@
 {
-    "name": "UI.Menu",
+    "name": "UI.Achievements",
     "rootNamespace": "",
     "references": [
-        "GUID:db620a959e4a8bd46a906892c54d19aa",
-        "GUID:8a0370d7dcfcb614885261adb07fee01",
-        "GUID:b79763456e65e8f4985104054492e6d3",
-        "GUID:56afb0dfa83ee9b4e87e24cdff13f492"
+        "GUID:56afb0dfa83ee9b4e87e24cdff13f492",
+        "GUID:db620a959e4a8bd46a906892c54d19aa"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
