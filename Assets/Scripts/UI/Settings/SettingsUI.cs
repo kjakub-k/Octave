@@ -90,10 +90,16 @@ namespace KJakub.Octave.UI.Settings
 
             int laneCount = currentLaneCount;
 
-            if (profile.RebindsByLaneCount.TryGetValue(laneCount, out string json))
-                inputController.LoadLayoutRebinds(json);
+            if (profile.RebindsByLaneCount.TryGetValue(laneCount, out InputBindingSet set))
+            {
+                inputController.ClearAllBindings();
+                inputController.LoadBindingGroup(set.KeyboardJSON);
+                inputController.LoadBindingGroup(set.GamepadJSON);
+            }
             else
-                inputController.LoadLayoutRebinds(null);
+            {
+                inputController.ClearAllBindings();
+            }
         }
         public void ApplySettings()
         {
@@ -109,8 +115,13 @@ namespace KJakub.Octave.UI.Settings
 
             int laneCount = currentLaneCount;
 
-            profile.RebindsByLaneCount[laneCount] =
-                inputController.SaveCurrentLayoutRebinds();
+            if (!profile.RebindsByLaneCount.ContainsKey(laneCount))
+                profile.RebindsByLaneCount[laneCount] = new InputBindingSet();
+
+            var set = profile.RebindsByLaneCount[laneCount];
+
+            set.KeyboardJSON = inputController.SaveBindingGroup(InputDeviceType.Keyboard);
+            set.GamepadJSON = inputController.SaveBindingGroup(InputDeviceType.Gamepad);
 
             ApplyToSystem(profile, res.refreshRateRatio);
             settingsManager.SaveSettingsToJSON();
@@ -145,7 +156,7 @@ namespace KJakub.Octave.UI.Settings
                 Mathf.RoundToInt(noteSpeedSlider.value),
                 new ResolutionData(Screen.width, Screen.height),
                 QualitySettings.GetQualityLevel(),
-                new Dictionary<int, string>()
+                new Dictionary<int, InputBindingSet>()
             ));
 
             SetupProfileDropdown();

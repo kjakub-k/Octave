@@ -10,15 +10,15 @@ namespace KJakub.Octave.Data
         public int NoteSpeed;
         public ResolutionData Resolution;
         public int QualityIndex;
-        public Dictionary<int, string> RebindsByLaneCount = new();
-        public SettingsProfile(float musicVolume, float soundVolume, int noteSpeed, ResolutionData resData, int qualityIndex, Dictionary<int, string> rebindsByLaneCount)
+        public Dictionary<int, InputBindingSet> RebindsByLaneCount = new();
+        public SettingsProfile(float musicVolume, float soundVolume, int noteSpeed, ResolutionData resData, int qualityIndex, Dictionary<int, InputBindingSet> rebindsByLaneCount)
         {
             (MusicVolume, SoundVolume, NoteSpeed, Resolution, QualityIndex, RebindsByLaneCount) = (musicVolume, soundVolume, noteSpeed, resData, qualityIndex, rebindsByLaneCount);
         }
         public void EnsureInitialized()
         {
             if (RebindsByLaneCount == null)
-                RebindsByLaneCount = new Dictionary<int, string>();
+                RebindsByLaneCount = new Dictionary<int, InputBindingSet>();
         }
     }
     [Serializable]

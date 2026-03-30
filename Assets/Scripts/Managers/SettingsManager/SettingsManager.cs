@@ -93,7 +93,7 @@ namespace KJakub.Octave.Managers.SettingsManager
                 10,
                 new ResolutionData(1920, 1080),
                 QualitySettings.GetQualityLevel(),
-                new Dictionary<int, string>()
+                new Dictionary<int, InputBindingSet>()
             );
             profile.EnsureInitialized();
             Profiles.Add(profile);

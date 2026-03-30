@@ -3,13 +3,13 @@
   <Project Path="AudioFileManager.csproj" />
   <Project Path="CommandManager.NoteCommandManager.csproj" />
   <Project Path="UI.Editor.csproj" />
+  <Project Path="Data.csproj" />
   <Project Path="Game.Core.csproj" />
   <Project Path="Plugins.csproj" />
   <Project Path="Game.Spawning.csproj" />
   <Project Path="UI.Tutorial.csproj" />
   <Project Path="Game.Lines.csproj" />
   <Project Path="UI.AlbumSelect.csproj" />
-  <Project Path="Data.csproj" />
   <Project Path="UI.Results.csproj" />
   <Project Path="AchievementsManager.csproj" />
   <Project Path="UI.Game.csproj" />
