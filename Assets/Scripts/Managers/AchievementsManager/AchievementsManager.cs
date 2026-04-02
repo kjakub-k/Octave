@@ -8,30 +8,53 @@ namespace KJakub.Octave.Managers.AchievementsManager
 {
     public class AchievementsManager : MonoBehaviour
     {
-        private List<string> achievementIds;
+        private List<string> achievementIds = new();
         [SerializeField]
-        private AchievementSO[] achievements;
-        public string Path { get { return $"{Application.persistentDataPath}/PlayerData/achievements.json"; } }
+        private List<AchievementSO> achievements;
+        public string Path { get { return $"{Folder}achievements.json"; } }
+        public string Folder { get { return $"{Application.persistentDataPath}/PlayerData/"; } }
+        private void Start()
+        {
+            achievementIds = GetUnlockedAchievementsIds();
+
+            if (!Directory.Exists(Folder))
+                Directory.CreateDirectory(Folder);
+
+            if (!File.Exists(Path))
+                CreateAchievementsFile();
+        }
         public AchievementSO ReturnAchievementByID(string id)
         {
-            return achievements.ToList().Where(a => a.ID == id).FirstOrDefault();
+            return achievements.Where(a => a.ID == id).FirstOrDefault();
         }
         public AchievementSO[] GetLockedAchievements()
         {
-
-            return achievements.ToList().Where(a => !achievementIds.Contains(a.ID)).ToArray();
+            return achievements.Where(a => !achievementIds.Contains(a.ID)).ToArray();
         }
         private void UnlockAchievement(AchievementSO achievement)
         {
             Debug.Log($"{achievement.ID} has been unlocked");
         }
-        public List<string> GetUnlockedAchievements()
+        public List<string> GetUnlockedAchievementsIds()
         {
             if (!File.Exists(Path))
                 CreateAchievementsFile();
 
             string json = File.ReadAllText(Path);
             List<string> result = JsonConvert.DeserializeObject<List<string>>(json);
+
+            return result;
+        }
+        public AchievementSO[] GetUnlockedAchievements()
+        {
+            List<string> resultStr = GetUnlockedAchievementsIds();
+            AchievementSO[] result = new AchievementSO[resultStr.Count];
+
+            for (int i = 0; i < resultStr.Count; i++)
+            {
+                result[i] = ReturnAchievementByID(resultStr[i]);
+            }
+
             return result;
         }
         private void CreateAchievementsFile()

@@ -23,6 +23,7 @@
   <Project Path="Managers.CommandManager.csproj" />
   <Project Path="UI.Core.csproj" />
   <Project Path="CustomElements.csproj" />
+  <Project Path="UI.Profile.csproj" />
   <Project Path="Game.Camera.csproj" />
   <Project Path="UI.LevelSelect.csproj" />
   <Project Path="UI.Settings.csproj" />

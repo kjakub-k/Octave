@@ -19,6 +19,14 @@ namespace KJakub.Octave.UI.Menu
                 uiController.HideMainMenu();
             });
         }
+        public void ProfileBtn()
+        {
+            uiController.Transition(() =>
+            {
+                uiController.ShowProfile();
+                uiController.HideMainMenu();
+            });
+        }
         public void SettingsBtn()
         {
             uiController.Transition(() =>

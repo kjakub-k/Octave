@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aef8137d15d53db4baf0a9488c8488a8, type: 3}
-  m_Name: TotalScoreAchievement
+  m_Name: TotalScoreAchievement 4
   m_EditorClassIdentifier: ScriptableObjects::KJakub.Octave.ScriptableObjects.TotalScoreAchievementSO
-  id: total_score_hundred
+  id: total_score_million
   texture: {fileID: 21300000, guid: 1c75e8d53bcf59b48a7b206b411e0752, type: 3}
-  title: Score 100
-  description: Gain 100> score points in total
+  title: Score 1000000
+  description: Gain 1000000> score points in total
   backgroundColor: {r: 0.8980392, g: 0.4627451, b: 0, a: 1}
   shadowColor: {r: 0.5568628, g: 0.28627452, b: 0, a: 1}
-  score: 100
+  score: 1000000

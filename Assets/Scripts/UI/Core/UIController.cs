@@ -29,6 +29,8 @@ namespace KJakub.Octave.UI.Core
         private Canvas achievementLayout;
         [SerializeField]
         private Canvas tutorialLayout;
+        [SerializeField]
+        private Canvas profileLayout;
         private void Awake()
         {
             editorLayout.gameObject.SetActive(true);
@@ -41,6 +43,7 @@ namespace KJakub.Octave.UI.Core
             ShowSettings();
             ShowAchievements();
             ShowTutorial();
+            ShowProfile();
 
             HideSettings();
             HideGame();
@@ -51,6 +54,7 @@ namespace KJakub.Octave.UI.Core
             HidePracticeMode();
             HideAchievements();
             HideTutorial();
+            HideProfile();
         }
         public void Transition(Action changeUI)
         {
@@ -63,6 +67,14 @@ namespace KJakub.Octave.UI.Core
             });
             sequence.AppendInterval(1f);
             sequence.Append(blackScreen.Hide());
+        }
+        public void ShowProfile()
+        {
+            profileLayout.gameObject.SetActive(true);
+        }
+        public void HideProfile()
+        {
+            profileLayout.gameObject.SetActive(false);
         }
         public void ShowTutorial()
         {

@@ -1,12 +1,8 @@
 {
-    "name": "UI.Achievements",
+    "name": "UI.Profile",
     "rootNamespace": "",
     "references": [
-        "GUID:56afb0dfa83ee9b4e87e24cdff13f492",
-        "GUID:db620a959e4a8bd46a906892c54d19aa",
-        "GUID:e330189f7eeb64548ad1398ddba918a8",
-        "GUID:6055be8ebefd69e48b49212b09b47b2f",
-        "GUID:e5e1ec8e90a7916438d78662ba2bf0ef"
+        "UI.Core"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
