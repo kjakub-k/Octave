@@ -2,7 +2,8 @@
     "name": "UI.Profile",
     "rootNamespace": "",
     "references": [
-        "UI.Core"
+        "UI.Core",
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

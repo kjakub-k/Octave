@@ -2,6 +2,7 @@ using KJakub.Octave.ScriptableObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 namespace KJakub.Octave.Data
 {
     public class GameStats
@@ -98,6 +99,18 @@ namespace KJakub.Octave.Data
         {
             Score += score;
             OnScoreChanged?.Invoke(Score);
+        }
+        public void AddResultsToPlayerPrefs()
+        {
+            PlayerPrefs.SetInt("TotalScore", 
+                PlayerPrefs.GetInt("TotalScore", 0) + Score);
+            PlayerPrefs.SetInt("TotalMisses",
+                PlayerPrefs.GetInt("TotalMisses", 0) + Misses);
+            PlayerPrefs.SetInt("TotalHits",
+                PlayerPrefs.GetInt("TotalHits", 0) + TotalHits);
+
+            if (PlayerPrefs.GetInt("HighestCombo", 0) < HighestCombo)
+                PlayerPrefs.SetInt("HighestCombo", HighestCombo);
         }
     }
 }

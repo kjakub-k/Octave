@@ -43,6 +43,7 @@ namespace KJakub.Octave.UI.LevelSelect
         {
             uiController.HideGame();
             uiController.ShowResults();
+            gameController.GameStats.AddResultsToPlayerPrefs();
             UpdateStats(album.Levels[currentSongIndex].Metadata.ID, gameController.GameStats);
             resultsUI.UpdateUI(album.Levels[currentSongIndex].Metadata, gameController.GameStats);
             gameController.OnFinished -= EndGame;
