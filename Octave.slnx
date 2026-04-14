@@ -1,11 +1,14 @@
 ﻿<Solution>
+  <Project Path="GameJoltEditor.csproj" />
   <Project Path="ScriptableObjects.csproj" />
   <Project Path="AudioFileManager.csproj" />
+  <Project Path="GameJoltDemos.csproj" />
   <Project Path="CommandManager.NoteCommandManager.csproj" />
   <Project Path="UI.Editor.csproj" />
   <Project Path="Data.csproj" />
   <Project Path="Game.Core.csproj" />
   <Project Path="Plugins.csproj" />
+  <Project Path="GameJoltRuntime.csproj" />
   <Project Path="Game.Spawning.csproj" />
   <Project Path="UI.Tutorial.csproj" />
   <Project Path="Game.Lines.csproj" />
