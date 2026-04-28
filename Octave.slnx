@@ -18,6 +18,7 @@
   <Project Path="UI.Game.csproj" />
   <Project Path="Editor.Logic.csproj" />
   <Project Path="Editor.Interfaces.csproj" />
+  <Project Path="GamejoltManager.csproj" />
   <Project Path="Game.Notes.csproj" />
   <Project Path="UI.BlackScreen.csproj" />
   <Project Path="UI.Achievements.csproj" />

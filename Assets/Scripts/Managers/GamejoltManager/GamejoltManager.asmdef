@@ -1,0 +1,20 @@
+{
+    "name": "GamejoltManager",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d3ff2462f3e0c8b49b191c54febfa1d2",
+        "GUID:3ca3ebb3d49704547ae2605b1e860db6",
+        "GUID:f220a277eefae4d3aa9e31c2b43bb307",
+        "GUID:fe25561d224ed4743af4c60938a59d0b",
+        "GUID:5540e30183c82e84b954c033c388e06c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
