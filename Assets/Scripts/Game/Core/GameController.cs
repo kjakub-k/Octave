@@ -57,6 +57,7 @@ namespace KJakub.Octave.Game.Core
         private NoteRuntimeCollection noteRuntimeCollection;
         private PlayerInput inputSystem;
         private MusicStatus musicStatus;
+        private List<GameModifier> activeModifiers = new();
         private List<(float, int)?> presses = new List<(float, int)?>();
         public List<(float, int)?> Presses { get { return presses; } }
         public GameObject NotePrefab { get { return notePrefab; } }
@@ -91,8 +92,13 @@ namespace KJakub.Octave.Game.Core
             noteDespawner.OnNoteOutOfBounds += NoteMiss;
             lineManager.OnNoteHit += NoteHit;
         }
-        public void PlayGame(SongData songData, List<(float, int)?> presses = null, int inputOffset = 0, int musicOffset = 0)
+        public void PlayGame(SongData songData, List<(float, int)?> presses = null, int inputOffset = 0, int musicOffset = 0, List<GameModifier> modifiers = null)
         {
+            if (modifiers != null)
+                activeModifiers = modifiers;
+            else
+                activeModifiers.Clear();
+
             StartCoreGame(songData, presses, inputOffset, musicOffset);
             health.OnDeath += Death;
         }
@@ -114,6 +120,17 @@ namespace KJakub.Octave.Game.Core
             stats.Reset();
             lineManager.GenerateLines(songData.Lines, noteRuntimeCollection, inputSystem, (presses == null) ? true : false, notePrefab.GetComponent<NoteGO>().Speed, inputOffset / 1000);
 
+            float noteSpeed = 10f;
+
+            if (activeModifiers.Contains(GameModifier.DoubleSpeed))
+            {
+                noteSpeed *= 2;
+            }
+            else if (activeModifiers.Contains(GameModifier.HalfSpeed))
+            {
+                noteSpeed *= 0.5f;
+            }
+
             if (presses == null)
             {
                 this.presses.Clear();
@@ -128,14 +145,21 @@ namespace KJakub.Octave.Game.Core
             cameraMover.UpdateCamera(songData.Lines * lineManager.LineWidth / 2);
             health.Heal(1000);
 
-            float delay = lineManager.LineLength / notePrefab.GetComponent<NoteGO>().Speed;
+            float delay = lineManager.LineLength / noteSpeed;
 
             if (songData.Song != null)
-                StartCoroutine(PlayMusic(delay + (musicOffset / 1000), songData.Song));
+                StartCoroutine(PlayMusic(delay + (musicOffset / 1000), songData.Song,
+                    activeModifiers.Contains(GameModifier.Endless),
+                    !activeModifiers.Contains(GameModifier.DoubleSpeed) ? activeModifiers.Contains(GameModifier.HalfSpeed) ? 0.5f : 1 : 2));
 
             ChangeDefaultColor(1);
             StartCoroutine(RecordLevelLength(delay));
-            StartCoroutine(noteSpawner.SpawnNotes(lineManager.transform, songData.Lines, songData.Notes, lineManager.LineLength, OnFinished, delay + 1f));
+            StartCoroutine(noteSpawner.SpawnNotes(lineManager.transform, songData.Lines, 
+                songData.Notes, lineManager.LineLength,
+                OnFinished, delay + 1f,
+                noteSpeed,
+                activeModifiers.Contains(GameModifier.Endless),
+                activeModifiers.Contains(GameModifier.Mirrored)));
             StartCoroutine(noteDespawner.CheckIfOutOfBounds(noteRuntimeCollection));
             StartCoroutine(thermometer.Decrease());
         }
@@ -144,7 +168,14 @@ namespace KJakub.Octave.Game.Core
             stats.Miss();
             stats.AddToScore(-10);
             thermometer.Add(-10);
-            health.Damage(20);
+
+            if (activeModifiers.Contains(GameModifier.NoMiss))
+            {
+                health.Damage(10000);
+            } else
+            {
+                health.Damage(20);
+            }
         }
         public enum LevelLengthRecorderStatus
         {
@@ -170,10 +201,20 @@ namespace KJakub.Octave.Game.Core
         {
             status = LevelLengthRecorderStatus.Inactive;
         }
-        private System.Collections.IEnumerator PlayMusic(float delay, AudioClip clip)
+        private System.Collections.IEnumerator PlayMusic(float delay, AudioClip clip, bool loop = false, float speedMultiplier = 1)
         {
             audioSource.clip = clip;
             musicStatus = MusicStatus.Playing;
+            audioSource.pitch = speedMultiplier;
+
+            if (loop)
+            {
+                audioSource.loop = true;
+            }
+            else if (!loop)
+            {
+                audioSource.loop = false;
+            }
 
             yield return new WaitForSeconds(delay);
 

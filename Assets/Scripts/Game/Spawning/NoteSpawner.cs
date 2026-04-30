@@ -1,4 +1,5 @@
 using KJakub.Octave.Data;
+using KJakub.Octave.Game.Notes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,11 +23,12 @@ namespace KJakub.Octave.Game.Spawning
         {
             this.noteCollection = noteCollection;
         }
-        public void SpawnNote(Transform lineContainer, int lineIndex)
+        public void SpawnNote(Transform lineContainer, int lineIndex, float speed)
         {
             Transform line = lineContainer.GetChild(lineIndex);
             GameObject note = noteCollection.NotePool.Pool.Get();
             note.transform.position = line.position;
+            note.GetComponent<NoteGO>().ChangeSpeed(speed);
             noteCollection.ActiveNotes.Add(note);
         }
         public void SpawnNoteAt(Transform lineContainer, int lineIndex, float distance)
@@ -70,7 +72,7 @@ namespace KJakub.Octave.Game.Spawning
                 {
                     if (practiceTimer >= currentNotes[i].Time)
                     {
-                        SpawnNote(lineContainer, lineAmount - currentNotes[i].Lane - 1); //reversed the lanes on accident
+                        SpawnNote(lineContainer, lineAmount - currentNotes[i].Lane - 1, noteSpeed); //reversed the lanes on accident
                         currentNotes.RemoveAt(i);
                     }
                 }
@@ -89,7 +91,7 @@ namespace KJakub.Octave.Game.Spawning
                 yield return null;
             }
         }
-        public IEnumerator SpawnNotes(Transform lineContainer, int lineAmount, List<NoteData> notes, float laneLength, Action onFinishedSpawning, float onFinishedSpawningDelay)
+        public IEnumerator SpawnNotes(Transform lineContainer, int lineAmount, List<NoteData> notes, float laneLength, Action onFinishedSpawning, float onFinishedSpawningDelay, float noteSpeed, bool repeat = false, bool mirror = false)
         {
             status = NoteSpawnerStatus.Spawning;
             float timer = 0;
@@ -104,7 +106,15 @@ namespace KJakub.Octave.Game.Spawning
                 {
                     if (timer >= currentNotes[i].Time)
                     {
-                        SpawnNote(lineContainer, lineAmount - currentNotes[i].Lane - 1); //reversed the lanes on accident
+                        if (mirror)
+                        {
+                            SpawnNote(lineContainer, currentNotes[i].Lane, noteSpeed);
+                        }
+                        else if (!mirror)
+                        {
+                            SpawnNote(lineContainer, lineAmount - currentNotes[i].Lane - 1, noteSpeed); //reversed the lanes on accident
+                        }
+
                         currentNotes.RemoveAt(i);
                     }
                 }
@@ -113,9 +123,16 @@ namespace KJakub.Octave.Game.Spawning
 
                 if (currentNotes.Count <= 0)
                 {
-                    status = NoteSpawnerStatus.NotSpawning;
-                    yield return new WaitForSeconds(onFinishedSpawningDelay);
-                    onFinishedSpawning?.Invoke();
+                    if (repeat)
+                    {
+                        currentNotes = new(notes);
+                    }
+                    else
+                    {
+                        status = NoteSpawnerStatus.NotSpawning;
+                        yield return new WaitForSeconds(onFinishedSpawningDelay);
+                        onFinishedSpawning?.Invoke();
+                    }
                 }
 
                 yield return null;

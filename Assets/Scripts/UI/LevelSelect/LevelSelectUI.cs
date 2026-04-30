@@ -8,12 +8,15 @@ using KJakub.Octave.Game.Core;
 using KJakub.Octave.UI.Results;
 using System.IO;
 using Unity.Plastic.Newtonsoft.Json;
+using System.Collections.Generic;
+using KJakub.Octave.Managers.GamejoltManager;
 namespace KJakub.Octave.UI.LevelSelect
 {
     public class LevelSelectUI : MonoBehaviour 
     {
         private AlbumData album;
         private int currentSongIndex = 0;
+        private List<GameModifier> activeModifiers = new();
         [SerializeField]
         private UIController uiController;
         [SerializeField]
@@ -35,6 +38,7 @@ namespace KJakub.Octave.UI.LevelSelect
         private TMP_Text songNameLabel;
         [SerializeField]
         private Transform content;
+        public List<GameModifier> ActiveModifiers { get { return activeModifiers; } set { activeModifiers = value; } }
         private void Start()
         {
             inputSystem.actions.FindAction("Navigate").performed += (InputAction.CallbackContext c) => { OnNavigate(c.ReadValue<Vector2>()); } ;
@@ -44,9 +48,16 @@ namespace KJakub.Octave.UI.LevelSelect
             uiController.HideGame();
             uiController.ShowResults();
             gameController.GameStats.AddResultsToPlayerPrefs();
-            UpdateStats(album.Levels[currentSongIndex].Metadata.ID, gameController.GameStats);
+            //UpdateStats(album.Levels[currentSongIndex].Metadata.ID, gameController.GameStats);
+            if (PlayerPrefs.GetString("username") != "" && PlayerPrefs.GetString("token") != "")
+                SaveResultsToGamejolt(PlayerPrefs.GetInt("TotalScore"), PlayerPrefs.GetFloat("AverageAccuracy"));
+            
             resultsUI.UpdateUI(album.Levels[currentSongIndex].Metadata, gameController.GameStats);
             gameController.OnFinished -= EndGame;
+        }
+        private async void SaveResultsToGamejolt(int score, float accuracy)
+        {
+            GamejoltLoader.Instance.SavePerformance(score, accuracy);
         }
         public void OnInputOffsetChanged(int value)
         {
@@ -62,6 +73,7 @@ namespace KJakub.Octave.UI.LevelSelect
             levelOffsetsUI.ChangeMusicOffset(lpd, value);
             SaveLevelPlayerData(path, lpd);
         }
+        /*
         private void UpdateStats(string levelId, GameStats gameStats)
         {
             string path = $"{Application.persistentDataPath}/LevelPlayerData/{levelId}.json";
@@ -73,6 +85,7 @@ namespace KJakub.Octave.UI.LevelSelect
                 SaveLevelPlayerData(path, lpd);
             }
         }
+        */
         public void Initialize(AlbumData album)
         {
             this.album = album;
@@ -132,7 +145,7 @@ namespace KJakub.Octave.UI.LevelSelect
 
             if (!File.Exists(path))
             {
-                lpd = new(new GameStats());
+                lpd = new(0);
                 json = JsonConvert.SerializeObject(lpd);
                 File.WriteAllText(path, json);
                 return lpd;
@@ -172,7 +185,7 @@ namespace KJakub.Octave.UI.LevelSelect
             uiController.ShowGame();
             resultsUI.SaveInfo(songData, level.Metadata, EndGame);
             gameController.OnFinished += EndGame;
-            gameController.PlayGame(songData);
+            gameController.PlayGame(songData, null, 0, 0, activeModifiers);
         }
         private void UpdateSelection()
         {

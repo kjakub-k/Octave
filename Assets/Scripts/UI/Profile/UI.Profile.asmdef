@@ -3,7 +3,11 @@
     "rootNamespace": "",
     "references": [
         "UI.Core",
-        "Unity.TextMeshPro"
+        "Unity.TextMeshPro",
+        "Plugins",
+        "GamejoltManager",
+        "AchievementsManager",
+        "ScriptableObjects"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

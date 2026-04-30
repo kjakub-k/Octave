@@ -1,17 +1,15 @@
 ﻿<Solution>
-  <Project Path="GameJoltEditor.csproj" />
   <Project Path="ScriptableObjects.csproj" />
   <Project Path="AudioFileManager.csproj" />
-  <Project Path="GameJoltDemos.csproj" />
   <Project Path="CommandManager.NoteCommandManager.csproj" />
   <Project Path="UI.Editor.csproj" />
   <Project Path="Data.csproj" />
   <Project Path="Game.Core.csproj" />
   <Project Path="Plugins.csproj" />
-  <Project Path="GameJoltRuntime.csproj" />
   <Project Path="Game.Spawning.csproj" />
   <Project Path="UI.Tutorial.csproj" />
   <Project Path="Game.Lines.csproj" />
+  <Project Path="UI.Profile.csproj" />
   <Project Path="UI.AlbumSelect.csproj" />
   <Project Path="UI.Results.csproj" />
   <Project Path="AchievementsManager.csproj" />
@@ -27,7 +25,6 @@
   <Project Path="Managers.CommandManager.csproj" />
   <Project Path="UI.Core.csproj" />
   <Project Path="CustomElements.csproj" />
-  <Project Path="UI.Profile.csproj" />
   <Project Path="Game.Camera.csproj" />
   <Project Path="UI.LevelSelect.csproj" />
   <Project Path="UI.Settings.csproj" />

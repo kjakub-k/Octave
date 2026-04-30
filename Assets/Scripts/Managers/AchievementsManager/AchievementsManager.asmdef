@@ -2,7 +2,8 @@
     "name": "AchievementsManager",
     "rootNamespace": "",
     "references": [
-        "GUID:e5e1ec8e90a7916438d78662ba2bf0ef"
+        "GUID:e5e1ec8e90a7916438d78662ba2bf0ef",
+        "GUID:b79763456e65e8f4985104054492e6d3"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

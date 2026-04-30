@@ -1,12 +1,15 @@
 using KJakub.Octave.ScriptableObjects;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 namespace KJakub.Octave.Data
 {
+    [Serializable]
     public class GameStats
     {
+        [JsonIgnore]
         public List<AccuracyResult> HitsAccuracy { get; private set; }
         public int HighestCombo { get; private set; }
         public int Combo { get; private set; }
@@ -36,6 +39,9 @@ namespace KJakub.Octave.Data
         }
         public float GetAccuracyPercentage()
         {
+            if (HitsAccuracy.Count <= 0)
+                return 0;
+
             int maxWeight = HitsAccuracy.Max(a => a.Accuracy.Weight);
             float earned = 0;
             float max = 0;
@@ -108,6 +114,10 @@ namespace KJakub.Octave.Data
                 PlayerPrefs.GetInt("TotalMisses", 0) + Misses);
             PlayerPrefs.SetInt("TotalHits",
                 PlayerPrefs.GetInt("TotalHits", 0) + TotalHits);
+            PlayerPrefs.SetInt("GamesPlayed",
+                PlayerPrefs.GetInt("GamesPlayed", 0) + 1);
+            PlayerPrefs.SetFloat("AverageAccuracy",
+                (PlayerPrefs.GetFloat("AverageAccuracy", 100) + GetAccuracyPercentage()) / 2);
 
             if (PlayerPrefs.GetInt("HighestCombo", 0) < HighestCombo)
                 PlayerPrefs.SetInt("HighestCombo", HighestCombo);

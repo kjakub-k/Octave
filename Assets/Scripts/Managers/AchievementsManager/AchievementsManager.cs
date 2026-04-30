@@ -34,6 +34,8 @@ namespace KJakub.Octave.Managers.AchievementsManager
         private void UnlockAchievement(AchievementSO achievement)
         {
             Debug.Log($"{achievement.ID} has been unlocked");
+            achievementIds.Add(achievement.ID);
+            Save();
         }
         public List<string> GetUnlockedAchievementsIds()
         {

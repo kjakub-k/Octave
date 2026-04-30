@@ -9,5 +9,9 @@ namespace KJakub.Octave.Game.Notes
         {
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
+        public void ChangeSpeed(float newSpeed)
+        {
+            speed = newSpeed;
+        }
     }
 }
