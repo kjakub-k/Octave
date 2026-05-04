@@ -33,6 +33,18 @@ namespace KJakub.Octave.UI.Menu
         {
             Translate();
         }
+        public void CzechBtn()
+        {
+            PlayerPrefs.SetString("language", "cz");
+            LanguageManager.SetLanguage(PlayerPrefs.GetString("language"));
+            Translate();
+        }
+        public void EnglishBtn()
+        {
+            PlayerPrefs.SetString("language", "en_us");
+            LanguageManager.SetLanguage(PlayerPrefs.GetString("language"));
+            Translate();
+        }
         private void Translate()
         {
             playBtnLabel.text = LanguageManager.GetTranslation("play_btn");

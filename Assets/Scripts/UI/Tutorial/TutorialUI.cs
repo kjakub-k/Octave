@@ -2,6 +2,7 @@ using DG.Tweening;
 using KJakub.Octave.Data;
 using KJakub.Octave.Game.Lines;
 using KJakub.Octave.Managers.JsonManager;
+using KJakub.Octave.Managers.LanguageManager;
 using KJakub.Octave.UI.AlbumSelect;
 using KJakub.Octave.UI.Core;
 using KJakub.Octave.UI.LevelSelect;
@@ -23,6 +24,8 @@ namespace KJakub.Octave.UI.Tutorial
         private Image imgBlocker; //for blocking input
         [SerializeField]
         private Image spotLight; //for showing spotlight on things in question
+        [SerializeField]
+        private TMP_Text continueBtnLabel;
         [Header("Dialogue")]
         [SerializeField]
         private TMP_Text dialogueLabel;
@@ -48,6 +51,14 @@ namespace KJakub.Octave.UI.Tutorial
         private Ease moveEase = Ease.Linear;
         private float progress = 0f;
         private bool textFinishedGenerating = false;
+        private void OnEnable()
+        {
+            Translate();
+        }
+        private void Translate()
+        {
+            continueBtnLabel.text = LanguageManager.GetTranslation("continue");
+        }
         private void Update()
         {
             if (textFinishedGenerating)
@@ -105,13 +116,13 @@ namespace KJakub.Octave.UI.Tutorial
         public void StartTutorial()
         {
             uiController.ShowTutorial();
-            ShowDialogue("Welcome to Octave! This tutorial will help you get familiar with it's most important features and UI.");
+            ShowDialogue(LanguageManager.GetTranslation("tutorial_1"));
             AssignNextFuncToBtn(Introduction);
         }
         public void Introduction()
         {
             MoveSpotLight(Vector2.one, new Vector2(694, 546));
-            ShowDialogue("In order to play, press the play button.");
+            ShowDialogue(LanguageManager.GetTranslation("tutorial_2"));
             AssignNextFuncToBtn(ShowAlbums);
         }
         public void ShowAlbums()
@@ -121,7 +132,7 @@ namespace KJakub.Octave.UI.Tutorial
             uiController.HideMainMenu();
             albumSelectUI.Initialize(albums);
             uiController.ShowAlbumSelectionMenu();
-            ShowDialogue("Here you can choose an album of levels to play. You can switch between the albums using the arrows next to the icon. To choose an album, press the play button at the bottom.");
+            ShowDialogue(LanguageManager.GetTranslation("tutorial_3"));
             AssignNextFuncToBtn(() => ShowLevels(albums[0]));
         }
         public void ShowLevels(AlbumData album)
@@ -130,13 +141,13 @@ namespace KJakub.Octave.UI.Tutorial
             uiController.HideAlbumSelectionMenu();
             levelSelectUI.Initialize(album);
             uiController.ShowLevelSelectionMenu();
-            ShowDialogue("You can choose the level you want to play here.");
+            ShowDialogue(LanguageManager.GetTranslation("tutorial_4"));
             AssignNextFuncToBtn(PlayLevel);
         }
         public void PlayLevel()
         {
             MoveSpotLight(new Vector2(3, 1), new Vector2(821, 121));
-            ShowDialogue("By pressing either of these buttons you can practice or play the level.");
+            ShowDialogue(LanguageManager.GetTranslation("tutorial_5"));
             AssignNextFuncToBtn(ShowPlayingArea);
         }    
         public void ShowPlayingArea()
@@ -145,19 +156,19 @@ namespace KJakub.Octave.UI.Tutorial
             lineManager.GenerateLines(4);
             uiController.ShowGame();
             uiController.HideLevelSelectionMenu();
-            ShowDialogue("This is the playing area. Down these lanes, notes will start coming to you, and you'll have to hit them in time using the circles at the bottom.");
+            ShowDialogue(LanguageManager.GetTranslation("tutorial_6"));
             AssignNextFuncToBtn(ShowThermometer);
         }
         public void ShowThermometer()
         {
             MoveSpotLight(new Vector2(2, 3), new Vector2(270, 343));
-            ShowDialogue("You get score points by hitting a note. The thermometer also raises, the higher the thermometer is the more points you get per hit.");
+            ShowDialogue(LanguageManager.GetTranslation("tutorial_7"));
             AssignNextFuncToBtn(ShowHealthBar);
         }
         public void ShowHealthBar()
         {
             MoveSpotLight(new Vector2(5, 1), new Vector2(973, 911));
-            ShowDialogue("Be aware though, if you miss a note or hit one with poor accuracy you will lose health.");
+            ShowDialogue(LanguageManager.GetTranslation("tutorial_8"));
             AssignNextFuncToBtn(ShowOffsets);
         }
         public void ShowOffsets()
@@ -165,7 +176,7 @@ namespace KJakub.Octave.UI.Tutorial
             MoveSpotLight(new Vector2(2, 1), new Vector2(216, 303));
             uiController.HideGame();
             uiController.ShowLevelSelectionMenu();
-            ShowDialogue("Lastly, if you ever feel like your input or music of a level is off, you can change the offset of them here.");
+            ShowDialogue(LanguageManager.GetTranslation("tutorial_9"));
             AssignNextFuncToBtn(ThankYou);
         }
         public void ThankYou()
@@ -173,7 +184,7 @@ namespace KJakub.Octave.UI.Tutorial
             MoveSpotLight(Vector2.one, new Vector2(-1000, -1000));
             uiController.HideLevelSelectionMenu();
             uiController.ShowMainMenu();
-            ShowDialogue("That is all. If you are a beginner, I recommend playing the beginner album first before getting to the others. Enjoy!");
+            ShowDialogue(LanguageManager.GetTranslation("tutorial_10"));
             AssignNextFuncToBtn(EndTutorial);
         }
         public void EndTutorial()

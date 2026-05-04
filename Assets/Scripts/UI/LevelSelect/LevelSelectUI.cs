@@ -10,6 +10,7 @@ using System.IO;
 using Unity.Plastic.Newtonsoft.Json;
 using System.Collections.Generic;
 using KJakub.Octave.Managers.GamejoltManager;
+using KJakub.Octave.Managers.LanguageManager;
 namespace KJakub.Octave.UI.LevelSelect
 {
     public class LevelSelectUI : MonoBehaviour 
@@ -38,10 +39,39 @@ namespace KJakub.Octave.UI.LevelSelect
         private TMP_Text songNameLabel;
         [SerializeField]
         private Transform content;
+        [Header("Labels (For Translation)")]
+        [SerializeField]
+        private TMP_Text backBtnLabel;
+        [SerializeField]
+        private TMP_Text playBtnLabel;
+        [SerializeField]
+        private TMP_Text offsetsLabel;
+        [SerializeField]
+        private TMP_Text inputOffsetLabel;
+        [SerializeField]
+        private TMP_Text musicOffsetLabel;
+        [SerializeField]
+        private TMP_Text practiceBtnLabel;
+        [SerializeField]
+        private TMP_Text modifierBtnLabel;
         public List<GameModifier> ActiveModifiers { get { return activeModifiers; } set { activeModifiers = value; } }
+        private void OnEnable()
+        {
+            Translate();
+        }
         private void Start()
         {
             inputSystem.actions.FindAction("Navigate").performed += (InputAction.CallbackContext c) => { OnNavigate(c.ReadValue<Vector2>()); } ;
+        }
+        private void Translate()
+        {
+            backBtnLabel.text = LanguageManager.GetTranslation("back_btn");
+            playBtnLabel.text = LanguageManager.GetTranslation("play_btn");
+            offsetsLabel.text = LanguageManager.GetTranslation("offsets");
+            inputOffsetLabel.text = LanguageManager.GetTranslation("input_offset");
+            musicOffsetLabel.text = LanguageManager.GetTranslation("music_offset");
+            practiceBtnLabel.text = LanguageManager.GetTranslation("practice_btn");
+            modifierBtnLabel.text = LanguageManager.GetTranslation("modifiers_btn");
         }
         private void EndGame()
         {
@@ -110,7 +140,7 @@ namespace KJakub.Octave.UI.LevelSelect
             {
                 var level = levels[i];
                 var pref = Instantiate(levelInfoPrefab, content);
-                pref.GetComponentInChildren<TMP_Text>().text = $"{level.Metadata.SongName} by {level.Metadata.Author}";
+                pref.GetComponentInChildren<TMP_Text>().text = $"{level.Metadata.SongName} {LanguageManager.GetTranslation("by")} {level.Metadata.Author}";
                 LevelItemUI lvlItemUI = pref.GetComponent<LevelItemUI>();
 
                 lvlItemUI.LevelSelectUI = this;

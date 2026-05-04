@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using KJakub.Octave.UI.Core;
 using KJakub.Octave.UI.LevelSelect;
+using KJakub.Octave.Managers.LanguageManager;
 namespace KJakub.Octave.UI.AlbumSelect
 {
     public class AlbumSelectUI : MonoBehaviour
@@ -22,15 +23,29 @@ namespace KJakub.Octave.UI.AlbumSelect
         private TMP_Text albumLabel;
         [SerializeField]
         private RawImage albumImage;
+        [Header("Labels (For Translation)")]
+        [SerializeField]
+        private TMP_Text backBtnLabel;
+        [SerializeField]
+        private TMP_Text playBtnLabel;
+        private void OnEnable()
+        {
+            Translation();
+        }
         public void Initialize(AlbumData[] albums)
         {
             this.albums = albums;
             SwitchAlbum(albums[currentIndex]);
             UpdateSelection();
         }
+        private void Translation()
+        {
+            backBtnLabel.text = LanguageManager.GetTranslation("back_btn");
+            playBtnLabel.text = LanguageManager.GetTranslation("play_btn");
+        }
         private void SwitchAlbum(AlbumData album)
         {
-            albumLabel.text = $"{album.AlbumName} by {album.ArtistName}";
+            albumLabel.text = $"{album.AlbumName} ({album.ArtistName})";
             albumImage.texture = album.CoverImage;
         }
         public void SwitchToLevelSelection()

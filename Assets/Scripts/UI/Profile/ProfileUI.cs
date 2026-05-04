@@ -1,9 +1,9 @@
 using KJakub.Octave.Managers.AchievementsManager;
 using KJakub.Octave.Managers.GamejoltManager;
+using KJakub.Octave.Managers.LanguageManager;
 using KJakub.Octave.ScriptableObjects;
 using KJakub.Octave.UI.Core;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -15,15 +15,7 @@ namespace KJakub.Octave.UI.Profile
         [SerializeField]
         private UIController uiController;
         [SerializeField]
-        private TMP_Text scoreLabel;
-        [SerializeField]
-        private TMP_Text ratingLabel;
-        [SerializeField]
         private Button gamejoltLoginButton;
-        [SerializeField]
-        private TMP_Text gamejoltLoginButtonText;
-        [SerializeField]
-        private TMP_Text userLabel;
         [SerializeField]
         private AchievementsManager achievementsManager;
         [SerializeField]
@@ -32,6 +24,33 @@ namespace KJakub.Octave.UI.Profile
         private GameObject achievementProfileItemPrefab;
         [SerializeField]
         private GamejoltLoginUI gamejoltLoginUI;
+        [Header("Labels")]
+        [SerializeField]
+        private TMP_Text gamejoltLoginButtonText;
+        [SerializeField]
+        private TMP_Text scoreLabel;
+        [SerializeField]
+        private TMP_Text ratingLabel;
+        [SerializeField]
+        private TMP_Text userLabel;
+        [SerializeField]
+        private TMP_Text backBtnLabel;
+        [SerializeField]
+        private TMP_Text scoreTitleLabel;
+        [SerializeField]
+        private TMP_Text ratingTitleLabel;
+        [SerializeField]
+        private TMP_Text loginPopupCancelLabel;
+        [SerializeField]
+        private TMP_Text loginPopupLoginLabel;
+        [SerializeField]
+        private TMP_Text loginPopupUserLabel;
+        [SerializeField]
+        private TMP_Text loginPopupPlaceholderLabelForName;
+        [SerializeField]
+        private TMP_Text loginPopupTokenLabel;
+        [SerializeField]
+        private TMP_Text loginPopupPlaceholderLabelForToken;
         private int currentSlotIndex = 0;
         private string[] achievementSlots = new string[3];
         private int ignore;
@@ -43,6 +62,8 @@ namespace KJakub.Octave.UI.Profile
                 return;
             }
 
+            Translate();
+
             if (IsSignedIn())
             {
                 SetButtonAndLabelToLoggedIn();
@@ -53,25 +74,37 @@ namespace KJakub.Octave.UI.Profile
                 Logout();
             }
         }
+        private void Translate()
+        {
+            backBtnLabel.text = LanguageManager.GetTranslation("back_and_save_btn");
+            scoreTitleLabel.text = LanguageManager.GetTranslation("overall_score");
+            ratingTitleLabel.text = LanguageManager.GetTranslation("overall_rating");
+            loginPopupCancelLabel.text = LanguageManager.GetTranslation("cancel");
+            loginPopupLoginLabel.text = LanguageManager.GetTranslation("login");
+            loginPopupPlaceholderLabelForName.text = LanguageManager.GetTranslation("input_placeholder");
+            loginPopupPlaceholderLabelForToken.text = LanguageManager.GetTranslation("input_placeholder");
+            loginPopupTokenLabel.text = LanguageManager.GetTranslation("token");
+            loginPopupUserLabel.text = LanguageManager.GetTranslation("user");
+        }
         async private void UpdateLabelsGamejolt()
         {
-            UpdateScoreLabel("Loading...");
-            UpdateRatingLabel("Loading...");
+            UpdateScoreLabel(LanguageManager.GetTranslation("loading"));
+            UpdateRatingLabel(LanguageManager.GetTranslation("loading"));
             UpdateScoreLabel(await GamejoltLoader.Instance.GetUserData("score") ?? "0");
             UpdateRatingLabel(await GamejoltLoader.Instance.GetUserData("accuracy") ?? "100");
         }
         public void SetButtonAndLabelToLoggedIn()
         {
             userLabel.text = $"{PlayerPrefs.GetString("username")}";
-            gamejoltLoginButtonText.text = "Logout";
+            gamejoltLoginButtonText.text = LanguageManager.GetTranslation("logout");
             gamejoltLoginButton.onClick.RemoveAllListeners();
             gamejoltLoginButton.onClick.AddListener(Logout);
             UpdateLabelsGamejolt();
         }
         public void Logout()
         {
-            userLabel.text = "Not Logged In";
-            gamejoltLoginButtonText.text = "Login";
+            userLabel.text = LanguageManager.GetTranslation("not_logged_in_user");
+            gamejoltLoginButtonText.text = LanguageManager.GetTranslation("login");
             gamejoltLoginButton.onClick.RemoveAllListeners();
             gamejoltLoginButton.onClick.AddListener(ShowLogIn);
             PlayerPrefs.SetString("username", null);

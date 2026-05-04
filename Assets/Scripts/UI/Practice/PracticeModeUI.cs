@@ -1,4 +1,5 @@
 using KJakub.Octave.Game.Core;
+using KJakub.Octave.Managers.LanguageManager;
 using KJakub.Octave.UI.Core;
 using TMPro;
 using UnityEngine;
@@ -19,7 +20,27 @@ namespace KJakub.Octave.UI.Practice
         private Slider timeSlider;
         [SerializeField]
         private TMP_Text timeLabel;
+        [Header("Labels (For Translation)")]
+        [SerializeField]
+        private TMP_Text startLabel;
+        [SerializeField]
+        private TMP_Text endLabel;
+        [SerializeField]
+        private TMP_Text speedLabel;
+        [SerializeField]
+        private TMP_Text exitBtnLabel;
         private bool isDragging;
+        private void OnEnable()
+        {
+            Translate();
+        }
+        private void Translate()
+        {
+            startLabel.text = LanguageManager.GetTranslation("start");
+            endLabel.text = LanguageManager.GetTranslation("end");
+            speedLabel.text = LanguageManager.GetTranslation("speed");
+            exitBtnLabel.text = LanguageManager.GetTranslation("exit_btn");
+        }
         public void OnTimelinePointerDown()
         {
             isDragging = true;
