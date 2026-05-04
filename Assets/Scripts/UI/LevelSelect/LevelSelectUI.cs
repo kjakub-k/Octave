@@ -54,6 +54,29 @@ namespace KJakub.Octave.UI.LevelSelect
         private TMP_Text practiceBtnLabel;
         [SerializeField]
         private TMP_Text modifierBtnLabel;
+        [Header("Modificator Labels (For Translation)")]
+        [SerializeField]
+        private TMP_Text mirroredTitleLabel;
+        [SerializeField]
+        private TMP_Text mirroredDescLabel;
+        [SerializeField]
+        private TMP_Text noMissTitleLabel;
+        [SerializeField]
+        private TMP_Text noMissDescLabel;
+        [SerializeField]
+        private TMP_Text endlessTitleLabel;
+        [SerializeField]
+        private TMP_Text endlessDescLabel;
+        [SerializeField]
+        private TMP_Text doubleSpeedTitleLabel;
+        [SerializeField]
+        private TMP_Text doubleSpeedDescLabel;
+        [SerializeField]
+        private TMP_Text halfSpeedTitleLabel;
+        [SerializeField]
+        private TMP_Text halfSpeedDescLabel;
+        [SerializeField]
+        private TMP_Text closeBtnLabel;
         public List<GameModifier> ActiveModifiers { get { return activeModifiers; } set { activeModifiers = value; } }
         private void OnEnable()
         {
@@ -72,6 +95,18 @@ namespace KJakub.Octave.UI.LevelSelect
             musicOffsetLabel.text = LanguageManager.GetTranslation("music_offset");
             practiceBtnLabel.text = LanguageManager.GetTranslation("practice_btn");
             modifierBtnLabel.text = LanguageManager.GetTranslation("modifiers_btn");
+
+            closeBtnLabel.text = LanguageManager.GetTranslation("close");
+            mirroredTitleLabel.text = LanguageManager.GetTranslation("mirrored_title");
+            mirroredDescLabel.text = LanguageManager.GetTranslation("mirrored_desc");
+            noMissTitleLabel.text = LanguageManager.GetTranslation("nomiss_title");
+            noMissDescLabel.text = LanguageManager.GetTranslation("nomiss_desc");
+            endlessTitleLabel.text = LanguageManager.GetTranslation("endless_title");
+            endlessDescLabel.text = LanguageManager.GetTranslation("endless_desc");
+            doubleSpeedTitleLabel.text = LanguageManager.GetTranslation("doublespeed_title");
+            doubleSpeedDescLabel.text = LanguageManager.GetTranslation("doublespeed_desc");
+            halfSpeedTitleLabel.text = LanguageManager.GetTranslation("halfspeed_title");
+            halfSpeedDescLabel.text = LanguageManager.GetTranslation("halfspeed_desc");
         }
         private void EndGame()
         {

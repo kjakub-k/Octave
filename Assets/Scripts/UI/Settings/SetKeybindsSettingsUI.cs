@@ -1,7 +1,9 @@
 using KJakub.Octave.Data;
 using KJakub.Octave.Game.Core;
+using KJakub.Octave.Managers.LanguageManager;
 using KJakub.Octave.Managers.SettingsManager;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 namespace KJakub.Octave.UI.Settings
 {
@@ -14,8 +16,25 @@ namespace KJakub.Octave.UI.Settings
         [SerializeField] private GameObject laneItemPrefab;
         [SerializeField] private SettingsUI settingsUI;
         [SerializeField] private SettingsManager settingsManager;
-
+        [Header("Labels (For Translation)")]
+        [SerializeField] private TMP_Text stopEditingKeybindsLabel;
+        [SerializeField] private TMP_Text modeLabel;
+        [SerializeField] private TMP_Text keybindLabel;
+        [SerializeField] private TMP_Text keyboardLabel;
+        [SerializeField] private TMP_Text controllerLabel;
         private List<GameObject> spawnedItems = new();
+        private void OnEnable()
+        {
+            Translate();
+        }
+        private void Translate()
+        {
+            stopEditingKeybindsLabel.text = LanguageManager.GetTranslation("stop_editing_keybinds");
+            modeLabel.text = LanguageManager.GetTranslation("keybinds_mode_settings");
+            keybindLabel.text = LanguageManager.GetTranslation("keybind");
+            keyboardLabel.text = LanguageManager.GetTranslation("keyboard");
+            controllerLabel.text = LanguageManager.GetTranslation("controller");
+        }
         public void OnRhythmModeDropdownChanged(int value)
         {
             int currentLaneCount = value + 1;
@@ -77,9 +96,14 @@ namespace KJakub.Octave.UI.Settings
                 var go = Instantiate(laneItemPrefab, lanesContainer);
                 var item = go.GetComponent<LaneItemPrefab>();
 
-                item.laneText.text = $"Lane {i + 1}";
+                item.laneText.text = $"{LanguageManager.GetTranslation("lane")} {i + 1}";
 
                 RefreshItem(item, index);
+
+                string rebindText = LanguageManager.GetTranslation("rebind");
+
+                item.keyboardRebindBtnLabel.text = rebindText;
+                item.gamepadRebindBtnLabel.text = rebindText;
 
                 item.keyboardRebindButton.onClick.AddListener(() =>
                 {

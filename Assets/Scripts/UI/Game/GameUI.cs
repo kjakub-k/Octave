@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
 using KJakub.Octave.Data;
+using KJakub.Octave.Managers.LanguageManager;
 namespace KJakub.Octave.UI.Game
 {
     public class GameUI : MonoBehaviour
@@ -30,9 +31,9 @@ namespace KJakub.Octave.UI.Game
         private void Start()
         {
             gameController.GameStats.OnComboChanged += UpdateCombo;
-            gameController.GameStats.OnHit += (AccuracyResult accRes) => latestAccuracyUI.ShowLabel(accRes.Accuracy.Title + "!", accRes.Accuracy.Color);
+            gameController.GameStats.OnHit += (AccuracyResult accRes) => latestAccuracyUI.ShowLabel(LanguageManager.GetTranslation($"{accRes.Accuracy.Title}".ToLower()), accRes.Accuracy.Color);
             gameController.GameStats.OnReset += ResetUI;
-            gameController.GameStats.OnMiss += () => latestAccuracyUI.ShowLabel("Miss", Color.red);
+            gameController.GameStats.OnMiss += () => latestAccuracyUI.ShowLabel(LanguageManager.GetTranslation("miss"), Color.red);
             gameController.Thermometer.OnThermometerChanged += thermometerUI.UpdateValue;
             gameController.GameStats.OnScoreChanged += UpdateScore;
             gameController.Health.OnHealthRemoved += (int amount) => healthBarUI.UpdateHealth(amount, gameController.Health.MaxHealth);

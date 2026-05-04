@@ -1,5 +1,6 @@
 using KJakub.Octave.Data;
 using KJakub.Octave.Game.Core;
+using KJakub.Octave.Managers.LanguageManager;
 using KJakub.Octave.Managers.SettingsManager;
 using KJakub.Octave.UI.Core;
 using System.Collections.Generic;
@@ -25,13 +26,47 @@ namespace KJakub.Octave.UI.Settings
         [SerializeField] private TMP_Dropdown qualityDropdown;
         [Header("Profiles")]
         [SerializeField] private TMP_Dropdown profileDropdown;
+        [Header("Labels (For Translation)")]
+        [SerializeField] private TMP_Text backBtnLabel;
+        [SerializeField] private TMP_Text musicVolumeLabel;
+        [SerializeField] private TMP_Text soundVolumeLabel;
+        [SerializeField] private TMP_Text qualityLabel;
+        [SerializeField] private TMP_Text resolutionLabel;
+        [SerializeField] private TMP_Text noteSpeedLabel;
+        [SerializeField] private TMP_Text audioLabel;
+        [SerializeField] private TMP_Text videoLabel;
+        [SerializeField] private TMP_Text gameLabel;
+        [SerializeField] private TMP_Text profileLabel;
+        [SerializeField] private TMP_Text createProfileLabel;
+        [SerializeField] private TMP_Text removeProfileLabel;
+        [SerializeField] private TMP_Text setKeybindsLabel;
         private Resolution[] availableResolutions;
+        private void OnEnable()
+        {
+            Translate();
+        }
         private void Start()
         {
             SetupQualityDropdown();
             SetupResolutionDropdown();
             SetupProfileDropdown();
             LoadCurrentProfileIntoUI();
+        }
+        private void Translate()
+        {
+            backBtnLabel.text = LanguageManager.GetTranslation("back_btn");
+            musicVolumeLabel.text = LanguageManager.GetTranslation("music_volume_settings");
+            soundVolumeLabel.text = LanguageManager.GetTranslation("sound_volume_settings");
+            qualityLabel.text = LanguageManager.GetTranslation("quality_settings");
+            resolutionLabel.text = LanguageManager.GetTranslation("resolution_settings");
+            noteSpeedLabel.text = LanguageManager.GetTranslation("note_speed_settings");
+            audioLabel.text = LanguageManager.GetTranslation("audio");
+            videoLabel.text = LanguageManager.GetTranslation("video");
+            gameLabel.text = LanguageManager.GetTranslation("game");
+            profileLabel.text = LanguageManager.GetTranslation("profiles_settings");
+            createProfileLabel.text = LanguageManager.GetTranslation("create_profile");
+            removeProfileLabel.text = LanguageManager.GetTranslation("remove_profile");
+            setKeybindsLabel.text = LanguageManager.GetTranslation("set_keybinds");
         }
         public void SetLaneCount(int count)
         {
@@ -69,7 +104,7 @@ namespace KJakub.Octave.UI.Settings
 
             var options = new List<string>();
             for (int i = 0; i < settingsManager.Profiles.Count; i++)
-                options.Add($"Profile {i + 1}");
+                options.Add($"{LanguageManager.GetTranslation("profile")} {i + 1}");
 
             profileDropdown.AddOptions(options);
             profileDropdown.value = settingsManager.SafeProfileIndex;

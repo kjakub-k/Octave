@@ -8,7 +8,8 @@
         "ScriptableObjects",
         "UI.Core",
         "Unity.TextMeshPro",
-        "Plugins"
+        "Plugins",
+        "Managers.LanguageManager"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

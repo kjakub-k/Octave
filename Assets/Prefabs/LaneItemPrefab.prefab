@@ -701,6 +701,8 @@ MonoBehaviour:
   gamepadText: {fileID: 6253069126874968421}
   keyboardRebindButton: {fileID: 5617811419340060224}
   gamepadRebindButton: {fileID: 5229970485624120594}
+  keyboardRebindBtnLabel: {fileID: 4229596992970720858}
+  gamepadRebindBtnLabel: {fileID: 4133845646244239635}
 --- !u!1 &3612080127041287399
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,5 +10,7 @@ namespace KJakub.Octave.UI.Settings
         public TMP_Text gamepadText;
         public Button keyboardRebindButton;
         public Button gamepadRebindButton;
+        public TMP_Text keyboardRebindBtnLabel;
+        public TMP_Text gamepadRebindBtnLabel;
     }
 }

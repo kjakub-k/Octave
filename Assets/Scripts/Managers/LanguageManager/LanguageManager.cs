@@ -9,7 +9,7 @@ namespace KJakub.Octave.Managers.LanguageManager
         private const string PathToLanguages = "Assets/External/Languages/";
         public static string GetTranslation(string key)
         {
-            if (translations[key] == "" || translations[key] == null)
+            if (!translations.ContainsKey(key))
             {
                 return "NO TRANSLATION";
             } else
