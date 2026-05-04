@@ -27,6 +27,7 @@
   <Project Path="CustomElements.csproj" />
   <Project Path="Game.Camera.csproj" />
   <Project Path="UI.LevelSelect.csproj" />
+  <Project Path="Managers.LanguageManager.csproj" />
   <Project Path="UI.Settings.csproj" />
   <Project Path="JsonManager.csproj" />
   <Project Path="UI.Practice.csproj" />

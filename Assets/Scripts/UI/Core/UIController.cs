@@ -1,4 +1,5 @@
 using DG.Tweening;
+using KJakub.Octave.Managers.LanguageManager;
 using KJakub.Octave.UI.BlackScreen;
 using System;
 using UnityEngine;
@@ -33,6 +34,8 @@ namespace KJakub.Octave.UI.Core
         private Canvas profileLayout;
         private void Awake()
         {
+            LanguageManager.SetLanguage(PlayerPrefs.GetString("language", "en_us"));
+
             editorLayout.gameObject.SetActive(true);
             ShowMainMenu();
             ShowGame();
