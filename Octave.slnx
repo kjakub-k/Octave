@@ -2,6 +2,7 @@
   <Project Path="ScriptableObjects.csproj" />
   <Project Path="AudioFileManager.csproj" />
   <Project Path="CommandManager.NoteCommandManager.csproj" />
+  <Project Path="Managers.DiscordManager.csproj" />
   <Project Path="UI.Editor.csproj" />
   <Project Path="Data.csproj" />
   <Project Path="Game.Core.csproj" />

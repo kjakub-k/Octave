@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 99b5a75d6d861d94f89c2ba87cc39aa7
+guid: 23f473a8f60666c40bd2767482b82633
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Inter 24pt
+  - Archivo Black
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

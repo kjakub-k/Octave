@@ -39,6 +39,9 @@ namespace KJakub.Octave.Managers.AchievementsManager
         }
         public List<string> GetUnlockedAchievementsIds()
         {
+            if (!Directory.Exists(Folder))
+                Directory.CreateDirectory(Folder);
+
             if (!File.Exists(Path))
                 CreateAchievementsFile();
 
