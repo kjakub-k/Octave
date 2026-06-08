@@ -12,13 +12,15 @@ namespace KJakub.Octave.Game.Core
     }
     public class InputController : MonoBehaviour
     {
+        [SerializeField]
+        private PlayerInput playerInput;
         public InputSystem_Actions input;
         private int currentLaneCount;
         private InputAction[] laneActions;
-
         private void Awake()
         {
             input = new InputSystem_Actions();
+            playerInput.actions = input.asset;
 
             laneActions = new InputAction[]
             {
@@ -132,10 +134,11 @@ namespace KJakub.Octave.Game.Core
                 return;
 
             var wrapper = JsonUtility.FromJson<BindingOverrideWrapper>(json);
+            if (wrapper == null || wrapper.list == null) return;
 
             foreach (var data in wrapper.list)
             {
-                var action = input.FindAction(data.action);
+                var action = input.asset.FindAction(data.action);
                 if (action != null && data.bindingIndex < action.bindings.Count)
                 {
                     action.ApplyBindingOverride(data.bindingIndex, data.overridePath);

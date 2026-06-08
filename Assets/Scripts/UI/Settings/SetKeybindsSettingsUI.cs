@@ -38,18 +38,8 @@ namespace KJakub.Octave.UI.Settings
         public void OnRhythmModeDropdownChanged(int value)
         {
             int currentLaneCount = value + 1;
-
             settingsUI.SetLaneCount(currentLaneCount);
-
-            var profile = settingsManager.CurrentProfile;
-
-            inputController.ClearAllBindings();
-
-            if (profile.RebindsByLaneCount.TryGetValue(currentLaneCount, out InputBindingSet set))
-            {
-                inputController.LoadBindingGroup(set.KeyboardJSON);
-                inputController.LoadBindingGroup(set.GamepadJSON);
-            }
+            BuildUI(currentLaneCount);
         }
         public void Open()
         {

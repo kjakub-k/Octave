@@ -106,6 +106,15 @@ namespace KJakub.Octave.Data
             Score += score;
             OnScoreChanged?.Invoke(Score);
         }
+        public void SetPlayerPrefs(int totalScore, int totalMisses, int totalHits, int gamesPlayed, int averageAccuracy, int highestCombo)
+        {
+            PlayerPrefs.SetInt("TotalScore", totalScore);
+            PlayerPrefs.SetInt("TotalMisses", totalMisses);
+            PlayerPrefs.SetInt("TotalHits", totalHits);
+            PlayerPrefs.SetInt("GamesPlayed", gamesPlayed);
+            PlayerPrefs.SetFloat("AverageAccuracy", averageAccuracy);
+            PlayerPrefs.SetInt("HighestCombo", highestCombo);
+        }
         public void AddResultsToPlayerPrefs()
         {
             PlayerPrefs.SetInt("TotalScore", 

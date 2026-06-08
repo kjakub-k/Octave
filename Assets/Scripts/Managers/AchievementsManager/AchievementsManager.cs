@@ -2,7 +2,7 @@ using KJakub.Octave.ScriptableObjects;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Unity.Plastic.Newtonsoft.Json;
+using Newtonsoft.Json;
 using System.IO;
 namespace KJakub.Octave.Managers.AchievementsManager
 {
@@ -33,6 +33,9 @@ namespace KJakub.Octave.Managers.AchievementsManager
         }
         private void UnlockAchievement(AchievementSO achievement)
         {
+            if (achievement == null)
+                return;
+
             Debug.Log($"{achievement.ID} has been unlocked");
             achievementIds.Add(achievement.ID);
             Save();

@@ -71,6 +71,7 @@ namespace KJakub.Octave.UI.Settings
         public void SetLaneCount(int count)
         {
             currentLaneCount = count;
+            settingsManager.ApplyKeybindsForLaneCount(count);
         }
         public int GetLaneCount()
         {
@@ -182,6 +183,7 @@ namespace KJakub.Octave.UI.Settings
         {
             settingsManager.SetProfileIndex(index);
             LoadCurrentProfileIntoUI();
+            settingsManager.ApplyActiveProfileToSystem();
         }
         public void CreateNewProfile()
         {

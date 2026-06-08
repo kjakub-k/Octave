@@ -1,8 +1,9 @@
 using KJakub.Octave.Data;
 using System.Collections.Generic;
 using System.IO;
-using Unity.Plastic.Newtonsoft.Json;
+using Newtonsoft.Json;
 using UnityEngine;
+using KJakub.Octave.Game.Core;
 namespace KJakub.Octave.Managers.SettingsManager
 {
     public class SettingsManager : MonoBehaviour
@@ -16,6 +17,8 @@ namespace KJakub.Octave.Managers.SettingsManager
             Mathf.Clamp(PlayerPrefs.GetInt("ProfileIndex", 0), 0, Profiles.Count - 1);
 
         public SettingsProfile CurrentProfile => Profiles[SafeProfileIndex];
+        [Header("System References")]
+        [SerializeField] private InputController inputController;
 
         private void Awake()
         {
@@ -27,6 +30,40 @@ namespace KJakub.Octave.Managers.SettingsManager
                 PlayerPrefs.SetInt("ProfileIndex", 0);
                 SaveSettingsToJSON();
             }
+
+            ApplyActiveProfileToSystem();
+        }
+        public void ApplyActiveProfileToSystem()
+        {
+            if (Profiles == null || Profiles.Count == 0) return;
+
+            var profile = CurrentProfile;
+
+            AudioListener.volume = profile.MusicVolume;
+
+            QualitySettings.SetQualityLevel(profile.QualityIndex);
+
+            Screen.SetResolution(
+                profile.Resolution.Width,
+                profile.Resolution.Height,
+                FullScreenMode.FullScreenWindow
+            );
+        }
+        public void ApplyKeybindsForLaneCount(int laneCount)
+        {
+            var profile = CurrentProfile;
+
+            if (inputController == null)
+                return;
+
+            if (profile.RebindsByLaneCount.TryGetValue(laneCount, out InputBindingSet set))
+            {
+                inputController.ClearAllBindings();
+                inputController.LoadBindingGroup(set.KeyboardJSON);
+                inputController.LoadBindingGroup(set.GamepadJSON);
+            }
+            else
+                inputController.ClearAllBindings();
         }
 
         public void SetProfileIndex(int index)

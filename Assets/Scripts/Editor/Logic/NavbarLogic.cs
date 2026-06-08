@@ -5,7 +5,7 @@ using KJakub.Octave.Managers.CommandManager.NoteCommandManager;
 using SFB;
 using System.IO;
 using System.Threading.Tasks;
-using Unity.Plastic.Newtonsoft.Json;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.UIElements;
 using KJakub.Octave.Game.Core;

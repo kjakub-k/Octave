@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Unity.Plastic.Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 using Unity.Services.Authentication;
 using Unity.Services.CloudCode;
 using Unity.Services.Core;
@@ -87,18 +87,6 @@ namespace KJakub.Octave.Managers.GamejoltManager
 
             return false;
         }
-
-        public async void SaveAchievementDisplay(string achievementId, int slot)
-        {
-            await CallCloudBridge(new Dictionary<string, object> {
-            { "action", "setData" },
-            { "username", PlayerPrefs.GetString("username") },
-            { "user_token", PlayerPrefs.GetString("token") },
-            { "key", $"achievement_slot_{slot}" },
-            { "value", achievementId }
-            });
-        }
-
         public async void AwardTrophy(string trophyId)
         {
             await CallCloudBridge(new Dictionary<string, object> {
@@ -108,7 +96,6 @@ namespace KJakub.Octave.Managers.GamejoltManager
             { "trophy_id", trophyId }
         });
         }
-
         public async void SavePerformance(float score, float accuracy)
         {
             await CallCloudBridge(new Dictionary<string, object> {
@@ -126,7 +113,6 @@ namespace KJakub.Octave.Managers.GamejoltManager
             { "value", accuracy }
         });
         }
-
         private async Task<string> CallCloudBridge(Dictionary<string, object> args)
         {
             try

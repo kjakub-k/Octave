@@ -20,6 +20,8 @@ namespace KJakub.Octave.UI.Core
         [Header("Text")]
         [SerializeField]
         private Color textHoverColor = Color.white;
+        [SerializeField]
+        private Image optionalImage = null;
         [Header("Ease")]
         [SerializeField]
         private Ease ease = Ease.OutBack;
@@ -44,6 +46,9 @@ namespace KJakub.Octave.UI.Core
             colorTween?.Kill();
             text.color = textHoverColor;
 
+            if (optionalImage != null)
+                optionalImage.color = textHoverColor;
+
             scaleTween = transform
                 .DOScale(startScale * hoverScale, scaleDuration)
                 .SetEase(ease);
@@ -56,6 +61,9 @@ namespace KJakub.Octave.UI.Core
             scaleTween?.Kill();
             colorTween?.Kill();
             text.color = startTextColor;
+
+            if (optionalImage != null)
+                optionalImage.color = startTextColor;
 
             scaleTween = transform
                 .DOScale(startScale, scaleDuration)
@@ -74,6 +82,9 @@ namespace KJakub.Octave.UI.Core
         public void OnPointerClick(PointerEventData eventData)
         {
             text.color = startTextColor;
+
+            if (optionalImage != null)
+                optionalImage.color = startTextColor;
         }
     }
 }

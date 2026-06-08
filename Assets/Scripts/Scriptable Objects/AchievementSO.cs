@@ -5,6 +5,8 @@ namespace KJakub.Octave.ScriptableObjects
     {
         [SerializeField]
         private string id;
+        [SerializeField] 
+        private int trophyID;
         [SerializeField]
         private Sprite texture;
         [SerializeField]
@@ -17,6 +19,7 @@ namespace KJakub.Octave.ScriptableObjects
         [SerializeField]
         private Color shadowColor;
         public string ID { get { return id; } }
+        public int TrophyID { get { return trophyID; } }
         public Sprite Texture { get { return texture; } }
         public string Title { get { return title; } }
         public string Description { get { return description; } }

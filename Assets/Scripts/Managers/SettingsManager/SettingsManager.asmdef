@@ -2,7 +2,8 @@
     "name": "SettingsManager",
     "rootNamespace": "",
     "references": [
-        "GUID:56afb0dfa83ee9b4e87e24cdff13f492"
+        "GUID:56afb0dfa83ee9b4e87e24cdff13f492",
+        "GUID:2fcf0db18a1dd6546a6a0f8b06f1698f"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

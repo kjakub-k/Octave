@@ -2,13 +2,13 @@ using KJakub.Octave.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Unity.Plastic.Newtonsoft.Json;
+using Newtonsoft.Json;
 using UnityEngine;
 namespace KJakub.Octave.Managers.JsonManager
 {
     public static class JsonAlbumAndLevelsLoader
     {
-        private const string AlbumsPath = "Assets/External/Albums";
+        private static string AlbumsPath = $"{Application.streamingAssetsPath}/Albums";
         private const string SongsFolderName = "Songs";
         public static AlbumData[] LoadAllAlbums()
         {

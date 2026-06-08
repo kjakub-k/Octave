@@ -99,7 +99,7 @@ InitTestScene*.unity*
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
 
 # External assets that are not allowed to be re-distributed
-/[Aa]ssets/[Ee]xternal/*
+/[Aa]ssets/[Ss]treamingAssets/*
 
 # Plugins
 /[Aa]ssets/[Pp]lugins/*

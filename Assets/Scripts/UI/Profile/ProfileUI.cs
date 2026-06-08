@@ -19,10 +19,6 @@ namespace KJakub.Octave.UI.Profile
         [SerializeField]
         private AchievementsManager achievementsManager;
         [SerializeField]
-        private Transform container;
-        [SerializeField]
-        private GameObject achievementProfileItemPrefab;
-        [SerializeField]
         private GamejoltLoginUI gamejoltLoginUI;
         [Header("Labels")]
         [SerializeField]
@@ -51,8 +47,6 @@ namespace KJakub.Octave.UI.Profile
         private TMP_Text loginPopupTokenLabel;
         [SerializeField]
         private TMP_Text loginPopupPlaceholderLabelForToken;
-        private int currentSlotIndex = 0;
-        private string[] achievementSlots = new string[3];
         private int ignore;
         async private void OnEnable()
         {
@@ -125,48 +119,8 @@ namespace KJakub.Octave.UI.Profile
         }
         public void BackToMenuBtn()
         {
-            for (int i = 0; i < achievementSlots.Length; i++)
-            {
-                if (achievementSlots[i] == null)
-                    continue;
-
-                GamejoltLoader.Instance.SaveAchievementDisplay(achievementSlots[i], i);
-            }
-
             uiController.HideProfile();
             uiController.ShowMainMenu();
-        }
-        public void EnableAchievementPicker(int slot)
-        {
-            currentSlotIndex = slot;
-            List<AchievementSO> achievements = achievementsManager.GetUnlockedAchievements().ToList();
-
-            List<GameObject> objectsToDelete = new();
-
-            for (int i = 0; i < container.childCount; i++)
-            {
-                objectsToDelete.Add(container.GetChild(i).gameObject);
-            }
-
-            for (int i = objectsToDelete.Count - 1; i >= 0; i--)
-            {
-                Destroy(objectsToDelete[i]);
-            }
-
-            foreach (AchievementSO achievement in achievements)
-            {
-                CreateAchievementSlotItem(achievement.Title, achievement.Texture, achievement.BackgroundColor, achievement.ShadowColor);
-            }
-        }
-        private void CreateAchievementSlotItem(string title, Sprite texture, Color bgColor, Color shColor)
-        {
-            GameObject obj = Instantiate(achievementProfileItemPrefab, container);
-            AchievementProfileItem aPI = obj.GetComponent<AchievementProfileItem>();
-            aPI.UpdateInfo(title, texture, bgColor, shColor);
-        }
-        public void SaveAchievementPick(string id)
-        {
-            achievementSlots[currentSlotIndex] = id;
         }
         public void UpdateScoreLabel(string score)
         {

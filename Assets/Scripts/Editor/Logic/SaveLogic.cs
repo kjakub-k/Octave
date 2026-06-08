@@ -2,8 +2,7 @@ using KJakub.Octave.Data;
 using KJakub.Octave.Managers.AudioFileManager;
 using SFB;
 using System.IO;
-using Unity.Plastic.Newtonsoft.Json;
-using UnityEngine;
+using Newtonsoft.Json;
 namespace KJakub.Octave.Editor.Logic
 {
     public class SaveLogic

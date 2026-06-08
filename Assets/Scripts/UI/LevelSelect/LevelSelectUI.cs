@@ -7,10 +7,12 @@ using UnityEngine.InputSystem;
 using KJakub.Octave.Game.Core;
 using KJakub.Octave.UI.Results;
 using System.IO;
-using Unity.Plastic.Newtonsoft.Json;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using KJakub.Octave.Managers.GamejoltManager;
 using KJakub.Octave.Managers.LanguageManager;
+using KJakub.Octave.Managers.AchievementsManager;
+using KJakub.Octave.Managers.SettingsManager;
 namespace KJakub.Octave.UI.LevelSelect
 {
     public class LevelSelectUI : MonoBehaviour 
@@ -25,6 +27,8 @@ namespace KJakub.Octave.UI.LevelSelect
         [SerializeField]
         private PracticeController practiceController;
         [SerializeField]
+        private AchievementsManager achievementsManager;
+        [SerializeField]
         private GameObject levelInfoPrefab;
         [SerializeField]
         private ResultsUI resultsUI;
@@ -32,6 +36,8 @@ namespace KJakub.Octave.UI.LevelSelect
         private LevelOffsetsUI levelOffsetsUI;
         [SerializeField]
         private PlayerInput inputSystem;
+        [SerializeField]
+        private SettingsManager settingsManager;
         [Header("Components")]
         [SerializeField]
         private RawImage image;
@@ -116,7 +122,8 @@ namespace KJakub.Octave.UI.LevelSelect
             //UpdateStats(album.Levels[currentSongIndex].Metadata.ID, gameController.GameStats);
             if (PlayerPrefs.GetString("username") != "" && PlayerPrefs.GetString("token") != "")
                 SaveResultsToGamejolt(PlayerPrefs.GetInt("TotalScore"), PlayerPrefs.GetFloat("AverageAccuracy"));
-            
+
+            achievementsManager.CheckEligibleAchievements();
             resultsUI.UpdateUI(album.Levels[currentSongIndex].Metadata, gameController.GameStats);
             gameController.OnFinished -= EndGame;
         }
@@ -237,6 +244,7 @@ namespace KJakub.Octave.UI.LevelSelect
             var level = album.Levels[currentSongIndex];
             var songData = new SongData(level.Song, level.Metadata.Lines, level.Metadata.BPM, level.Metadata.Snapping, level.Notes.Notes);
 
+            settingsManager.ApplyKeybindsForLaneCount(level.Metadata.Lines);
             uiController.ShowPracticeMode();
             uiController.HideLevelSelectionMenu();
             practiceController.StartPractice(songData, ReturnLevelPlayerData($"{Application.persistentDataPath}/LevelPlayerData/{album.Levels[currentSongIndex].Metadata.ID}.json"));
@@ -246,11 +254,14 @@ namespace KJakub.Octave.UI.LevelSelect
             var level = album.Levels[currentSongIndex];
             var songData = new SongData(level.Song, level.Metadata.Lines, level.Metadata.BPM, level.Metadata.Snapping, level.Notes.Notes);
 
+            gameController.NoteSpeed = settingsManager.CurrentProfile.NoteSpeed;
+            settingsManager.ApplyKeybindsForLaneCount(level.Metadata.Lines);
             uiController.HideLevelSelectionMenu();
             uiController.ShowGame();
             resultsUI.SaveInfo(songData, level.Metadata, EndGame);
             gameController.OnFinished += EndGame;
-            gameController.PlayGame(songData, null, 0, 0, activeModifiers);
+            var lpd = ReturnLevelPlayerData($"{Application.persistentDataPath}/LevelPlayerData/{album.Levels[currentSongIndex].Metadata.ID}.json");
+            gameController.PlayGame(songData, null, lpd.InputOffset, lpd.MusicOffset, activeModifiers);
         }
         private void UpdateSelection()
         {

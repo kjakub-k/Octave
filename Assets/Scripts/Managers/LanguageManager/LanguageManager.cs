@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.IO;
-using Unity.Plastic.Newtonsoft.Json;
+using Newtonsoft.Json;
+using UnityEngine;
 namespace KJakub.Octave.Managers.LanguageManager
 {
     public static class LanguageManager
     {
         private static Dictionary<string, string> translations;
-        private const string PathToLanguages = "Assets/External/Languages/";
+        private static string PathToLanguages { get { return $"{Application.streamingAssetsPath}/Languages/"; } }
         public static string GetTranslation(string key)
         {
             if (!translations.ContainsKey(key))

@@ -59,6 +59,7 @@ namespace KJakub.Octave.Game.Core
         private MusicStatus musicStatus;
         private List<GameModifier> activeModifiers = new();
         private List<(float, int)?> presses = new List<(float, int)?>();
+        private float noteSpeed = 10;
         public List<(float, int)?> Presses { get { return presses; } }
         public GameObject NotePrefab { get { return notePrefab; } }
         public NoteSpawner NoteSpawner { get { return noteSpawner; } }
@@ -70,6 +71,7 @@ namespace KJakub.Octave.Game.Core
         public Health Health { get { return health; } }
         public MusicStatus MusicStatus { get { return musicStatus; } set { musicStatus = value; } }
         public float ColorChangeDuration { get { return colorChangeDuration; } }
+        public float NoteSpeed { get { return noteSpeed; } set { noteSpeed = value; } }
         private List<AccuracySO> accuracies => accuracySet.Accuracies;
         public event Action<Color> OnDefaultSharedColorChanged;
         public event Action OnLose;
@@ -119,8 +121,6 @@ namespace KJakub.Octave.Game.Core
         {
             stats.Reset();
             lineManager.GenerateLines(songData.Lines, noteRuntimeCollection, inputSystem, (presses == null) ? true : false, notePrefab.GetComponent<NoteGO>().Speed, inputOffset / 1000);
-
-            float noteSpeed = 10f;
 
             if (activeModifiers.Contains(GameModifier.DoubleSpeed))
             {

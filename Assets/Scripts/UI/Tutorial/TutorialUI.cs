@@ -18,39 +18,27 @@ namespace KJakub.Octave.UI.Tutorial
 {
     public class TutorialUI : MonoBehaviour
     {
-        [SerializeField]
-        private UIController uiController;
-        [SerializeField]
-        private Image imgBlocker; //for blocking input
-        [SerializeField]
-        private Image spotLight; //for showing spotlight on things in question
-        [SerializeField]
-        private TMP_Text continueBtnLabel;
+        [SerializeField] private UIController uiController;
+        [SerializeField] private Image imgBlocker;
+        [SerializeField] private Image spotLight;
+        [SerializeField] private TMP_Text continueBtnLabel;
         [Header("Dialogue")]
-        [SerializeField]
-        private TMP_Text dialogueLabel;
-        [SerializeField]
-        private Image progressBarDialogue;
-        [SerializeField]
-        private Button nextButton;
-        [SerializeField]
-        private float durationBetweenLetters = 0.05f;
-        [SerializeField]
-        private float maxProgress = 1f;
+        [SerializeField] private TMP_Text dialogueLabel;
+        [SerializeField] private Image progressBarDialogue;
+        [SerializeField] private Button nextButton;
+        [SerializeField] private float durationBetweenLetters = 0.05f;
+        [SerializeField] private float maxProgress = 1f;
         [Header("UIs / Managers")]
-        [SerializeField]
-        private AlbumSelectUI albumSelectUI;
-        [SerializeField]
-        private LevelSelectUI levelSelectUI;
-        [SerializeField]
-        private LineManager lineManager;
+        [SerializeField] private AlbumSelectUI albumSelectUI;
+        [SerializeField] private LevelSelectUI levelSelectUI;
+        [SerializeField] private LineManager lineManager;
         [Header("DOTween Settings")]
-        [SerializeField]
-        private float moveDuration = 1f;
-        [SerializeField]
-        private Ease moveEase = Ease.Linear;
+        [SerializeField] private float moveDuration = 1f;
+        [SerializeField] private Ease moveEase = Ease.Linear;
         private float progress = 0f;
         private bool textFinishedGenerating = false;
+        private string currentFullMessage = "";
+        private Coroutine typingCoroutine;
         private void OnEnable()
         {
             Translate();
@@ -69,7 +57,29 @@ namespace KJakub.Octave.UI.Tutorial
                     progressBarDialogue.fillAmount = progress / maxProgress;
                 }
                 else
-                    EnableBtn();                
+                {
+                    EnableBtn();
+                }
+            }
+        }
+        public void OnDialogueWindowClicked()
+        {
+            if (!textFinishedGenerating)
+            {
+                if (typingCoroutine != null)
+                {
+                    StopCoroutine(typingCoroutine);
+                }
+
+                dialogueLabel.text = currentFullMessage;
+                textFinishedGenerating = true;
+                progress = 0f;
+            }
+            else if (progress < maxProgress)
+            {
+                progress = maxProgress;
+                progressBarDialogue.fillAmount = 1f;
+                EnableBtn();
             }
         }
         private void MoveSpotLight(Vector2 scale, Vector2 position)
@@ -91,7 +101,13 @@ namespace KJakub.Octave.UI.Tutorial
         }
         private void ShowDialogue(string message)
         {
-            StartCoroutine(TypeOutMessage(message));
+            currentFullMessage = message; // Store it globally
+
+            if (typingCoroutine != null)
+                StopCoroutine(typingCoroutine);
+
+            typingCoroutine = StartCoroutine(TypeOutMessage(message));
+
             progress = 0;
             progressBarDialogue.fillAmount = progress;
             nextButton.interactable = false;

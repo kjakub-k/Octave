@@ -12,6 +12,8 @@ namespace KJakub.Octave.UI.Menu
         private UIController uiController;
         [SerializeField]
         private AlbumSelectUI albumSelectUI;
+        [SerializeField]
+        private LangSelectBtnUI[] langBtns;
         [Header("Labels (For Translation)")]
         [SerializeField]
         private TMP_Text playBtnLabel;
@@ -26,24 +28,37 @@ namespace KJakub.Octave.UI.Menu
         [SerializeField]
         private TMP_Text achievementsBtnLabel;
         [SerializeField]
-        private TMP_Text creditsBtnLabel;
-        [SerializeField]
         private TMP_Text editorBtnLabel;
         private void OnEnable()
         {
             Translate();
+
+            foreach (var langBtn in langBtns)
+            {
+                langBtn.Check();
+            }
         }
         public void CzechBtn()
         {
             PlayerPrefs.SetString("language", "cz");
             LanguageManager.SetLanguage(PlayerPrefs.GetString("language"));
             Translate();
+
+            foreach (var langBtn in langBtns)
+            {
+                langBtn.Check();
+            }
         }
         public void EnglishBtn()
         {
             PlayerPrefs.SetString("language", "en_us");
             LanguageManager.SetLanguage(PlayerPrefs.GetString("language"));
             Translate();
+
+            foreach (var langBtn in langBtns)
+            {
+                langBtn.Check();
+            }
         }
         private void Translate()
         {
@@ -53,7 +68,6 @@ namespace KJakub.Octave.UI.Menu
             exitBtnLabel.text = LanguageManager.GetTranslation("exit_btn");
             tutorialBtnLabel.text = LanguageManager.GetTranslation("tutorial_btn");
             achievementsBtnLabel.text = LanguageManager.GetTranslation("achievements_btn");
-            creditsBtnLabel.text = LanguageManager.GetTranslation("credits_btn");
             editorBtnLabel.text = LanguageManager.GetTranslation("editor_btn");
         }
         public void PlayBtn()
