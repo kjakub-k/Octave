@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: ScriptableObjects::KJakub.Octave.ScriptableObjects.GamesPlayedAchievementSO
   id: games_played_25
   trophyID: 302710
-  texture: {fileID: 0}
+  texture: {fileID: 21300000, guid: bd87de3a708360c41a04665b27414b4c, type: 3}
   title: Play 25 Games
   description: Play 25> games
   backgroundColor: {r: 0.99215686, g: 0.4, b: 0.20784314, a: 1}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: ScriptableObjects::KJakub.Octave.ScriptableObjects.HighestComboAchievementSO
   id: highest_combo_50
   trophyID: 302700
-  texture: {fileID: 0}
+  texture: {fileID: 21300000, guid: c655eddbd25763644a11fb0c2f5bc770, type: 3}
   title: Highest Combo 50
   description: Gain a combo of 50>
   backgroundColor: {r: 0.99215686, g: 0.4, b: 0.20784314, a: 1}

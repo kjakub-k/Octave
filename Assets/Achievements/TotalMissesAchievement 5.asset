@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: ScriptableObjects::KJakub.Octave.ScriptableObjects.TotalMissesAchievementSO
   id: total_misses_1000
   trophyID: 302722
-  texture: {fileID: 0}
+  texture: {fileID: 21300000, guid: bb2261f372dcae54f982b9bf00276127, type: 3}
   title: Total Misses 1000
   description: miss 1000 notes in total
   backgroundColor: {r: 0.99215686, g: 0.4, b: 0.20784314, a: 1}

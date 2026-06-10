@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: ScriptableObjects::KJakub.Octave.ScriptableObjects.TotalScoreAchievementSO
   id: total_score_million
   trophyID: 302723
-  texture: {fileID: 21300000, guid: 1c75e8d53bcf59b48a7b206b411e0752, type: 3}
+  texture: {fileID: 21300000, guid: bb2261f372dcae54f982b9bf00276127, type: 3}
   title: Score 1000000
   description: Gain 1000000> score points in total
   backgroundColor: {r: 0.99215686, g: 0.4, b: 0.20784314, a: 1}
