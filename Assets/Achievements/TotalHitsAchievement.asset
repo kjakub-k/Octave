@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TotalHitsAchievement
   m_EditorClassIdentifier: ScriptableObjects::KJakub.Octave.ScriptableObjects.TotalHitsAchievementSO
   id: total_hits_10
-  trophyID: 0
+  trophyID: 302711
   texture: {fileID: 0}
   title: Total Hits 10
   description: hit 10 notes in total

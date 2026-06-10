@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GamesPlayedAchievement 3
   m_EditorClassIdentifier: ScriptableObjects::KJakub.Octave.ScriptableObjects.GamesPlayedAchievementSO
   id: games_played_15
-  trophyID: 0
+  trophyID: 302708
   texture: {fileID: 0}
   title: Play 15 Games
   description: Play 15> games

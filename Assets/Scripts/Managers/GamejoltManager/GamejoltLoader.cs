@@ -1,7 +1,7 @@
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 using Unity.Services.Authentication;
 using Unity.Services.CloudCode;
 using Unity.Services.Core;
@@ -14,12 +14,10 @@ namespace KJakub.Octave.Managers.GamejoltManager
         public static GamejoltLoader Instance { get { return instance; } }
         async void Awake()
         {
-            await UnityServices.InitializeAsync();
+            instance = this;
         }
         async void Start()
         {
-            instance = this;
-
             try
             {
                 await UnityServices.InitializeAsync();
@@ -27,12 +25,11 @@ namespace KJakub.Octave.Managers.GamejoltManager
                 if (!AuthenticationService.Instance.IsSignedIn)
                 {
                     await AuthenticationService.Instance.SignInAnonymouslyAsync();
-                    Debug.Log("Signed into Unity Services Anonymously");
                 }
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
-                Debug.LogError($"Unity Services Init Failed: {e.Message}");
+                Debug.LogError(e.Message);
             }
         }
         public async Task<string> GetUserData(string key)
@@ -55,7 +52,7 @@ namespace KJakub.Octave.Managers.GamejoltManager
             }
             catch (Exception e)
             {
-                Debug.LogError("Data Store Error: " + e.Message);
+                Debug.LogError(e.Message);
             }
 
             return null;
@@ -76,13 +73,12 @@ namespace KJakub.Octave.Managers.GamejoltManager
                 {
                     PlayerPrefs.SetString("username", user);
                     PlayerPrefs.SetString("token", token);
-                    Debug.Log("GameJolt Login Successful!");
                     return true;
                 }
             }
             catch (Exception e)
             {
-                Debug.LogError("Failed to parse JSON: " + e.Message);
+                Debug.LogError(e.Message);
             }
 
             return false;
@@ -121,7 +117,7 @@ namespace KJakub.Octave.Managers.GamejoltManager
             }
             catch (CloudCodeException e)
             {
-                Debug.LogError($"Cloud Code Failed: {e.Message}");
+                Debug.LogError(e.Message);
                 return "false";
             }
         }

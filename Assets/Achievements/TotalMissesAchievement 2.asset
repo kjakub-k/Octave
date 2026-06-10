@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TotalMissesAchievement 2
   m_EditorClassIdentifier: ScriptableObjects::KJakub.Octave.ScriptableObjects.TotalMissesAchievementSO
   id: total_misses_250
-  trophyID: 0
+  trophyID: 302719
   texture: {fileID: 0}
   title: Total Misses 250
   description: miss 250 notes in total

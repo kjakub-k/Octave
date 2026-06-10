@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HighestComboAchievement
   m_EditorClassIdentifier: ScriptableObjects::KJakub.Octave.ScriptableObjects.HighestComboAchievementSO
   id: highest_combo_10
-  trophyID: 0
+  trophyID: 302699
   texture: {fileID: 0}
   title: Highest Combo 10
   description: Gain a combo of 10>

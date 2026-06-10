@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Newtonsoft.Json;
 using System.IO;
+using KJakub.Octave.Managers.GamejoltManager;
 namespace KJakub.Octave.Managers.AchievementsManager
 {
     public class AchievementsManager : MonoBehaviour
@@ -37,6 +38,7 @@ namespace KJakub.Octave.Managers.AchievementsManager
                 return;
 
             Debug.Log($"{achievement.ID} has been unlocked");
+            AttemptToUnlockOnGamejolt(achievement.TrophyID);
             achievementIds.Add(achievement.ID);
             Save();
         }
@@ -64,6 +66,23 @@ namespace KJakub.Octave.Managers.AchievementsManager
             }
 
             return result;
+        }
+        public void SynchronizeWithTrophies()
+        {
+            if (PlayerPrefs.GetString("username") != "" && PlayerPrefs.GetString("token") != "")
+            {
+                AchievementSO[] unlockedAchievements = GetUnlockedAchievements();
+
+                foreach (var ach in unlockedAchievements)
+                {
+                    GamejoltLoader.Instance.AwardTrophy(ach.TrophyID.ToString());
+                }
+            }
+        }
+        private void AttemptToUnlockOnGamejolt(int trophyID)
+        {
+            if (PlayerPrefs.GetString("username") != "" && PlayerPrefs.GetString("token") != "")
+                GamejoltLoader.Instance.AwardTrophy(trophyID.ToString());
         }
         private void CreateAchievementsFile()
         {

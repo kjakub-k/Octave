@@ -1,10 +1,8 @@
 {
-    "name": "AchievementsManager",
+    "name": "Managers.AttemptsManager",
     "rootNamespace": "",
     "references": [
-        "GUID:e5e1ec8e90a7916438d78662ba2bf0ef",
-        "GUID:b79763456e65e8f4985104054492e6d3",
-        "GUID:aa86975a1a06d63478cfbfb7a0768304"
+        "GUID:56afb0dfa83ee9b4e87e24cdff13f492"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

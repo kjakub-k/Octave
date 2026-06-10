@@ -13,6 +13,7 @@ using KJakub.Octave.Managers.GamejoltManager;
 using KJakub.Octave.Managers.LanguageManager;
 using KJakub.Octave.Managers.AchievementsManager;
 using KJakub.Octave.Managers.SettingsManager;
+using KJakub.Octave.Managers.AttemptsManager;
 namespace KJakub.Octave.UI.LevelSelect
 {
     public class LevelSelectUI : MonoBehaviour 
@@ -38,6 +39,8 @@ namespace KJakub.Octave.UI.LevelSelect
         private PlayerInput inputSystem;
         [SerializeField]
         private SettingsManager settingsManager;
+        [SerializeField]
+        private LeaderboardUI leaderboardUI;
         [Header("Components")]
         [SerializeField]
         private RawImage image;
@@ -83,6 +86,17 @@ namespace KJakub.Octave.UI.LevelSelect
         private TMP_Text halfSpeedDescLabel;
         [SerializeField]
         private TMP_Text closeBtnLabel;
+        [Header("Leaderboard Labels (For Translation)")]
+        [SerializeField]
+        private TMP_Text localLabel;
+        [SerializeField]
+        private TMP_Text friendsLabel;
+        [SerializeField]
+        private TMP_Text globalLabel;
+        [SerializeField]
+        private TMP_Text leaderboardCloseBtnLabel;
+        [SerializeField]
+        private TMP_Text leaderboardBtnLabel;
         public List<GameModifier> ActiveModifiers { get { return activeModifiers; } set { activeModifiers = value; } }
         private void OnEnable()
         {
@@ -113,6 +127,12 @@ namespace KJakub.Octave.UI.LevelSelect
             doubleSpeedDescLabel.text = LanguageManager.GetTranslation("doublespeed_desc");
             halfSpeedTitleLabel.text = LanguageManager.GetTranslation("halfspeed_title");
             halfSpeedDescLabel.text = LanguageManager.GetTranslation("halfspeed_desc");
+
+            localLabel.text = LanguageManager.GetTranslation("local");
+            friendsLabel.text = LanguageManager.GetTranslation("friends");
+            globalLabel.text = LanguageManager.GetTranslation("global");
+            leaderboardBtnLabel.text = LanguageManager.GetTranslation("leaderboard");
+            leaderboardCloseBtnLabel.text = LanguageManager.GetTranslation("close");
         }
         private void EndGame()
         {
@@ -120,8 +140,13 @@ namespace KJakub.Octave.UI.LevelSelect
             uiController.ShowResults();
             gameController.GameStats.AddResultsToPlayerPrefs();
             //UpdateStats(album.Levels[currentSongIndex].Metadata.ID, gameController.GameStats);
+            AttemptsManager.Instance.Save(album.Levels[currentSongIndex].Metadata.ID, gameController.GameStats.Score);
+
             if (PlayerPrefs.GetString("username") != "" && PlayerPrefs.GetString("token") != "")
+            {
+                //_ = GamejoltLoader.Instance.AddScore(gameController.GameStats.Score.ToString(), gameController.GameStats.Score, album.Levels[currentSongIndex].Metadata.TableID);
                 SaveResultsToGamejolt(PlayerPrefs.GetInt("TotalScore"), PlayerPrefs.GetFloat("AverageAccuracy"));
+            }
 
             achievementsManager.CheckEligibleAchievements();
             resultsUI.UpdateUI(album.Levels[currentSongIndex].Metadata, gameController.GameStats);
@@ -166,6 +191,7 @@ namespace KJakub.Octave.UI.LevelSelect
             UpdateSongLabel(album.Levels[currentSongIndex].Metadata.SongName);
             GenerateLevels(album.Levels);
             levelOffsetsUI.UpdateAllLabels(ReturnLevelPlayerData($"{Application.persistentDataPath}/LevelPlayerData/{album.Levels[currentSongIndex].Metadata.ID}.json"));
+            leaderboardUI.LevelID = album.Levels[currentSongIndex].Metadata.ID;
         }
         private void UpdateSongLabel(string newText)
         {
@@ -202,6 +228,7 @@ namespace KJakub.Octave.UI.LevelSelect
                 currentSongIndex++;
 
             currentSongIndex = Mathf.Clamp(currentSongIndex, 0, album.Levels.Length - 1);
+            leaderboardUI.LevelID = album.Levels[currentSongIndex].Metadata.ID;
 
             UpdateSelection();
             UpdateSongLabel(album.Levels[currentSongIndex].Metadata.SongName);
@@ -237,6 +264,7 @@ namespace KJakub.Octave.UI.LevelSelect
         public void OnLevelPressed(int newIndex)
         {
             currentSongIndex = newIndex;
+            leaderboardUI.LevelID = album.Levels[currentSongIndex].Metadata.ID;
             UpdateSelection();
         }
         public void Practice()

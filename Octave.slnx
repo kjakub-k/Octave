@@ -5,8 +5,10 @@
   <Project Path="Managers.DiscordManager.csproj" />
   <Project Path="UI.Editor.csproj" />
   <Project Path="Data.csproj" />
+  <Project Path="Managers.AttemptsManager.csproj" />
   <Project Path="Game.Core.csproj" />
   <Project Path="Plugins.csproj" />
+  <Project Path="UI.LevelSelect.csproj" />
   <Project Path="Game.Spawning.csproj" />
   <Project Path="UI.Tutorial.csproj" />
   <Project Path="Game.Lines.csproj" />
@@ -27,7 +29,6 @@
   <Project Path="UI.Core.csproj" />
   <Project Path="CustomElements.csproj" />
   <Project Path="Game.Camera.csproj" />
-  <Project Path="UI.LevelSelect.csproj" />
   <Project Path="Managers.LanguageManager.csproj" />
   <Project Path="UI.Settings.csproj" />
   <Project Path="JsonManager.csproj" />
